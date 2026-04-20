@@ -68,23 +68,23 @@ export default function Home() {
           </span>
 
           <h1 className="font-jakarta text-4xl font-extrabold leading-tight text-white sm:text-6xl">
-            Legal-kan{" "}
+            Legal-kan
+          </h1>
+          <h1 className="font-jakarta text-4xl font-extrabold leading-tight sm:text-6xl" style={{ color: "#FFD166", minHeight: "1.2em" }}>
             <span
               style={{
-                color: "#FFD166",
-                display: "inline-block",
                 opacity: fadeIn ? 1 : 0,
                 transform: fadeIn ? "translateY(0)" : "translateY(-8px)",
                 transition: "opacity 0.3s ease, transform 0.3s ease",
-                minWidth: "260px",
+                display: "inline-block",
               }}
             >
               {ANIMATED_WORDS[wordIndex]}
             </span>
           </h1>
-          <h2 className="font-jakarta text-4xl font-extrabold text-white sm:text-6xl mt-1">
+          <h1 className="font-jakarta text-4xl font-extrabold sm:text-6xl mt-1">
             <span style={{ color: "#FF4D6D" }}>sekarang.</span>
-          </h2>
+          </h1>
 
           <p className="mt-4 text-lg font-semibold" style={{ color: "#FFD166" }}>
             7 jenis kontrak legal, dibuat dalam 5 menit
