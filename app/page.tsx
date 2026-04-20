@@ -116,14 +116,14 @@ export default function Home() {
       </section>
 
       {/* ── CONTRACT TYPE SELECTOR ── */}
-      <section id="contract-types" className="px-4 py-16" style={{ background: "#F8F9FF" }}>
+      <section id="contract-types" className="px-4 py-16" style={{ background: "linear-gradient(180deg, #0D1B3E 0%, #1a2f5e 100%)" }}>
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-10">
-            <span className="badge badge-coral">8 Jenis Kontrak</span>
-            <h2 className="font-jakarta text-3xl font-extrabold mt-3" style={{ color: "#0D1B3E" }}>
+            <span className="badge badge-coral" style={{ background: "rgba(255,77,109,0.2)", color: "#FF4D6D" }}>8 Jenis Kontrak</span>
+            <h2 className="font-jakarta text-3xl font-extrabold mt-3 text-white">
               Pilih kontrak yang kamu butuhkan
             </h2>
-            <p className="mt-2 text-sm" style={{ color: "#6B7FA8" }}>
+            <p className="mt-2 text-sm" style={{ color: "#94A3CB" }}>
               Semua sesuai KUHPerdata Indonesia. Klik kartu untuk mulai.
             </p>
           </div>
@@ -133,38 +133,41 @@ export default function Home() {
               <Link
                 key={ct.href}
                 href={ct.href}
-                className="group relative block rounded-2xl border-2 p-5 transition-all duration-200 hover:-translate-y-1 bg-white"
+                className="group relative block rounded-2xl border-2 p-5 transition-all duration-200 hover:-translate-y-1 text-center"
                 style={{
-                  borderColor: "rgba(13,27,62,0.08)",
-                  boxShadow: "0 2px 8px rgba(13,27,62,0.04)",
+                  background: "rgba(255,255,255,0.07)",
+                  borderColor: "rgba(255,255,255,0.12)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                  backdropFilter: "blur(8px)",
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget;
                   el.style.borderColor = "#FF4D6D";
-                  el.style.boxShadow = "0 8px 24px rgba(255,77,109,0.15)";
+                  el.style.background = "rgba(255,77,109,0.12)";
+                  el.style.boxShadow = "0 8px 24px rgba(255,77,109,0.2)";
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget;
-                  el.style.borderColor = "rgba(13,27,62,0.08)";
-                  el.style.boxShadow = "0 2px 8px rgba(13,27,62,0.04)";
+                  el.style.borderColor = "rgba(255,255,255,0.12)";
+                  el.style.background = "rgba(255,255,255,0.07)";
+                  el.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
                 }}
               >
                 {ct.badge && (
                   <span
                     className="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full"
-                    style={{ background: "rgba(255,77,109,0.12)", color: "#FF4D6D" }}
+                    style={{ background: "rgba(255,77,109,0.25)", color: "#FF4D6D" }}
                   >
                     {ct.badge}
                   </span>
                 )}
                 <div className="text-3xl mb-3">{ct.emoji}</div>
                 <h3
-                  className="font-jakarta font-bold text-sm leading-tight mb-1"
-                  style={{ color: "#0D1B3E" }}
+                  className="font-jakarta font-bold text-sm leading-tight mb-1 text-white"
                 >
                   {ct.name}
                 </h3>
-                <p className="text-xs leading-relaxed mb-2" style={{ color: "#9BA3C4" }}>
+                <p className="text-xs leading-relaxed mb-2" style={{ color: "#94A3CB" }}>
                   {ct.desc}
                 </p>
                 <p className="text-xs font-bold mb-3" style={{ color: "#06D6A0" }}>
