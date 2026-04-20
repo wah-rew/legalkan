@@ -91,7 +91,7 @@ export default function Home() {
           </p>
           <p className="mt-3 text-base max-w-xl mx-auto" style={{ color: "#94A3CB" }}>
             Dari sewa properti sampai bagi hasil usaha — buat perjanjian resmi, sah, dan siap tanda tangan tanpa notaris, tanpa ribet.{" "}
-            <span className="font-bold text-white">Mulai Rp 29.000</span>.
+            <span className="font-bold text-white">Mulai Rp 19.000</span>.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
