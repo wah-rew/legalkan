@@ -1,0 +1,37 @@
+{
+  "name": "suratsewa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development next dev",
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production next start",
+    "lint": "next lint",
+    "tailwind:build": "NODE_ENV=development tailwindcss -i app/globals-source.css -o app/globals.css",
+    "tailwind:watch": "NODE_ENV=development tailwindcss -i app/globals-source.css -o app/globals.css --watch"
+  },
+  "dependencies": {
+    "@react-pdf/renderer": "^4.5.1",
+    "@supabase/supabase-js": "^2.103.3",
+    "crisp-sdk-web": "^1.1.1",
+    "next": "14.2.35",
+    "posthog-js": "^1.369.3",
+    "qrcode-terminal": "^0.12.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "resend": "^6.12.0",
+    "uuid": "^13.0.0",
+    "whatsapp-web.js": "^1.34.6"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.39",
+    "@types/react": "18.3.28",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.19",
+    "typescript": "5.9.3"
+  }
+}
