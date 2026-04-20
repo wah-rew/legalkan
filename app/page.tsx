@@ -107,7 +107,6 @@ export default function Home() {
           </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs" style={{ color: "#6B7FA8" }}>
-            <span>🔒 Pembayaran via Xendit</span>
             <span>📧 PDF ke Email & WA</span>
             <span>📱 Mobile-First</span>
             <span>🇮🇩 Hukum Indonesia</span>
