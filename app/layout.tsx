@@ -283,48 +283,7 @@ export default function RootLayout({
                     </ul>
                   </div>
 
-                  {/* Kontak */}
-                  <div>
-                    <h4
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 700,
-                        color: "rgba(255,255,255,0.5)",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.1em",
-                        marginBottom: "1rem",
-                      }}
-                    >
-                      Kontak
-                    </h4>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.75rem",
-                      }}
-                    >
-                      {[
-                        { icon: "📧", text: "support@legalkan.id" },
-                        { icon: "💬", text: "Chat via WhatsApp" },
-                        { icon: "🕐", text: "Sen–Jum, 09.00–18.00" },
-                      ].map((item) => (
-                        <div
-                          key={item.text}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            fontSize: "0.78rem",
-                            color: "#6B7FA8",
-                          }}
-                        >
-                          <span>{item.icon}</span>
-                          <span>{item.text}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
