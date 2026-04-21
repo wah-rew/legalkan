@@ -3,123 +3,658 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CONTRACT_PRICES } from "@/types";
 
-const ANIMATED_WORDS = ["Sewa Properti", "Hutang Piutang", "Kontrak Freelance", "Bagi Hasil Usaha"];
-
-const CONTRACT_TYPES = [
-  { emoji: "🏠", name: "Sewa Properti", desc: "Rumah, kos, ruko, villa", href: "/buat", badge: "Populer", key: "sewa-properti" },
-  { emoji: "💰", name: "Hutang Piutang", desc: "Pinjam uang antar individu", href: "/buat/hutang-piutang", key: "hutang-piutang" },
-  { emoji: "💼", name: "Kontrak Freelancer", desc: "Jasa desain, dev, konten", href: "/buat/freelancer", key: "freelancer" },
-  { emoji: "🤝", name: "Titip Jual", desc: "Konsinyasi produk UMKM", href: "/buat/konsinyasi", key: "konsinyasi" },
-  { emoji: "📊", name: "Bagi Hasil Usaha", desc: "Partnership & profit sharing", href: "/buat/bagi-hasil", key: "bagi-hasil" },
-  { emoji: "🚗", name: "Sewa Kendaraan", desc: "Rental mobil/motor", href: "/buat/sewa-kendaraan", key: "sewa-kendaraan" },
-  { emoji: "🛍️", name: "Jual Beli Secondhand", desc: "Motor, HP, elektronik", href: "/buat/jual-beli", key: "jual-beli" },
-  { emoji: "📸", name: "Kontrak EO/Fotografer", desc: "Event & photography", href: "/buat/event-organizer", key: "event-organizer" },
+const ANIMATED_WORDS = [
+  "Sewa Properti",
+  "Hutang Piutang",
+  "Kontrak Freelance",
+  "Bagi Hasil Usaha",
 ];
 
-const TRUST_ITEMS = [
-  { icon: "⚖️", text: "Dibuat sesuai KUHPerdata Indonesia" },
-  { icon: "📱", text: "Dokumen dikirim via WhatsApp & Email" },
-  { icon: "👥", text: "Digunakan oleh 1.000+ pengguna" },
-  { icon: "🔒", text: "Pembayaran aman via Xendit" },
+const CONTRACT_TYPES = [
+  {
+    icon: "🏠",
+    name: "Sewa Properti",
+    desc: "Rumah, kos, ruko, villa",
+    href: "/buat",
+    badge: "Populer",
+    key: "sewa-properti",
+    accentColor: "#FF4D6D",
+  },
+  {
+    icon: "💰",
+    name: "Hutang Piutang",
+    desc: "Pinjam uang antar individu",
+    href: "/buat/hutang-piutang",
+    key: "hutang-piutang",
+    accentColor: "#FFD166",
+  },
+  {
+    icon: "💼",
+    name: "Kontrak Freelancer",
+    desc: "Jasa desain, dev, konten",
+    href: "/buat/freelancer",
+    key: "freelancer",
+    accentColor: "#06D6A0",
+  },
+  {
+    icon: "🤝",
+    name: "Titip Jual",
+    desc: "Konsinyasi produk UMKM",
+    href: "/buat/konsinyasi",
+    key: "konsinyasi",
+    accentColor: "#9B8AFB",
+  },
+  {
+    icon: "📊",
+    name: "Bagi Hasil Usaha",
+    desc: "Partnership & profit sharing",
+    href: "/buat/bagi-hasil",
+    key: "bagi-hasil",
+    accentColor: "#60C6FF",
+  },
+  {
+    icon: "🚗",
+    name: "Sewa Kendaraan",
+    desc: "Rental mobil/motor",
+    href: "/buat/sewa-kendaraan",
+    key: "sewa-kendaraan",
+    accentColor: "#FF9A3C",
+  },
+  {
+    icon: "🛍️",
+    name: "Jual Beli Secondhand",
+    desc: "Motor, HP, elektronik",
+    href: "/buat/jual-beli",
+    key: "jual-beli",
+    accentColor: "#FF6B9D",
+  },
+  {
+    icon: "📸",
+    name: "Kontrak EO/Fotografer",
+    desc: "Event & photography",
+    href: "/buat/event-organizer",
+    key: "event-organizer",
+    accentColor: "#4FC3F7",
+  },
+];
+
+const STATS = [
+  { value: "8", label: "Jenis Kontrak", icon: "📄" },
+  { value: "100%", label: "Sesuai KUHPerdata", icon: "⚖️" },
+  { value: "1.000+", label: "Pengguna Aktif", icon: "👥" },
+  { value: "< 5 mnt", label: "Langsung Jadi", icon: "⚡" },
 ];
 
 const HOW_STEPS = [
-  { num: "1", emoji: "📋", title: "Pilih jenis kontrak", desc: "Pilih dari 8 jenis kontrak yang tersedia sesuai kebutuhanmu." },
-  { num: "2", emoji: "✍️", title: "Isi data perjanjian", desc: "Isi formulir lengkap — identitas, detail, dan ketentuan khusus." },
-  { num: "3", emoji: "💳", title: "Bayar & terima dokumen", desc: "Bayar via VA bank. PDF langsung dikirim ke email & WA." },
+  {
+    num: "01",
+    icon: "📋",
+    title: "Pilih jenis kontrak",
+    desc: "Pilih dari 8 jenis kontrak yang tersedia sesuai kebutuhanmu.",
+  },
+  {
+    num: "02",
+    icon: "✍️",
+    title: "Isi data perjanjian",
+    desc: "Isi formulir lengkap — identitas, detail, dan ketentuan khusus.",
+  },
+  {
+    num: "03",
+    icon: "⚡",
+    title: "Bayar & terima dokumen",
+    desc: "Bayar via VA bank. PDF langsung dikirim ke email & WA kamu.",
+  },
 ];
 
-const faqs = [
-  { q: "Kontrak ini sah secara hukum?", a: "Iya, 100%. Semua kontrak mengacu langsung pada KUHPerdata Indonesia dengan pasal-pasal yang relevan. Sah dipakai sebagai bukti hukum." },
-  { q: "Ada berapa jenis kontrak?", a: "Ada 8 jenis kontrak: Sewa Properti, Hutang Piutang, Freelancer, Titip Jual (Konsinyasi), Bagi Hasil Usaha, Sewa Kendaraan, Jual Beli Secondhand, dan Kontrak EO/Fotografer." },
-  { q: "Bayarnya gimana?", a: "Pakai Virtual Account — pilih BCA, BNI, BRI, atau Mandiri. Transfer biasa, langsung terkonfirmasi otomatis via Xendit." },
-  { q: "Berapa lama kontrak jadinya?", a: "Instan. Begitu pembayaran masuk, PDF langsung bisa diunduh dan dikirim ke email & WhatsApp kamu." },
-  { q: "Data saya aman?", a: "Aman. Semua data dienkripsi. Kami tidak jual atau bagi data ke siapapun." },
+const TESTIMONIALS = [
+  {
+    name: "Andi Wijaya",
+    role: "Kontraktor, Jakarta",
+    quote:
+      "Gue udah lama cari solusi buat kontrak sewa yang beneran legal. LegalKan jawaban banget — 5 menit beres, langsung ada PDF-nya!",
+    stars: 5,
+    initial: "A",
+    color: "#FF4D6D",
+  },
+  {
+    name: "Dewi Kusuma",
+    role: "Freelance Designer, Bandung",
+    quote:
+      "Kontrak freelancer-nya lengkap banget. Ada klausul revisi dan pembayaran. Klien langsung mau tanda tangan, profesional banget tampilannya.",
+    stars: 5,
+    initial: "D",
+    color: "#06D6A0",
+  },
+  {
+    name: "Rudi Hartono",
+    role: "Owner UMKM, Surabaya",
+    quote:
+      "Buat kontrak konsinyasi sama supplier jadi gampang. Harganya worth it banget buat ketenangan pikiran dan legalitas usaha.",
+    stars: 5,
+    initial: "R",
+    color: "#FFD166",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Kontrak ini sah secara hukum?",
+    a: "Iya, 100%. Semua kontrak mengacu langsung pada KUHPerdata Indonesia dengan pasal-pasal yang relevan. Sah dipakai sebagai bukti hukum.",
+  },
+  {
+    q: "Ada berapa jenis kontrak?",
+    a: "Ada 8 jenis kontrak: Sewa Properti, Hutang Piutang, Freelancer, Titip Jual (Konsinyasi), Bagi Hasil Usaha, Sewa Kendaraan, Jual Beli Secondhand, dan Kontrak EO/Fotografer.",
+  },
+  {
+    q: "Bayarnya gimana?",
+    a: "Pakai Virtual Account — pilih BCA, BNI, BRI, atau Mandiri. Transfer biasa, langsung terkonfirmasi otomatis via Xendit.",
+  },
+  {
+    q: "Berapa lama kontrak jadinya?",
+    a: "Instan. Begitu pembayaran masuk, PDF langsung bisa diunduh dan dikirim ke email & WhatsApp kamu.",
+  },
+  {
+    q: "Data saya aman?",
+    a: "Aman. Semua data dienkripsi. Kami tidak jual atau bagi data ke siapapun.",
+  },
 ];
 
 export default function Home() {
   const [wordIndex, setWordIndex] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
 
+  /* ── Animated word cycling ── */
   useEffect(() => {
     const interval = setInterval(() => {
       setFadeIn(false);
       setTimeout(() => {
-        setWordIndex(i => (i + 1) % ANIMATED_WORDS.length);
+        setWordIndex((i) => (i + 1) % ANIMATED_WORDS.length);
         setFadeIn(true);
       }, 300);
-    }, 2500);
+    }, 2600);
     return () => clearInterval(interval);
+  }, []);
+
+  /* ── Scroll reveal (Intersection Observer) ── */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+    document.querySelectorAll(".animate-fade-up").forEach((el) =>
+      observer.observe(el)
+    );
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div>
-      {/* ── HERO ── */}
-      <section
-        className="relative overflow-hidden px-4 py-20 sm:py-28"
-        style={{ background: "linear-gradient(135deg, #0D1B3E 0%, #1a2f5e 60%, #2d1b69 100%)" }}
-      >
-        <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full opacity-20" style={{ background: "#FF4D6D", filter: "blur(80px)" }} />
-        <div className="pointer-events-none absolute -bottom-16 -left-16 h-72 w-72 rounded-full opacity-15" style={{ background: "#FFD166", filter: "blur(60px)" }} />
+      {/* ════════════════════════════════════════
+          HERO — Full-viewport, animated gradient
+          ════════════════════════════════════════ */}
+      <section className="hero-gradient-bg relative overflow-hidden min-h-screen flex items-center px-4 py-24">
+        {/* Ambient light blobs */}
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            top: "-10%",
+            right: "-8%",
+            width: "480px",
+            height: "480px",
+            borderRadius: "9999px",
+            background: "#FF4D6D",
+            filter: "blur(120px)",
+            opacity: 0.18,
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            bottom: "-8%",
+            left: "-8%",
+            width: "400px",
+            height: "400px",
+            borderRadius: "9999px",
+            background: "#FFD166",
+            filter: "blur(100px)",
+            opacity: 0.14,
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            width: "320px",
+            height: "320px",
+            borderRadius: "9999px",
+            background: "#06D6A0",
+            filter: "blur(100px)",
+            opacity: 0.07,
+          }}
+        />
 
-        <div className="relative mx-auto max-w-3xl text-center">
-          <span className="badge badge-coral inline-flex mb-5 text-sm" style={{ background: "rgba(255,77,109,0.18)", color: "#FF4D6D" }}>
-            ✅ Dipercaya 1.000+ pengguna di Indonesia
-          </span>
-
-          <h1 className="font-jakarta text-4xl font-extrabold leading-tight text-white sm:text-6xl">
-            Legal-kan
-          </h1>
-          <h1 className="font-jakarta text-4xl font-extrabold leading-tight sm:text-6xl" style={{ color: "#FFD166", minHeight: "1.2em" }}>
-            <span
+        <div
+          className="relative mx-auto w-full hero-content-grid"
+          style={{ maxWidth: "72rem" }}
+        >
+          {/* ── Left: Text ── */}
+          <div className="hero-text-align">
+            {/* Trust badge */}
+            <div
+              className="inline-flex items-center gap-2 mb-7 px-4 py-2 rounded-full text-xs font-semibold"
               style={{
-                opacity: fadeIn ? 1 : 0,
-                transform: fadeIn ? "translateY(0)" : "translateY(-8px)",
-                transition: "opacity 0.3s ease, transform 0.3s ease",
-                display: "inline-block",
+                background: "rgba(6,214,160,0.12)",
+                color: "#06D6A0",
+                border: "1px solid rgba(6,214,160,0.25)",
               }}
             >
-              {ANIMATED_WORDS[wordIndex]}
-            </span>
-          </h1>
-          <h1 className="font-jakarta text-4xl font-extrabold sm:text-6xl mt-1 text-center">
-            <span style={{ color: "#FF4D6D" }}>sekarang!</span>
-          </h1>
+              <span>✅</span>
+              <span>Dipercaya 1.000+ pengguna di Indonesia</span>
+            </div>
 
-          <p className="mt-4 text-lg font-semibold" style={{ color: "#FFD166" }}>
-            7 jenis kontrak legal, dibuat dalam 5 menit
-          </p>
-          <p className="mt-3 text-base max-w-xl mx-auto" style={{ color: "#94A3CB" }}>
-            Dari sewa properti sampai bagi hasil usaha — buat perjanjian resmi, sah, dan siap tanda tangan tanpa notaris, tanpa ribet.{" "}
-            <span className="font-bold text-white">Mulai Rp 19.000</span>.
-          </p>
-
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href="#contract-types"
-              className="btn-amber text-base px-8 py-4 w-full sm:w-auto rounded-2xl font-extrabold"
+            {/* Headline */}
+            <h1
+              className="font-jakarta font-extrabold"
+              style={{
+                fontSize: "clamp(2.75rem, 6vw, 5rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.02em",
+              }}
             >
-              📝 Pilih Jenis Kontrak
-            </Link>
-            <div className="text-sm" style={{ color: "#94A3CB" }}>
-              ⚡ Jadi dalam 5 menit · 💳 VA BCA/BNI/BRI/Mandiri
+              <span className="text-white">Legal-kan</span>
+              <br />
+              <span
+                className="text-gradient-amber"
+                style={{ display: "inline-block", minHeight: "1.15em" }}
+              >
+                <span
+                  style={{
+                    opacity: fadeIn ? 1 : 0,
+                    transform: fadeIn ? "translateY(0)" : "translateY(-10px)",
+                    transition: "opacity 0.3s ease, transform 0.3s ease",
+                    display: "inline-block",
+                  }}
+                >
+                  {ANIMATED_WORDS[wordIndex]}
+                </span>
+              </span>
+              <br />
+              <span style={{ color: "#FF4D6D" }}>sekarang.</span>
+            </h1>
+
+            <p
+              className="mt-5 text-base font-medium"
+              style={{
+                color: "#94A3CB",
+                maxWidth: "34rem",
+                lineHeight: 1.7,
+              }}
+            >
+              8 jenis kontrak legal, dibuat dalam 5 menit. Dari sewa properti
+              sampai bagi hasil usaha — tanpa notaris, tanpa ribet.{" "}
+              <span
+                className="font-bold"
+                style={{ color: "white" }}
+              >
+                Mulai Rp 19.000.
+              </span>
+            </p>
+
+            <div className="hero-cta-row mt-8">
+              <Link
+                href="#contract-types"
+                className="btn-amber px-8 py-4 text-base font-extrabold"
+                style={{ width: "fit-content" }}
+              >
+                📝 Pilih Jenis Kontrak
+              </Link>
+              <div
+                className="text-sm font-medium"
+                style={{ color: "#6B7FA8" }}
+              >
+                ⚡ 5 menit jadi · 💳 VA BCA / BNI / BRI / Mandiri
+              </div>
+            </div>
+
+            <div className="hero-meta-row mt-7 text-xs" style={{ color: "#6B7FA8", gap: "1.5rem" }}>
+              <span>📧 PDF ke Email & WhatsApp</span>
+              <span>🇮🇩 Hukum Indonesia</span>
+              <span>🔒 Data Terenkripsi</span>
             </div>
           </div>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs" style={{ color: "#6B7FA8" }}>
-            <span>📧 PDF ke Email & WA</span>
-            <span>📱 Mobile-First</span>
-            <span>🇮🇩 Hukum Indonesia</span>
+          {/* ── Right: Floating document card (desktop only) ── */}
+          <div className="hero-doc-wrapper">
+            <div style={{ position: "relative", padding: "2rem 1.5rem" }}>
+              {/* Main card */}
+              <div
+                className="doc-card-float"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  borderRadius: "28px",
+                  backdropFilter: "blur(20px)",
+                  padding: "2rem 1.75rem",
+                  boxShadow:
+                    "0 32px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05)",
+                  maxWidth: "360px",
+                  margin: "0 auto",
+                }}
+              >
+                {/* Doc header */}
+                <div
+                  style={{
+                    borderBottom: "1px solid rgba(255,255,255,0.1)",
+                    paddingBottom: "1rem",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.75rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "2.5rem",
+                        height: "2.5rem",
+                        borderRadius: "10px",
+                        background: "rgba(255,77,109,0.2)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "1.25rem",
+                        flexShrink: 0,
+                      }}
+                    >
+                      📄
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div
+                        style={{
+                          fontSize: "0.7rem",
+                          fontWeight: 800,
+                          color: "white",
+                          fontFamily: "var(--font-jakarta)",
+                          letterSpacing: "0.05em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Perjanjian Sewa
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "0.65rem",
+                          color: "rgba(255,255,255,0.45)",
+                          marginTop: "2px",
+                        }}
+                      >
+                        LK-2026-0892 · Jl. Mawar No. 12
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.6rem",
+                        fontWeight: 700,
+                        padding: "0.2rem 0.5rem",
+                        borderRadius: "9999px",
+                        background: "rgba(6,214,160,0.15)",
+                        color: "#06D6A0",
+                        flexShrink: 0,
+                      }}
+                    >
+                      Draft
+                    </div>
+                  </div>
+                </div>
+
+                {/* Document lines */}
+                {[100, 85, 70, 90, 55].map((w, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      height: "7px",
+                      borderRadius: "9999px",
+                      background: `rgba(255,255,255,${0.07 - i * 0.01})`,
+                      marginBottom: "10px",
+                      width: `${w}%`,
+                    }}
+                  />
+                ))}
+
+                {/* Section label */}
+                <div
+                  style={{
+                    marginTop: "1rem",
+                    marginBottom: "0.5rem",
+                    fontSize: "0.6rem",
+                    fontWeight: 700,
+                    color: "#FFD166",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                  }}
+                >
+                  Pasal 1 — Para Pihak
+                </div>
+                {[90, 75, 60].map((w, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      height: "7px",
+                      borderRadius: "9999px",
+                      background: `rgba(255,255,255,0.05)`,
+                      marginBottom: "9px",
+                      width: `${w}%`,
+                    }}
+                  />
+                ))}
+
+                {/* Signature strip */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "0.75rem",
+                    marginTop: "1.5rem",
+                    borderTop: "1px solid rgba(255,255,255,0.1)",
+                    paddingTop: "1rem",
+                  }}
+                >
+                  {["Pemberi Sewa", "Penyewa"].map((label) => (
+                    <div key={label} style={{ textAlign: "center" }}>
+                      <div
+                        style={{
+                          height: "28px",
+                          border: "1px dashed rgba(255,255,255,0.15)",
+                          borderRadius: "8px",
+                          marginBottom: "4px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          fontSize: "0.58rem",
+                          color: "rgba(255,255,255,0.35)",
+                        }}
+                      >
+                        {label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Legal badge */}
+                <div style={{ textAlign: "center", marginTop: "1rem" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.375rem",
+                      fontSize: "0.6rem",
+                      padding: "0.3rem 0.75rem",
+                      borderRadius: "9999px",
+                      background: "rgba(255,77,109,0.12)",
+                      color: "rgba(255,138,155,0.9)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    ⚖️ Sesuai KUHPerdata Indonesia
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating accent chips */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "8%",
+                  right: "0",
+                  background: "rgba(255,209,102,0.15)",
+                  border: "1px solid rgba(255,209,102,0.3)",
+                  borderRadius: "12px",
+                  padding: "0.5rem 0.875rem",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  color: "#FFD166",
+                  backdropFilter: "blur(8px)",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+                }}
+              >
+                ✨ Instan
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "12%",
+                  left: "0",
+                  background: "rgba(6,214,160,0.12)",
+                  border: "1px solid rgba(6,214,160,0.3)",
+                  borderRadius: "12px",
+                  padding: "0.5rem 0.875rem",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  color: "#06D6A0",
+                  backdropFilter: "blur(8px)",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+                }}
+              >
+                🔒 Terenkripsi
+              </div>
+            </div>
           </div>
+        </div>
+
+        {/* Scroll hint */}
+        <div
+          className="absolute"
+          style={{
+            bottom: "2rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
+        >
+          <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+            Gulir ke bawah
+          </div>
+          <div
+            style={{
+              width: "1px",
+              height: "2rem",
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)",
+            }}
+          />
         </div>
       </section>
 
-      {/* ── CONTRACT TYPE SELECTOR ── */}
-      <section id="contract-types" className="px-4 py-16" style={{ background: "linear-gradient(180deg, #0D1B3E 0%, #1a2f5e 100%)" }}>
-        <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-10">
-            <span className="badge badge-coral" style={{ background: "rgba(255,77,109,0.2)", color: "#FF4D6D" }}>8 Jenis Kontrak</span>
-            <h2 className="font-jakarta text-3xl font-extrabold mt-3 text-white">
+      {/* ════════════════════════════════════════
+          STATS STRIP
+          ════════════════════════════════════════ */}
+      <section
+        style={{
+          background: "linear-gradient(180deg, #0f1f4a 0%, #0D1B3E 100%)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+        className="px-4 py-10"
+      >
+        <div
+          className="mx-auto animate-fade-up"
+          style={{
+            maxWidth: "64rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "1rem",
+          }}
+        >
+          {STATS.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`stat-card-dark delay-${(i + 1) * 100}`}
+            >
+              <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>
+                {stat.icon}
+              </div>
+              <div
+                className="font-jakarta font-extrabold"
+                style={{ fontSize: "1.75rem", color: "white", lineHeight: 1 }}
+              >
+                {stat.value}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.75rem",
+                  color: "#6B7FA8",
+                  marginTop: "0.25rem",
+                  fontWeight: 600,
+                }}
+              >
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          CONTRACT CARDS
+          ════════════════════════════════════════ */}
+      <section
+        id="contract-types"
+        className="px-4 py-16"
+        style={{
+          background:
+            "linear-gradient(180deg, #0D1B3E 0%, #162348 100%)",
+        }}
+      >
+        <div className="mx-auto" style={{ maxWidth: "72rem" }}>
+          <div className="text-center mb-12 animate-fade-up">
+            <span
+              className="badge"
+              style={{
+                background: "rgba(255,77,109,0.15)",
+                color: "#FF4D6D",
+                border: "1px solid rgba(255,77,109,0.2)",
+              }}
+            >
+              8 Jenis Kontrak
+            </span>
+            <h2
+              className="font-jakarta font-extrabold mt-4 text-white"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
+            >
               Pilih kontrak yang kamu butuhkan
             </h2>
             <p className="mt-2 text-sm" style={{ color: "#94A3CB" }}>
@@ -127,175 +662,519 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-            {CONTRACT_TYPES.map((ct) => (
+          <div className="contract-cards-grid">
+            <style>{`
+              .contract-cards-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+              }
+              @media (min-width: 640px) {
+                .contract-cards-grid { grid-template-columns: repeat(3, 1fr); }
+              }
+              @media (min-width: 1024px) {
+                .contract-cards-grid { grid-template-columns: repeat(4, 1fr); }
+              }
+            `}</style>
+            {CONTRACT_TYPES.map((ct, i) => (
               <Link
                 key={ct.href}
                 href={ct.href}
-                className="group relative block rounded-2xl border-2 p-5 transition-all duration-200 hover:-translate-y-1 text-center"
-                style={{
-                  background: "rgba(255,255,255,0.07)",
-                  borderColor: "rgba(255,255,255,0.12)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-                  backdropFilter: "blur(8px)",
-                }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "#FF4D6D";
-                  el.style.background = "rgba(255,77,109,0.12)";
-                  el.style.boxShadow = "0 8px 24px rgba(255,77,109,0.2)";
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "rgba(255,255,255,0.12)";
-                  el.style.background = "rgba(255,255,255,0.07)";
-                  el.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-                }}
+                className={`contract-card-premium animate-fade-up delay-${Math.min((i % 4 + 1) * 100, 400)}`}
               >
                 {ct.badge && (
                   <span
-                    className="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full"
-                    style={{ background: "rgba(255,77,109,0.25)", color: "#FF4D6D" }}
+                    style={{
+                      position: "absolute",
+                      top: "0.75rem",
+                      right: "0.75rem",
+                      fontSize: "0.6rem",
+                      fontWeight: 800,
+                      padding: "0.2rem 0.5rem",
+                      borderRadius: "9999px",
+                      background: "rgba(255,77,109,0.2)",
+                      color: "#FF8A9B",
+                      letterSpacing: "0.05em",
+                      textTransform: "uppercase",
+                    }}
                   >
                     {ct.badge}
                   </span>
                 )}
-                <div className="text-3xl mb-3">{ct.emoji}</div>
+
+                {/* Icon */}
+                <div
+                  style={{
+                    fontSize: "2.5rem",
+                    marginBottom: "0.875rem",
+                    display: "block",
+                  }}
+                >
+                  {ct.icon}
+                </div>
+
+                {/* Name */}
                 <h3
-                  className="font-jakarta font-bold text-sm leading-tight mb-1 text-white"
+                  className="font-jakarta font-bold text-white"
+                  style={{ fontSize: "0.9rem", lineHeight: 1.3, marginBottom: "0.375rem" }}
                 >
                   {ct.name}
                 </h3>
-                <p className="text-xs leading-relaxed mb-2" style={{ color: "#94A3CB" }}>
+
+                {/* Desc */}
+                <p
+                  style={{
+                    fontSize: "0.72rem",
+                    color: "#94A3CB",
+                    lineHeight: 1.5,
+                    marginBottom: "0.75rem",
+                  }}
+                >
                   {ct.desc}
                 </p>
-                <p className="text-xs font-bold mb-3" style={{ color: "#06D6A0" }}>
-                  mulai Rp {new Intl.NumberFormat('id-ID').format(CONTRACT_PRICES[ct.key])}
-                </p>
-                <span
-                  className="text-xs font-bold"
-                  style={{ color: "#FF4D6D" }}
+
+                {/* Price */}
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.375rem",
+                    fontSize: "0.7rem",
+                    fontWeight: 700,
+                    padding: "0.25rem 0.625rem",
+                    borderRadius: "9999px",
+                    background: `rgba(${ct.accentColor === "#FFD166" ? "255,209,102" : ct.accentColor === "#06D6A0" ? "6,214,160" : "255,77,109"},0.12)`,
+                    color: ct.accentColor,
+                    marginBottom: "0.625rem",
+                  }}
                 >
-                  Buat Sekarang →
-                </span>
+                  Rp{" "}
+                  {new Intl.NumberFormat("id-ID").format(
+                    CONTRACT_PRICES[ct.key]
+                  )}
+                </div>
+
+                <div
+                  style={{
+                    display: "block",
+                    fontSize: "0.7rem",
+                    fontWeight: 700,
+                    color: "#FF4D6D",
+                  }}
+                >
+                  Buat sekarang →
+                </div>
               </Link>
             ))}
           </div>
+
+
         </div>
       </section>
 
-      {/* ── TRUST INDICATORS ── */}
-      <section className="px-4 py-10" style={{ background: "white" }}>
-        <div className="mx-auto max-w-4xl">
-          <div className="grid gap-4 grid-cols-2 sm:grid-cols-4">
-            {TRUST_ITEMS.map((t) => (
-              <div key={t.text} className="flex items-center gap-3 p-4 rounded-2xl" style={{ background: "rgba(13,27,62,0.03)" }}>
-                <span className="text-2xl shrink-0">{t.icon}</span>
-                <p className="text-xs font-semibold leading-snug" style={{ color: "#0D1B3E" }}>
-                  {t.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOW IT WORKS ── */}
+      {/* ════════════════════════════════════════
+          HOW IT WORKS
+          ════════════════════════════════════════ */}
       <section
-        className="px-4 py-16"
-        style={{ background: "linear-gradient(135deg, #0D1B3E 0%, #1a2f5e 100%)" }}
+        className="px-4 py-20"
+        style={{
+          background:
+            "linear-gradient(135deg, #162348 0%, #0D1B3E 50%, #1a1040 100%)",
+        }}
       >
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <span className="badge text-sm" style={{ background: "rgba(255,209,102,0.18)", color: "#FFD166" }}>
+        <div className="mx-auto" style={{ maxWidth: "56rem" }}>
+          <div className="text-center mb-14 animate-fade-up">
+            <span
+              className="badge"
+              style={{
+                background: "rgba(255,209,102,0.15)",
+                color: "#FFD166",
+                border: "1px solid rgba(255,209,102,0.2)",
+              }}
+            >
               Cara Kerja
             </span>
-            <h2 className="font-jakarta text-3xl font-extrabold mt-3 text-white">
-              3 langkah, 5 menit, beres.
+            <h2
+              className="font-jakarta font-extrabold text-white mt-4"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
+            >
+              3 langkah.{" "}
+              <span className="text-gradient-amber">5 menit.</span>{" "}
+              Beres.
             </h2>
+            <p className="mt-3 text-sm" style={{ color: "#94A3CB" }}>
+              Tidak perlu notaris, tidak perlu daftar akun.
+            </p>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-3">
-            {HOW_STEPS.map((s, i) => (
-              <div key={s.num} className="text-center relative">
+          {/* Steps */}
+          <style>{`
+            .how-steps-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 2rem;
+              position: relative;
+            }
+            @media (min-width: 640px) {
+              .how-steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0;
+              }
+            }
+          `}</style>
+          <div>
+            <div className="how-steps-grid">
+              {HOW_STEPS.map((step, i) => (
                 <div
-                  className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl text-3xl"
-                  style={{ background: "rgba(255,255,255,0.08)" }}
+                  key={step.num}
+                  className={`text-center relative animate-fade-up delay-${(i + 1) * 200}`}
                 >
-                  {s.emoji}
-                </div>
-                {i < HOW_STEPS.length - 1 && (
+                  {/* Step number */}
                   <div
-                    className="hidden sm:block absolute top-8 left-[calc(50%+36px)] right-0 h-px"
-                    style={{ background: "rgba(255,255,255,0.15)" }}
-                  />
-                )}
-                <div className="font-jakarta text-xs font-bold mb-1" style={{ color: "#FF4D6D" }}>
-                  LANGKAH {s.num}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    <div className="step-num-badge">{step.num}</div>
+                  </div>
+
+                  {/* Icon box */}
+                  <div className="step-icon-lg">{step.icon}</div>
+
+                  <h3
+                    className="font-jakarta font-bold text-white"
+                    style={{ fontSize: "1rem", marginBottom: "0.5rem" }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "0.8rem",
+                      color: "#94A3CB",
+                      lineHeight: 1.65,
+                      maxWidth: "200px",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {step.desc}
+                  </p>
+
+                  {/* Connector arrow (desktop only) */}
+                  {i < HOW_STEPS.length - 1 && (
+                    <div
+                      className="how-step-connector"
+                      style={{
+                        display: "none",
+                        position: "absolute",
+                        top: "4.5rem",
+                        left: "calc(50% + 44px)",
+                        right: "-50%",
+                        height: "2px",
+                        background:
+                          "linear-gradient(90deg, rgba(255,77,109,0.5), rgba(255,209,102,0.3))",
+                      }}
+                    />
+                  )}
+                  <style>{`
+                    @media (min-width: 640px) {
+                      .how-step-connector { display: block !important; }
+                    }
+                  `}</style>
                 </div>
-                <h3 className="font-jakarta font-bold text-white mb-1">{s.title}</h3>
-                <p className="text-xs leading-relaxed" style={{ color: "#94A3CB" }}>{s.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          <div className="mt-12 text-center">
-            <Link href="#contract-types" className="btn-amber px-8 py-4 text-base font-extrabold">
-              Mulai Sekarang
+          <div className="text-center mt-14 animate-fade-up delay-400">
+            <Link
+              href="#contract-types"
+              className="btn-amber px-10 py-4 text-base font-extrabold"
+            >
+              Mulai Sekarang ✨
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── CONTRACT PREVIEW TEASER ── */}
-      <section className="px-4 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid gap-10 items-center sm:grid-cols-2">
-            <div>
-              <span className="badge badge-mint">Isi Kontrak Lengkap</span>
-              <h2 className="font-jakarta text-3xl font-extrabold mt-3 mb-4" style={{ color: "#0D1B3E" }}>
-                Semua klausul penting,
-                <br />sudah ada.
-              </h2>
-              <p className="text-sm mb-5" style={{ color: "#6B7FA8" }}>
-                Setiap kontrak mencakup semua klausul yang dibutuhkan sesuai KUHPerdata:
-              </p>
-              <ul className="space-y-2 text-sm" style={{ color: "#0D1B3E" }}>
-                {[
-                  "Identitas lengkap para pihak (NIK)",
-                  "Klausul wanprestasi & denda",
-                  "Penyelesaian sengketa (Pengadilan Negeri)",
-                  "Force majeure",
-                  "Hak & kewajiban masing-masing pihak",
-                  "Disclaimer & ketentuan platform",
-                  "Kolom tanda tangan + meterai",
-                  "Nomor referensi kontrak unik",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold shrink-0" style={{ background: "#D1FAF0", color: "#028A66" }}>✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* ════════════════════════════════════════
+          TESTIMONIALS
+          ════════════════════════════════════════ */}
+      <section
+        className="px-4 py-16"
+        style={{
+          background: "linear-gradient(180deg, #0D1B3E 0%, #0f1422 100%)",
+        }}
+      >
+        <div className="mx-auto" style={{ maxWidth: "64rem" }}>
+          <div className="text-center mb-12 animate-fade-up">
+            <span
+              className="badge"
+              style={{
+                background: "rgba(255,77,109,0.12)",
+                color: "#FF8A9B",
+                border: "1px solid rgba(255,77,109,0.18)",
+              }}
+            >
+              ⭐ Testimoni
+            </span>
+            <h2
+              className="font-jakarta font-extrabold text-white mt-4"
+              style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)" }}
+            >
+              Dipercaya pengguna di seluruh Indonesia
+            </h2>
+          </div>
 
-            <div className="card overflow-hidden" style={{ borderColor: "rgba(255,77,109,0.15)", background: "#FFFBFC" }}>
-              <div className="text-center py-2 mb-3 rounded-xl text-xs font-bold tracking-widest uppercase" style={{ background: "#FFE0E6", color: "#FF4D6D" }}>
-                Contoh Dokumen
+          <style>{`
+            .testimonial-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 1.25rem;
+            }
+            @media (min-width: 640px) {
+              .testimonial-grid { grid-template-columns: repeat(3, 1fr); }
+            }
+          `}</style>
+          <div>
+            <div className="testimonial-grid">
+              {TESTIMONIALS.map((t, i) => (
+                <div
+                  key={t.name}
+                  className={`testimonial-card-dark animate-fade-up delay-${(i + 1) * 200}`}
+                >
+                  {/* Stars */}
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "2px",
+                      marginBottom: "0.875rem",
+                    }}
+                  >
+                    {Array.from({ length: t.stars }).map((_, j) => (
+                      <span key={j} style={{ fontSize: "0.875rem", color: "#FFD166" }}>
+                        ★
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <p
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "rgba(255,255,255,0.75)",
+                      lineHeight: 1.7,
+                      marginBottom: "1.25rem",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+
+                  {/* Author */}
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}
+                  >
+                    <div
+                      style={{
+                        width: "2.25rem",
+                        height: "2.25rem",
+                        borderRadius: "9999px",
+                        background: t.color,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: 800,
+                        fontSize: "0.875rem",
+                        color: t.color === "#FFD166" ? "#0D1B3E" : "white",
+                        flexShrink: 0,
+                        fontFamily: "var(--font-jakarta)",
+                      }}
+                    >
+                      {t.initial}
+                    </div>
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "0.8rem",
+                          fontWeight: 700,
+                          color: "white",
+                        }}
+                      >
+                        {t.name}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "0.7rem",
+                          color: "#6B7FA8",
+                        }}
+                      >
+                        {t.role}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          CONTRACT CONTENT PREVIEW
+          ════════════════════════════════════════ */}
+      <section className="px-4 py-16" style={{ background: "white" }}>
+        <div className="mx-auto" style={{ maxWidth: "64rem" }}>
+          <style>{`
+            .content-preview-grid {
+              display: grid;
+              gap: 2.5rem;
+              align-items: center;
+              grid-template-columns: 1fr;
+            }
+            @media (min-width: 640px) {
+              .content-preview-grid { grid-template-columns: 1fr 1fr; }
+            }
+          `}</style>
+          <div>
+            <div className="content-preview-grid">
+              {/* Left */}
+              <div className="animate-fade-up">
+                <span className="badge badge-mint">Isi Kontrak Lengkap</span>
+                <h2
+                  className="font-jakarta font-extrabold mt-4 mb-4"
+                  style={{
+                    color: "#0D1B3E",
+                    fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Semua klausul penting,
+                  <br />
+                  sudah ada.
+                </h2>
+                <p
+                  className="text-sm mb-5"
+                  style={{ color: "#6B7FA8", lineHeight: 1.7 }}
+                >
+                  Setiap kontrak mencakup semua klausul yang dibutuhkan sesuai
+                  KUHPerdata:
+                </p>
+                <ul className="space-y-2 text-sm" style={{ color: "#0D1B3E" }}>
+                  {[
+                    "Identitas lengkap para pihak (NIK)",
+                    "Klausul wanprestasi & denda",
+                    "Penyelesaian sengketa (Pengadilan Negeri)",
+                    "Force majeure",
+                    "Hak & kewajiban masing-masing pihak",
+                    "Disclaimer & ketentuan platform",
+                    "Kolom tanda tangan + meterai",
+                    "Nomor referensi kontrak unik",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          height: "1.25rem",
+                          width: "1.25rem",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: "9999px",
+                          fontSize: "0.65rem",
+                          fontWeight: 700,
+                          flexShrink: 0,
+                          background: "#D1FAF0",
+                          color: "#028A66",
+                        }}
+                      >
+                        ✓
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="bg-white rounded-xl p-4 max-h-64 overflow-hidden relative text-xs" style={{ boxShadow: "inset 0 0 0 1px rgba(13,27,62,0.06)" }}>
-                <p style={{ textAlign: "center", fontWeight: 700, textTransform: "uppercase", fontSize: "0.7rem" }}>PERJANJIAN HUTANG PIUTANG</p>
-                <p style={{ textAlign: "center", fontSize: "0.65rem", color: "#888" }}>Nomor: LK-202601-4829</p>
-                <hr style={{ margin: "8px 0", borderColor: "#ccc" }} />
-                <p style={{ fontSize: "0.65rem" }}>Perjanjian ini dibuat pada hari ini oleh dan antara pihak-pihak berikut:</p>
-                <p style={{ fontWeight: 700, marginTop: 6, fontSize: "0.65rem" }}>PASAL 1 — PARA PIHAK</p>
-                <p style={{ fontSize: "0.65rem" }}><strong>PIHAK PERTAMA</strong> (Pemberi Pinjaman): Budi Santoso, NIK: 317171xxxxx...</p>
-                <p style={{ fontWeight: 700, marginTop: 6, fontSize: "0.65rem" }}>PASAL 2 — POKOK PINJAMAN</p>
-                <p style={{ fontSize: "0.65rem" }}>Jumlah Pinjaman: Rp 5.000.000 (lima juta rupiah)...</p>
-                <div className="absolute bottom-0 left-0 right-0 h-20 flex items-end justify-center pb-3" style={{ background: "linear-gradient(to top, #FFFBFC 60%, transparent)" }}>
-                  <Link href="#contract-types" className="text-xs font-bold hover:underline" style={{ color: "#FF4D6D" }}>
-                    Buat kontrakmu sendiri →
-                  </Link>
+
+              {/* Right: sample doc */}
+              <div
+                className="card animate-fade-up delay-200"
+                style={{
+                  borderColor: "rgba(255,77,109,0.12)",
+                  background: "#FFFBFC",
+                }}
+              >
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "0.5rem 1rem",
+                    marginBottom: "0.75rem",
+                    borderRadius: "12px",
+                    fontSize: "0.65rem",
+                    fontWeight: 800,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    background: "#FFE0E6",
+                    color: "#FF4D6D",
+                  }}
+                >
+                  Contoh Dokumen
+                </div>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: "12px",
+                    padding: "1rem",
+                    maxHeight: "16rem",
+                    overflow: "hidden",
+                    position: "relative",
+                    boxShadow: "inset 0 0 0 1px rgba(13,27,62,0.06)",
+                    fontSize: "0.65rem",
+                  }}
+                >
+                  <p style={{ textAlign: "center", fontWeight: 700, textTransform: "uppercase", fontSize: "0.7rem" }}>
+                    PERJANJIAN HUTANG PIUTANG
+                  </p>
+                  <p style={{ textAlign: "center", color: "#888" }}>
+                    Nomor: LK-202601-4829
+                  </p>
+                  <hr style={{ margin: "8px 0", borderColor: "#ccc" }} />
+                  <p>Perjanjian ini dibuat pada hari ini oleh dan antara pihak-pihak berikut:</p>
+                  <p style={{ fontWeight: 700, marginTop: 6 }}>PASAL 1 — PARA PIHAK</p>
+                  <p>
+                    <strong>PIHAK PERTAMA</strong> (Pemberi Pinjaman): Budi
+                    Santoso, NIK: 317171xxxxx...
+                  </p>
+                  <p style={{ fontWeight: 700, marginTop: 6 }}>PASAL 2 — POKOK PINJAMAN</p>
+                  <p>Jumlah Pinjaman: Rp 5.000.000 (lima juta rupiah)...</p>
+                  <p style={{ fontWeight: 700, marginTop: 6 }}>PASAL 3 — BUNGA</p>
+                  <p>Bunga pinjaman sebesar 2% per bulan...</p>
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: "5rem",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "center",
+                      paddingBottom: "0.75rem",
+                      background:
+                        "linear-gradient(to top, #FFFBFC 55%, transparent)",
+                    }}
+                  >
+                    <Link
+                      href="#contract-types"
+                      style={{
+                        fontSize: "0.75rem",
+                        fontWeight: 700,
+                        color: "#FF4D6D",
+                      }}
+                    >
+                      Buat kontrakmu sendiri →
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -303,48 +1182,111 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FAQ ── */}
+      {/* ════════════════════════════════════════
+          FAQ
+          ════════════════════════════════════════ */}
       <section className="px-4 py-16" style={{ background: "#F0F2FF" }}>
-        <div className="mx-auto max-w-3xl">
-          <div className="text-center mb-10">
+        <div className="mx-auto" style={{ maxWidth: "48rem" }}>
+          <div className="text-center mb-10 animate-fade-up">
             <span className="badge badge-coral">FAQ</span>
-            <h2 className="font-jakarta text-3xl font-extrabold mt-3" style={{ color: "#0D1B3E" }}>
+            <h2
+              className="font-jakarta font-extrabold mt-4"
+              style={{
+                color: "#0D1B3E",
+                fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)",
+              }}
+            >
               Ada yang mau ditanya?
             </h2>
+            <p className="mt-2 text-sm" style={{ color: "#6B7FA8" }}>
+              Pertanyaan yang sering ditanya pengguna LegalKan.
+            </p>
           </div>
           <div className="space-y-4">
-            {faqs.map((faq) => (
-              <div key={faq.q} className="card">
-                <h3 className="font-jakarta font-bold text-sm mb-2" style={{ color: "#0D1B3E" }}>{faq.q}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#6B7FA8" }}>{faq.a}</p>
+            {FAQS.map((faq, i) => (
+              <div
+                key={faq.q}
+                className={`faq-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+              >
+                <h3
+                  className="font-jakarta font-bold text-sm mb-2"
+                  style={{ color: "#0D1B3E" }}
+                >
+                  {faq.q}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "#6B7FA8" }}
+                >
+                  {faq.a}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── FINAL CTA ── */}
+      {/* ════════════════════════════════════════
+          FINAL CTA
+          ════════════════════════════════════════ */}
       <section
         className="px-4 py-20 text-center relative overflow-hidden"
         style={{ background: "#FF4D6D" }}
       >
-        <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full opacity-20" style={{ background: "#FFD166", filter: "blur(60px)" }} />
-        <div className="relative mx-auto max-w-2xl">
-          <h2 className="font-jakarta text-4xl font-extrabold text-white mb-3">
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            top: "-5rem",
+            right: "-5rem",
+            width: "20rem",
+            height: "20rem",
+            borderRadius: "9999px",
+            background: "#FFD166",
+            filter: "blur(60px)",
+            opacity: 0.25,
+          }}
+        />
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            bottom: "-4rem",
+            left: "-4rem",
+            width: "16rem",
+            height: "16rem",
+            borderRadius: "9999px",
+            background: "#0D1B3E",
+            filter: "blur(60px)",
+            opacity: 0.2,
+          }}
+        />
+        <div
+          className="relative mx-auto animate-fade-up"
+          style={{ maxWidth: "42rem" }}
+        >
+          <h2
+            className="font-jakarta font-extrabold text-white"
+            style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", lineHeight: 1.15 }}
+          >
             Udah siap bikin kontrak?
           </h2>
-          <p className="text-white/80 mb-8 text-lg">
+          <p className="text-white/80 mt-3 mb-8 text-lg">
             5 menit. Legal. Langsung jadi.
           </p>
           <Link
             href="#contract-types"
-            className="inline-flex items-center gap-2 rounded-2xl px-10 py-5 text-lg font-extrabold transition-all hover:-translate-y-1"
-            style={{ background: "#0D1B3E", color: "#FFD166", boxShadow: "0 8px 30px rgba(13,27,62,0.4)" }}
+            className="cta-final-btn inline-flex items-center gap-2 rounded-2xl font-extrabold transition-all"
+            style={{
+              background: "#0D1B3E",
+              color: "#FFD166",
+              boxShadow: "0 8px 30px rgba(13,27,62,0.4)",
+              padding: "1.25rem 2.5rem",
+              fontSize: "1.1rem",
+            }}
           >
             📝 Pilih Jenis Kontrak
           </Link>
-          <p className="mt-4 text-sm text-white/60">
-            Tidak perlu daftar akun. Bayar, langsung dapat PDF.
+          <p className="mt-5 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+            Tidak perlu daftar akun · Bayar, langsung dapat PDF
           </p>
         </div>
       </section>
