@@ -98,13 +98,21 @@ export default function BayarPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Konfirmasi gagal");
-      sessionStorage.setItem("kontrak_result", JSON.stringify(data));
       // Track payment confirmed
       captureEvent('payment_confirmed', {
         contractType: (paymentData?.contractData as unknown as Record<string, unknown>)?.contractType,
         amount: paymentData?.amount,
       });
-      router.push("/sukses");
+      const contractType = (paymentData?.contractData as unknown as Record<string, unknown>)?.contractType;
+      if (contractType === 'kur-bundle') {
+        const bundleHtmlsRaw = sessionStorage.getItem('kur_bundle_htmls');
+        const bundleHtmls = bundleHtmlsRaw ? JSON.parse(bundleHtmlsRaw) : [];
+        sessionStorage.setItem('kur_bundle_result', JSON.stringify({ ...data, bundleHtmls }));
+        router.push('/kur/sukses');
+      } else {
+        sessionStorage.setItem('kontrak_result', JSON.stringify(data));
+        router.push('/sukses');
+      }
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Terjadi kesalahan");
     } finally {
@@ -243,8 +251,13 @@ export default function BayarPage() {
         >
           <p className="font-bold mb-1" style={{ color: "#0D1B3E" }}>Detail Kontrak</p>
           <p style={{ color: "#6B7FA8" }}>
-            {paymentData.contractData.nomorKontrak} · Sewa {paymentData.contractData.durasiSewa} bulan ·{" "}
-            {paymentData.contractData.namaPihakKedua}
+            {paymentData.contractData.nomorKontrak}
+            {(paymentData.contractData as unknown as Record<string, unknown>)?.contractType !== 'kur-bundle' && (
+              <> · Sewa {paymentData.contractData.durasiSewa} bulan · {paymentData.contractData.namaPihakKedua}</>
+            )}
+            {(paymentData.contractData as unknown as Record<string, unknown>)?.contractType === 'kur-bundle' && (
+              <> · Paket KUR-Ready · {(paymentData.contractData as unknown as Record<string, unknown>).namaPihakKedua as string}</>
+            )}
           </p>
           <p className="mt-1" style={{ color: "#6B7FA8" }}>
             PDF dikirim ke: <strong>{paymentData.contractData.emailPembeli}</strong>

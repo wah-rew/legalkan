@@ -77,6 +77,8 @@ export const CONTRACT_PRICES: Record<string, number> = {
   'sewa-kendaraan': 29000,
   'jual-beli': 19000,
   'event-organizer': 49000,
+  // KUR bundle — price is calculated dynamically, 59000 is the minimum
+  'kur-bundle': 59000,
 };
 
 export function getContractPrice(contractType?: string): number {

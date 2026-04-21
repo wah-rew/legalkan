@@ -10,7 +10,18 @@ const ANIMATED_WORDS = [
   "Bagi Hasil Usaha",
 ];
 
-const CONTRACT_TYPES = [
+interface ContractType {
+  icon: string;
+  name: string;
+  desc: string;
+  href: string;
+  badge?: string;
+  key: string;
+  accentColor: string;
+  special?: boolean;
+}
+
+const CONTRACT_TYPES: ContractType[] = [
   {
     icon: "🏠",
     name: "Sewa Properti",
@@ -76,10 +87,20 @@ const CONTRACT_TYPES = [
     key: "event-organizer",
     accentColor: "#4FC3F7",
   },
+  {
+    icon: "🏦",
+    name: "Paket KUR-Ready",
+    desc: "Siap apply KUR dalam 10 menit",
+    href: "/kur",
+    badge: "BARU",
+    key: "kur-bundle",
+    accentColor: "#FFD166",
+    special: true,
+  },
 ];
 
 const STATS = [
-  { value: "8", label: "Jenis Kontrak", icon: "📄" },
+  { value: "9", label: "Jenis Kontrak", icon: "📄" },
   { value: "100%", label: "Sesuai KUHPerdata", icon: "⚖️" },
   { value: "1.000+", label: "Pengguna Aktif", icon: "👥" },
   { value: "< 5 mnt", label: "Langsung Jadi", icon: "⚡" },
@@ -143,7 +164,7 @@ const FAQS = [
   },
   {
     q: "Ada berapa jenis kontrak?",
-    a: "Ada 8 jenis kontrak: Sewa Properti, Hutang Piutang, Freelancer, Titip Jual (Konsinyasi), Bagi Hasil Usaha, Sewa Kendaraan, Jual Beli Secondhand, dan Kontrak EO/Fotografer.",
+    a: "Ada 8 jenis kontrak individual: Sewa Properti, Hutang Piutang, Freelancer, Titip Jual (Konsinyasi), Bagi Hasil Usaha, Sewa Kendaraan, Jual Beli Secondhand, dan Kontrak EO/Fotografer. Plus Paket KUR-Ready untuk UMKM yang mau apply KUR.",
   },
   {
     q: "Bayarnya gimana?",
@@ -295,8 +316,8 @@ export default function Home() {
                 lineHeight: 1.7,
               }}
             >
-              8 jenis kontrak legal, dibuat dalam 5 menit. Dari sewa properti
-              sampai bagi hasil usaha — tanpa notaris, tanpa ribet.{" "}
+              9 jenis kontrak legal + Paket KUR-Ready. Dari sewa properti
+              sampai siap apply KUR — tanpa notaris, tanpa ribet.{" "}
               <span
                 className="font-bold"
                 style={{ color: "white" }}
@@ -646,7 +667,7 @@ export default function Home() {
                 border: "1px solid rgba(255,77,109,0.2)",
               }}
             >
-              8 Jenis Kontrak
+              9 Jenis Kontrak
             </span>
             <h2
               className="font-jakarta font-extrabold mt-4 text-white"
@@ -678,6 +699,11 @@ export default function Home() {
                 key={ct.href}
                 href={ct.href}
                 className={`contract-card-premium animate-fade-up delay-${Math.min((i % 4 + 1) * 100, 400)}`}
+                style={ct.special ? {
+                  border: "2px solid rgba(255,209,102,0.5)",
+                  background: "rgba(255,209,102,0.05)",
+                  boxShadow: "0 0 20px rgba(255,209,102,0.15)",
+                } : undefined}
               >
                 {ct.badge && (
                   <span
@@ -689,8 +715,8 @@ export default function Home() {
                       fontWeight: 800,
                       padding: "0.2rem 0.5rem",
                       borderRadius: "9999px",
-                      background: "rgba(255,77,109,0.2)",
-                      color: "#FF8A9B",
+                      background: ct.special ? "rgba(255,209,102,0.25)" : "rgba(255,77,109,0.2)",
+                      color: ct.special ? "#FFD166" : "#FF8A9B",
                       letterSpacing: "0.05em",
                       textTransform: "uppercase",
                     }}
@@ -740,14 +766,14 @@ export default function Home() {
                     fontWeight: 700,
                     padding: "0.25rem 0.625rem",
                     borderRadius: "9999px",
-                    background: `rgba(${ct.accentColor === "#FFD166" ? "255,209,102" : ct.accentColor === "#06D6A0" ? "6,214,160" : "255,77,109"},0.12)`,
+                    background: `rgba(${ct.accentColor === "#FFD166" ? "255,209,102" : ct.accentColor === "#06D6A0" ? "6,214,160" : ct.accentColor === "#4FC3F7" ? "79,195,247" : ct.accentColor === "#9B8AFB" ? "155,138,251" : ct.accentColor === "#60C6FF" ? "96,198,255" : ct.accentColor === "#FF9A3C" ? "255,154,60" : ct.accentColor === "#FF6B9D" ? "255,107,157" : "255,77,109"},0.12)`,
                     color: ct.accentColor,
                     marginBottom: "0.625rem",
                   }}
                 >
-                  Rp{" "}
+                  {ct.key === "kur-bundle" ? "Mulai " : ""}Rp{" "}
                   {new Intl.NumberFormat("id-ID").format(
-                    CONTRACT_PRICES[ct.key]
+                    CONTRACT_PRICES[ct.key] ?? 29000
                   )}
                 </div>
 
