@@ -271,8 +271,8 @@ export default function RootLayout({
                       {[
                         { label: "Beranda", href: "/" },
                         { label: "Hubungi Kami", href: "/hubungi" },
-                        { label: "Syarat & Ketentuan", href: "#" },
-                        { label: "Kebijakan Privasi", href: "#" },
+                        { label: "Syarat & Ketentuan", href: "/syarat-ketentuan" },
+                        { label: "Kebijakan Privasi", href: "/kebijakan-privasi" },
                       ].map((link) => (
                         <li key={link.label}>
                           <a href={link.href} className="footer-link">
