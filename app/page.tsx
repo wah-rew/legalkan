@@ -321,7 +321,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hero-meta-row mt-7 text-xs" style={{ color: "#6B7FA8", gap: "1.5rem" }}>
+            <div className="hero-meta-row mt-10 text-xs" style={{ color: "#6B7FA8", gap: "1.5rem" }}>
               <span>📧 PDF ke Email & WhatsApp</span>
               <span>🇮🇩 Hukum Indonesia</span>
               <span>🔒 Data Terenkripsi</span>
