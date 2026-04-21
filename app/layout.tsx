@@ -73,23 +73,7 @@ export default function RootLayout({
               style={{ textDecoration: "none" }}
             >
               <Logo size="md" />
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.25rem",
-                  fontSize: "0.6rem",
-                  fontWeight: 700,
-                  padding: "0.15rem 0.45rem",
-                  borderRadius: "9999px",
-                  background: "rgba(255,77,109,0.1)",
-                  color: "#FF4D6D",
-                  marginLeft: "0.375rem",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                BETA
-              </span>
+
             </a>
 
             {/* Nav links + CTA */}
