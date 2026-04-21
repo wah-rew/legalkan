@@ -270,9 +270,8 @@ export default function Home() {
               }}
             >
               <span className="text-white">Legal-kan</span>
-              <br />
               <span
-                style={{ display: "block", minHeight: "1.2em", color: "#FFD166" }}
+                style={{ display: "block", minHeight: "1.2em", color: "#FFD166", marginTop: "0.15em" }}
               >
                 <span
                   style={{
