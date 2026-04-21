@@ -82,8 +82,8 @@ export default function Home() {
               {ANIMATED_WORDS[wordIndex]}
             </span>
           </h1>
-          <h1 className="font-jakarta text-4xl font-extrabold sm:text-6xl mt-1">
-            <span style={{ color: "#FF4D6D" }}>sekarang.</span>
+          <h1 className="font-jakarta text-4xl font-extrabold sm:text-6xl mt-1 text-center">
+            <span style={{ color: "#FF4D6D" }}>sekarang!</span>
           </h1>
 
           <p className="mt-4 text-lg font-semibold" style={{ color: "#FFD166" }}>
