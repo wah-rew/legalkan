@@ -272,8 +272,7 @@ export default function Home() {
               <span className="text-white">Legal-kan</span>
               <br />
               <span
-                className="text-gradient-amber"
-                style={{ display: "inline-block", minHeight: "1.15em" }}
+                style={{ display: "block", minHeight: "1.2em", color: "#FFD166" }}
               >
                 <span
                   style={{
@@ -286,8 +285,7 @@ export default function Home() {
                   {ANIMATED_WORDS[wordIndex]}
                 </span>
               </span>
-              <br />
-              <span style={{ color: "#FF4D6D" }}>sekarang.</span>
+              <span style={{ color: "#FF4D6D" }}>sekarang!</span>
             </h1>
 
             <p
