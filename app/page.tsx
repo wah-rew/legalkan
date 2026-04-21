@@ -288,7 +288,7 @@ export default function Home() {
             </h1>
 
             <p
-              className="mt-5 text-base font-medium"
+              className="mt-8 text-base font-medium"
               style={{
                 color: "#94A3CB",
                 maxWidth: "34rem",
@@ -305,7 +305,7 @@ export default function Home() {
               </span>
             </p>
 
-            <div className="hero-cta-row mt-8">
+            <div className="hero-cta-row mt-10">
               <Link
                 href="#contract-types"
                 className="btn-amber px-8 py-4 text-base font-extrabold"
