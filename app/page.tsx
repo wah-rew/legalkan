@@ -1282,7 +1282,7 @@ export default function Home() {
           >
             📝 Pilih Jenis Kontrak
           </Link>
-          <p className="mt-5 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+          <p className="mt-10 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
             Tidak perlu daftar akun · Bayar, langsung dapat PDF
           </p>
         </div>
