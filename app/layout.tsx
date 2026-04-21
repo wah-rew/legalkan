@@ -19,6 +19,10 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
   title: "LegalKan — Legal-kan sekarang.",
   description:
     "LegalKan — buat dokumen legal Indonesia dalam 5 menit. Sewa properti, hutang piutang, freelancer, dan 5 jenis kontrak lainnya.",
@@ -32,13 +36,25 @@ export const metadata: Metadata = {
 
 function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   const sizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" };
+  const iconSizes = { sm: 28, md: 32, lg: 48 };
+  const s = iconSizes[size];
   return (
-    <span
-      className={`font-extrabold ${sizes[size]} tracking-tight leading-none`}
-      style={{ fontFamily: "var(--font-jakarta)" }}
-    >
-      <span style={{ color: "#FF4D6D" }}>Legal</span>
-      <span style={{ color: "#0D1B3E" }}>Kan</span>
+    <span className="inline-flex items-center gap-2">
+      {/* LK icon: L pink, K dark */}
+      <svg width={s} height={s} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="#0D1B3E"/>
+        {/* L — pink */}
+        <text x="3" y="24" fontFamily="var(--font-jakarta), sans-serif" fontWeight="800" fontSize="20" fill="#FF4D6D">L</text>
+        {/* K — white */}
+        <text x="16" y="24" fontFamily="var(--font-jakarta), sans-serif" fontWeight="800" fontSize="20" fill="#FFFFFF">K</text>
+      </svg>
+      <span
+        className={`font-extrabold ${sizes[size]} tracking-tight leading-none`}
+        style={{ fontFamily: "var(--font-jakarta)" }}
+      >
+        <span style={{ color: "#FF4D6D" }}>Legal</span>
+        <span style={{ color: "#0D1B3E" }}>Kan</span>
+      </span>
     </span>
   );
 }
