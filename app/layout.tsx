@@ -188,7 +188,7 @@ export default function RootLayout({
                         gap: "0.5rem",
                       }}
                     >
-                      {["⚖️ KUHPerdata", "🔒 Terenkripsi", "💳 Xendit"].map(
+                      {["⚖️ KUHPerdata", "🔒 Terenkripsi"].map(
                         (t) => (
                           <span
                             key={t}
