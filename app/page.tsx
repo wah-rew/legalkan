@@ -26,7 +26,7 @@ const TRUST_ITEMS = [
 const HOW_STEPS = [
   { num: "1", emoji: "📋", title: "Pilih jenis kontrak", desc: "Pilih dari 8 jenis kontrak yang tersedia sesuai kebutuhanmu." },
   { num: "2", emoji: "✍️", title: "Isi data perjanjian", desc: "Isi formulir lengkap — identitas, detail, dan ketentuan khusus." },
-  { num: "3", emoji: "💳", title: "Bayar & terima dokumen", desc: "Bayar Rp 29.000 via VA bank. PDF langsung dikirim ke email & WA." },
+  { num: "3", emoji: "💳", title: "Bayar & terima dokumen", desc: "Bayar via VA bank. PDF langsung dikirim ke email & WA." },
 ];
 
 const faqs = [
@@ -241,7 +241,7 @@ export default function Home() {
 
           <div className="mt-12 text-center">
             <Link href="#contract-types" className="btn-amber px-8 py-4 text-base font-extrabold">
-              Mulai Sekarang — Rp 29.000
+              Mulai Sekarang
             </Link>
           </div>
         </div>
@@ -334,7 +334,7 @@ export default function Home() {
             Udah siap bikin kontrak?
           </h2>
           <p className="text-white/80 mb-8 text-lg">
-            Rp 29.000. 5 menit. Legal. Langsung jadi.
+            5 menit. Legal. Langsung jadi.
           </p>
           <Link
             href="#contract-types"
