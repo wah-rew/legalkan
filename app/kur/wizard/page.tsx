@@ -34,6 +34,13 @@ interface KaryawanDetail {
   jabatan: string;
   gajiPokok: string;
   durasiKontrak: string;
+  // NEW: fields for improved PKWT compliance
+  teleponKaryawan: string;
+  emailKaryawan: string;
+  ruangLingkup: string;
+  namaBankKaryawan: string;
+  nomorRekeningKaryawan: string;
+  atasNamaRekeningKaryawan: string;
 }
 
 interface Step5Data {
@@ -96,6 +103,12 @@ const INITIAL_KARYAWAN: KaryawanDetail = {
   jabatan: "",
   gajiPokok: "",
   durasiKontrak: "12 bulan",
+  teleponKaryawan: "",
+  emailKaryawan: "",
+  ruangLingkup: "",
+  namaBankKaryawan: "BRI",
+  nomorRekeningKaryawan: "",
+  atasNamaRekeningKaryawan: "",
 };
 
 function calcBundlePrice(n: number): number {
@@ -999,6 +1012,39 @@ export default function KURWizardPage() {
                             <select style={{ ...inputStyle, appearance: "auto" }} value={k.durasiKontrak} onChange={(e) => setStep5K(i, "durasiKontrak", e.target.value)}>
                               {["6 bulan", "12 bulan", "24 bulan", "Sesuai kesepakatan"].map((d) => <option key={d} value={d}>{d}</option>)}
                             </select>
+                          </div>
+                          <div>
+                            <FieldLabel>Ruang Lingkup Pekerjaan</FieldLabel>
+                            <textarea style={{ ...inputStyle, minHeight: "64px", resize: "vertical" }} placeholder="Jelaskan uraian tugas dan tanggung jawab..." value={k.ruangLingkup} onChange={(e) => setStep5K(i, "ruangLingkup", e.target.value)} />
+                          </div>
+                          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                            <div>
+                              <FieldLabel>No. Telepon Karyawan</FieldLabel>
+                              <input style={inputStyle} placeholder="08xxx" inputMode="tel" value={k.teleponKaryawan} onChange={(e) => setStep5K(i, "teleponKaryawan", e.target.value)} />
+                            </div>
+                            <div>
+                              <FieldLabel>Email Karyawan</FieldLabel>
+                              <input style={inputStyle} type="email" placeholder="email@contoh.com" value={k.emailKaryawan} onChange={(e) => setStep5K(i, "emailKaryawan", e.target.value)} />
+                            </div>
+                          </div>
+                          <div style={{ background: "rgba(13,27,62,0.03)", borderRadius: "12px", padding: "12px" }}>
+                            <p className="text-xs font-bold mb-2" style={{ color: "#0D1B3E" }}>Rekening Bank (untuk pembayaran gaji)</p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "8px" }}>
+                              <div>
+                                <FieldLabel>Bank</FieldLabel>
+                                <select style={{ ...inputStyle, appearance: "auto" }} value={k.namaBankKaryawan} onChange={(e) => setStep5K(i, "namaBankKaryawan", e.target.value)}>
+                                  {["BRI","BCA","BNI","Mandiri","BSI","CIMB","Danamon","Permata"].map((b) => <option key={b} value={b}>{b}</option>)}
+                                </select>
+                              </div>
+                              <div>
+                                <FieldLabel>No. Rekening</FieldLabel>
+                                <input style={inputStyle} placeholder="No. rekening" inputMode="numeric" value={k.nomorRekeningKaryawan} onChange={(e) => setStep5K(i, "nomorRekeningKaryawan", e.target.value)} />
+                              </div>
+                              <div>
+                                <FieldLabel>Atas Nama</FieldLabel>
+                                <input style={inputStyle} placeholder="Nama pemilik rek." value={k.atasNamaRekeningKaryawan} onChange={(e) => setStep5K(i, "atasNamaRekeningKaryawan", e.target.value)} />
+                              </div>
+                            </div>
                           </div>
                         </div>
                       )}

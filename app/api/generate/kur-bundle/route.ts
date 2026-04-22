@@ -20,6 +20,13 @@ export interface Step5DocDetails {
     jabatan: string;
     gajiPokok: number;
     durasiKontrak: string; // "6 bulan" | "12 bulan" | "24 bulan" | "Sesuai kesepakatan"
+    // NEW: extended PKWT fields
+    teleponKaryawan?: string;
+    emailKaryawan?: string;
+    ruangLingkup?: string;
+    namaBankKaryawan?: string;
+    nomorRekeningKaryawan?: string;
+    atasNamaRekeningKaryawan?: string;
   }>;
   namaMitra?: string;
   nikMitra?: string;
@@ -259,10 +266,17 @@ export async function POST(req: NextRequest) {
           nik_karyawan: emp?.nikKaryawan || "___________________",
           alamat_karyawan: "___________________",
           posisi_jabatan: emp?.jabatan || `[Posisi Karyawan ${i + 1}]`,
+          ruang_lingkup_pekerjaan: emp?.ruangLingkup || undefined,
           lokasi_kerja: `${wizard.alamatUsaha}, ${wizard.kotaUsaha}`,
           tanggal_mulai: tanggalPembuatan,
           tanggal_berakhir: tanggalBerakhir,
           gaji_pokok: emp?.gajiPokok || 0,
+          cara_pembayaran_gaji: emp?.nomorRekeningKaryawan ? "transfer_bank" : "tunai",
+          nama_bank_karyawan: emp?.namaBankKaryawan || undefined,
+          nomor_rekening_karyawan: emp?.nomorRekeningKaryawan || undefined,
+          atas_nama_rekening_karyawan: emp?.atasNamaRekeningKaryawan || emp?.namaKaryawan || undefined,
+          telepon_karyawan: emp?.teleponKaryawan || undefined,
+          email_karyawan: emp?.emailKaryawan || undefined,
           kota_penandatanganan: wizard.kotaUsaha,
           tanggal_penandatanganan: tanggalPembuatan,
           emailPembeli: wizard.emailPembeli,
