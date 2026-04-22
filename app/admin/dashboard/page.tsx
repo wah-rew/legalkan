@@ -29,6 +29,7 @@ interface Stats {
   revenueToday: number
   revenueMonth: number
   byType: Record<string, number>
+  byStatus: Record<string, number>
 }
 
 // ─── Demo data (shown when Supabase is not configured) ───────────────────────
@@ -59,10 +60,11 @@ function formatDate(iso: string) {
 
 function statusBadge(status: string) {
   const map: Record<string, { bg: string; color: string; label: string }> = {
-    pending:   { bg: '#FFF9E6', color: '#9A6F00', label: 'Pending' },
-    paid:      { bg: '#E6F4FF', color: '#0050AA', label: 'Paid' },
-    delivered: { bg: '#D1FAF0', color: '#028A66', label: 'Delivered' },
-    failed:    { bg: '#FFE6E9', color: '#CC1830', label: 'Failed' },
+    pending:              { bg: '#FFF9E6', color: '#9A6F00', label: 'Pending' },
+    pending_verification: { bg: '#FFF0E6', color: '#9A4F00', label: 'Verifikasi' },
+    paid:                 { bg: '#E6F4FF', color: '#0050AA', label: 'Paid' },
+    delivered:            { bg: '#D1FAF0', color: '#028A66', label: 'Delivered' },
+    failed:               { bg: '#FFE6E9', color: '#CC1830', label: 'Failed' },
   }
   const s = map[status] || { bg: '#F0F0F0', color: '#666', label: status }
   return (
@@ -157,8 +159,10 @@ export default function AdminDashboard() {
       const month = paid.filter(o => o.created_at.startsWith(monthStr))
 
       const byType: Record<string, number> = {}
+      const byStatus: Record<string, number> = {}
       for (const o of allOrders) {
         byType[o.contract_type] = (byType[o.contract_type] || 0) + 1
+        byStatus[o.status] = (byStatus[o.status] || 0) + 1
       }
 
       setStats({
@@ -167,6 +171,7 @@ export default function AdminDashboard() {
         revenueToday: today.reduce((s, o) => s + o.amount, 0),
         revenueMonth: month.reduce((s, o) => s + o.amount, 0),
         byType,
+        byStatus,
       })
     }
 
@@ -213,6 +218,28 @@ export default function AdminDashboard() {
                 <StatCard label="Orders Hari Ini" value={String(stats.ordersToday)} icon="📅" />
                 <StatCard label="Revenue Hari Ini" value={formatRp(stats.revenueToday)} icon="💰" />
                 <StatCard label="Revenue Bulan Ini" value={formatRp(stats.revenueMonth)} icon="📈" />
+              </div>
+            )}
+
+            {/* Orders by Status */}
+            {stats && Object.keys(stats.byStatus).length > 0 && (
+              <div
+                className="rounded-3xl p-6 mb-6 shadow-sm"
+                style={{ background: 'white', border: '1px solid rgba(13,27,62,0.08)' }}
+              >
+                <h2 className="font-jakarta text-lg font-bold mb-4" style={{ color: '#0D1B3E' }}>
+                  🔖 Orders by Status
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {Object.entries(stats.byStatus)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([status, count]) => (
+                      <div key={status} className="flex items-center gap-2">
+                        {statusBadge(status)}
+                        <span className="text-sm font-bold" style={{ color: '#0D1B3E' }}>{count}</span>
+                      </div>
+                    ))}
+                </div>
               </div>
             )}
 

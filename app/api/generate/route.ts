@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
           status: 'pending',
           customer_name: body.namaPihakKedua || null,
           customer_email: body.emailPembeli || null,
+          customer_phone: body.nomorWhatsapp || null,
           pihak_pertama: body.namaPihakPertama || null,
           pihak_kedua: body.namaPihakKedua || null,
           contract_data: contractData,
