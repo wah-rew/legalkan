@@ -342,12 +342,10 @@ export default function SyaratKetentuanPage() {
                   href="/hubungi"
                   style={{ color: "#FF4D6D", textDecoration: "underline" }}
                 >
-                  legalkan.id/hubungi
+                  legal-kan.com/hubungi
                 </a>
               </li>
-              <li>
-                <strong>Email:</strong> halo@legalkan.id
-              </li>
+
             </ul>
             <p>
               Kami berusaha merespons setiap pertanyaan dalam waktu 1×24 jam pada hari kerja.
