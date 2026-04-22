@@ -82,6 +82,7 @@ export default function PreviewPage() {
   const selectedBank: BankCode = "BCA";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [tncAgreed, setTncAgreed] = useState(false);
 
   // Toast state
   const [toastVisible, setToastVisible] = useState(false);
@@ -286,10 +287,30 @@ export default function PreviewPage() {
               </div>
             )}
 
+            {/* TnC Checkbox */}
+            <div
+              className="rounded-2xl p-4"
+              style={{ background: "rgba(13,27,62,0.04)", border: "1px solid rgba(13,27,62,0.08)" }}
+            >
+              <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={tncAgreed}
+                  onChange={(e) => setTncAgreed(e.target.checked)}
+                  style={{ marginTop: "0.2rem", accentColor: "#FF4D6D", flexShrink: 0, width: "16px", height: "16px" }}
+                />
+                <span style={{ fontSize: "0.72rem", color: "#4A5F8A", lineHeight: 1.6 }}>
+                  Saya memahami bahwa <strong>LegalKan hanya menyediakan template draft perjanjian</strong>, bukan kantor hukum atau pengacara. LegalKan tidak bertanggung jawab atas konsekuensi hukum, sengketa, atau litigasi yang timbul dari penggunaan dokumen ini. Saya bertanggung jawab penuh atas kebenaran data yang diinput.{" "}
+                  <a href="/syarat-ketentuan" target="_blank" style={{ color: "#FF4D6D" }}>Syarat & Ketentuan</a>.
+                </span>
+              </label>
+            </div>
+
             <button
               className="btn-primary w-full py-4 text-base font-extrabold"
               onClick={handlePay}
-              disabled={loading}
+              disabled={loading || !tncAgreed}
+              style={{ opacity: tncAgreed ? 1 : 0.5, cursor: tncAgreed ? "pointer" : "not-allowed" }}
             >
               {loading ? "⏳ Memproses..." : `💳 Lanjut ke Pembayaran — Rp ${new Intl.NumberFormat('id-ID').format((() => { const ct = (contractData as unknown as Record<string, string>).contractType; return ct && CONTRACT_PRICES[ct] ? CONTRACT_PRICES[ct] : PRICE; })())}`}
             </button>

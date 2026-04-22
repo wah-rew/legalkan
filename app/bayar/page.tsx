@@ -53,7 +53,6 @@ export default function BayarPage() {
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [tncAgreed, setTncAgreed] = useState(false);
 
   const bankName = process.env.NEXT_PUBLIC_BANK_NAME || "BCA";
   const bankAccountNumber = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NUMBER || "1234567890";
@@ -254,25 +253,6 @@ export default function BayarPage() {
           {/* WA delivery removed — email only */}
         </div>
 
-        {/* TnC Checkbox */}
-        <div
-          className="rounded-2xl p-4 mb-4"
-          style={{ background: "rgba(13,27,62,0.04)", border: "1px solid rgba(13,27,62,0.08)" }}
-        >
-          <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
-            <input
-              type="checkbox"
-              checked={tncAgreed}
-              onChange={(e) => setTncAgreed(e.target.checked)}
-              style={{ marginTop: "0.2rem", accentColor: "#FF4D6D", flexShrink: 0, width: "16px", height: "16px" }}
-            />
-            <span style={{ fontSize: "0.75rem", color: "#4A5F8A", lineHeight: 1.6 }}>
-              Saya memahami dan menyetujui bahwa <strong>LegalKan hanya menyediakan template draft perjanjian</strong> dan bukan merupakan kantor hukum atau pengacara. LegalKan <strong>tidak memberikan nasihat hukum</strong> dan tidak bertanggung jawab atas segala konsekuensi hukum, sengketa, litigasi, atau kerugian yang timbul dari penggunaan dokumen yang dihasilkan. Pengguna sepenuhnya bertanggung jawab atas kebenaran data yang diinput dan kesesuaian dokumen dengan situasi hukum spesifik mereka. Untuk urusan hukum yang kompleks, disarankan berkonsultasi dengan pengacara berlisensi.{" "}
-              <a href="/syarat-ketentuan" target="_blank" style={{ color: "#FF4D6D", textDecoration: "underline" }}>Baca Syarat & Ketentuan lengkap</a>.
-            </span>
-          </label>
-        </div>
-
         {error && (
           <div
             className="rounded-2xl px-4 py-3 mb-4 text-sm font-semibold"
@@ -286,8 +266,8 @@ export default function BayarPage() {
         <button
           className="btn-primary w-full py-4 text-base font-extrabold"
           onClick={handleSudahTransfer}
-          disabled={submitting || !tncAgreed}
-          style={{ fontSize: "1rem", opacity: tncAgreed ? 1 : 0.5, cursor: tncAgreed ? "pointer" : "not-allowed" }}
+          disabled={submitting}
+          style={{ fontSize: "1rem" }}
         >
           {submitting ? "⏳ Mengirim notifikasi..." : "✅ Saya Sudah Transfer"}
         </button>
