@@ -13,11 +13,13 @@ interface FormState {
   jenis_barang: string; nama_barang: string; merek: string; model_tipe: string;
   tahun_pembuatan: string; warna: string; kondisi_barang: string; deskripsi_kondisi: string;
   nomor_polisi: string; nomor_rangka: string; nomor_mesin: string; km_odometer: string;
+  nomor_bpkb: string; stnk_berlaku_hingga: string;
   nomor_seri: string;
   harga_jual: number; cara_pembayaran: string; jumlah_dp: number;
   tanggal_pembayaran_dp: string; tanggal_pelunasan: string;
   tanggal_serah_terima: string; lokasi_serah_terima: string;
-  saksi_nama: string; saksi_nik: string;
+  saksi_nama: string; saksi_nik: string; saksi1_alamat: string;
+  lokasi_pembuatan: string;
   kota_penandatanganan: string; tanggal_penandatanganan: string;
   emailPembeli: string; nomorWhatsapp: string;
 }
@@ -27,11 +29,13 @@ const init: FormState = {
   nama_pembeli: "", nik_pembeli: "", alamat_pembeli: "", nomor_telepon_pembeli: "",
   jenis_barang: "kendaraan_bermotor", nama_barang: "", merek: "", model_tipe: "", tahun_pembuatan: "", warna: "", kondisi_barang: "baik", deskripsi_kondisi: "",
   nomor_polisi: "", nomor_rangka: "", nomor_mesin: "", km_odometer: "",
+  nomor_bpkb: "", stnk_berlaku_hingga: "",
   nomor_seri: "",
   harga_jual: 0, cara_pembayaran: "transfer", jumlah_dp: 0,
   tanggal_pembayaran_dp: "", tanggal_pelunasan: "",
   tanggal_serah_terima: "", lokasi_serah_terima: "",
-  saksi_nama: "", saksi_nik: "",
+  saksi_nama: "", saksi_nik: "", saksi1_alamat: "",
+  lokasi_pembuatan: "",
   kota_penandatanganan: "", tanggal_penandatanganan: "",
   emailPembeli: "", nomorWhatsapp: "",
 };
@@ -73,7 +77,7 @@ export default function JualBeliPage() {
     try {
       const res = await fetch("/api/generate/jual-beli", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, tahun_pembuatan: form.tahun_pembuatan ? parseInt(form.tahun_pembuatan) : undefined, km_odometer: form.km_odometer ? parseInt(form.km_odometer) : undefined }),
+        body: JSON.stringify({ ...form, tahun_pembuatan: form.tahun_pembuatan ? parseInt(form.tahun_pembuatan) : undefined, km_odometer: form.km_odometer ? parseInt(form.km_odometer) : undefined, nomorBPKB: form.nomor_bpkb || undefined, stnkBerlakuHingga: form.stnk_berlaku_hingga || undefined, saksi1Alamat: form.saksi1_alamat || undefined, lokasiPembuatan: form.lokasi_pembuatan || undefined }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal generate kontrak");
@@ -150,6 +154,10 @@ export default function JualBeliPage() {
                 <FormInput label="Nomor Mesin"><input className="form-input" value={form.nomor_mesin} onChange={e => set("nomor_mesin", e.target.value)} /></FormInput>
               </div>
               <FormInput label="KM Odometer"><input className="form-input" type="number" value={form.km_odometer} onChange={e => set("km_odometer", e.target.value)} /></FormInput>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <FormInput label="Nomor BPKB" hint="opsional"><input className="form-input" value={form.nomor_bpkb} onChange={e => set("nomor_bpkb", e.target.value)} /></FormInput>
+                <FormInput label="STNK Berlaku Hingga" hint="opsional"><input className="form-input" type="date" value={form.stnk_berlaku_hingga} onChange={e => set("stnk_berlaku_hingga", e.target.value)} /></FormInput>
+              </div>
             </>
           )}
           {isElektronik && (
@@ -183,10 +191,12 @@ export default function JualBeliPage() {
             <FormInput label="Nama Saksi" required><input className="form-input" value={form.saksi_nama} onChange={e => set("saksi_nama", e.target.value)} /></FormInput>
             <FormInput label="NIK Saksi" hint="opsional"><input className="form-input" maxLength={16} value={form.saksi_nik} onChange={e => set("saksi_nik", e.target.value)} /></FormInput>
           </div>
+          <FormInput label="Alamat Saksi" hint="opsional"><input className="form-input" placeholder="Alamat lengkap saksi" value={form.saksi1_alamat} onChange={e => set("saksi1_alamat", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Kota Penandatanganan" required><input className="form-input" value={form.kota_penandatanganan} onChange={e => set("kota_penandatanganan", e.target.value)} /></FormInput>
             <FormInput label="Tanggal TTD" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
           </div>
+          <FormInput label="Lokasi Pembuatan" hint="opsional — jika berbeda dari kota TTD"><input className="form-input" placeholder="Misal: Jakarta Selatan" value={form.lokasi_pembuatan} onChange={e => set("lokasi_pembuatan", e.target.value)} /></FormInput>
         </div>
       )}
 

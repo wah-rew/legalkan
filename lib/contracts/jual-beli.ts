@@ -29,6 +29,8 @@ export interface JualBeliData {
   nomor_rangka?: string;
   nomor_mesin?: string;
   km_odometer?: number;
+  nomorBPKB?: string;
+  stnkBerlakuHingga?: string;
   // Untuk Elektronik
   nomor_seri?: string;
   // Harga
@@ -43,7 +45,10 @@ export interface JualBeliData {
   // Saksi
   saksi_nama: string;
   saksi_nik?: string;
+  saksi1Alamat?: string;
+  saksi2Alamat?: string;
   // Penandatanganan
+  lokasiPembuatan?: string;
   kota_penandatanganan: string;
   tanggal_penandatanganan: string;
   // Meta
@@ -104,6 +109,8 @@ export function generateJualBeliHTML(d: JualBeliData): string {
       ${isKendaraan && d.nomor_rangka ? `<p><strong>Nomor Rangka :</strong> ${d.nomor_rangka}</p>` : ""}
       ${isKendaraan && d.nomor_mesin ? `<p><strong>Nomor Mesin :</strong> ${d.nomor_mesin}</p>` : ""}
       ${isKendaraan && d.km_odometer ? `<p><strong>KM Odometer :</strong> ${d.km_odometer.toLocaleString("id-ID")} km</p>` : ""}
+      ${isKendaraan && d.nomorBPKB ? `<p><strong>Nomor BPKB :</strong> ${d.nomorBPKB}</p>` : ""}
+      ${isKendaraan && d.stnkBerlakuHingga ? `<p><strong>STNK Berlaku Hingga :</strong> ${formatTanggal(d.stnkBerlakuHingga)}</p>` : ""}
       ${d.nomor_seri ? `<p><strong>Nomor Seri/IMEI :</strong> ${d.nomor_seri}</p>` : ""}
     </div>
     <p>2. <strong>Keterangan Kondisi:</strong> ${d.deskripsi_kondisi}</p>
@@ -159,6 +166,12 @@ export function generateJualBeliHTML(d: JualBeliData): string {
     ${isKendaraan ? `<p>5. Biaya balik nama STNK dan BPKB menjadi tanggung jawab <strong>PIHAK KEDUA</strong> kecuali disepakati lain secara tertulis.</p>` : ""}
   `);
 
+  const pajakKewajiban = isKendaraan ? pb.pasal("Pajak dan Kewajiban", `
+    <p>1. Segala pajak kendaraan yang jatuh tempo <strong>sebelum tanggal serah terima</strong> menjadi tanggung jawab sepenuhnya <strong>PIHAK PERTAMA</strong> (Penjual).</p>
+    <p>2. Segala pajak kendaraan yang jatuh tempo <strong>setelah tanggal serah terima</strong>, termasuk PKB, BBNKB, dan pajak lain yang timbul, menjadi tanggung jawab sepenuhnya <strong>PIHAK KEDUA</strong> (Pembeli).</p>
+    <p>3. Segala kewajiban hukum yang timbul setelah penyerahan kendaraan, termasuk namun tidak terbatas pada denda tilang, pelanggaran lalu lintas, dan tanggung jawab perdata/pidana atas penggunaan kendaraan, sepenuhnya menjadi tanggung jawab <strong>PIHAK KEDUA</strong>.</p>
+  `) : "";
+
   const sengketa = pb.pasal("Penyelesaian Sengketa", `
     <p>1. Sengketa diselesaikan secara musyawarah dalam 14 (empat belas) hari.</p>
     <p>2. Apabila gagal, diselesaikan melalui <strong>Pengadilan Negeri ${d.kota_penandatanganan}</strong>.</p>
@@ -189,13 +202,14 @@ export function generateJualBeliHTML(d: JualBeliData): string {
   ${kepemilikanKeaslian}
   ${harga}
   ${serahTerima}
+  ${pajakKewajiban}
   ${sengketa}
   ${ketentuan}
   ${disclaimer}
 
   <hr class="divider" style="margin-top: 32px;" />
   <p style="text-align: center; margin-bottom: 16px;">
-    Demikianlah Perjanjian ini dibuat di <strong>${d.kota_penandatanganan}</strong> pada tanggal <strong>${tglTtd}</strong>.
+    Demikianlah Perjanjian ini dibuat di <strong>${d.lokasiPembuatan || d.kota_penandatanganan}</strong> pada tanggal <strong>${tglTtd}</strong>.
   </p>
 
   <table class="tanda-tangan">
@@ -222,6 +236,7 @@ export function generateJualBeliHTML(d: JualBeliData): string {
         <div class="ttd-area" style="margin: 8px 200px 4px;"></div>
         <p><strong>${d.saksi_nama}</strong></p>
         ${d.saksi_nik ? `<p style="font-size: 10pt;">NIK: ${d.saksi_nik}</p>` : ""}
+        ${d.saksi1Alamat ? `<p style="font-size: 10pt;">Alamat: ${d.saksi1Alamat}</p>` : ""}
       </td>
     </tr>
   </table>
