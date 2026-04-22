@@ -240,6 +240,10 @@ export default function RootLayout({
                         { label: "Bagi Hasil Usaha", href: "/buat/bagi-hasil" },
                         { label: "Sewa Kendaraan", href: "/buat/sewa-kendaraan" },
                         { label: "Jual Beli", href: "/buat/jual-beli" },
+                        { label: "Konsinyasi", href: "/buat/konsinyasi" },
+                        { label: "EO & Fotografer", href: "/buat/event-organizer" },
+                        { label: "NDA", href: "/buat/nda" },
+                        { label: "Paket KUR-Ready ↗", href: "/kur" },
                       ].map((link) => (
                         <li key={link.href}>
                           <a href={link.href} className="footer-link">
