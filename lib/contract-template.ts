@@ -121,8 +121,9 @@ export function generateContractHTML(data: ContractData): string {
     <div class="pihak-box">
       <p>${data.kondisiProperti.replace(/\n/g, "<br/>")}</p>
     </div>
-    <p>${_pasalCounter}.3. PIHAK KEDUA wajib mengembalikan Objek Sewa pada akhir masa sewa dalam kondisi yang tidak lebih buruk dari kondisi serah terima, dengan mempertimbangkan keausan wajar akibat penggunaan normal.</p>
-    <p>${_pasalCounter}.4. Selisih kondisi di luar keausan wajar menjadi tanggung jawab PIHAK KEDUA dan dapat dikompensasi dari uang jaminan (bila ada).</p>
+    <p>${_pasalCounter}.3. Penyerahan Objek Sewa dilakukan dengan pembuatan Berita Acara Serah Terima yang ditandatangani oleh kedua belah pihak.</p>
+    <p>${_pasalCounter}.4. PIHAK KEDUA wajib mengembalikan Objek Sewa pada akhir masa sewa dalam kondisi yang tidak lebih buruk dari kondisi serah terima, dengan mempertimbangkan keausan wajar akibat penggunaan normal. Pengembalian Objek Sewa dilakukan paling lambat 7 (tujuh) hari setelah berakhirnya masa sewa.</p>
+    <p>${_pasalCounter}.5. Selisih kondisi di luar keausan wajar menjadi tanggung jawab PIHAK KEDUA dan dapat dikompensasi dari uang jaminan (bila ada).</p>
   `) : "";
 
   const pasalJangkaWaktu = pasal("Jangka Waktu Sewa", `
@@ -173,7 +174,7 @@ export function generateContractHTML(data: ContractData): string {
     <p>${_pasalCounter}.1. Harga sewa yang disepakati adalah sebesar <strong>${hargaFormatted} (${terbilang(data.hargaSewa)} rupiah)</strong> per bulan.</p>
     <p>${_pasalCounter}.2. Total nilai sewa untuk seluruh periode adalah sebesar <strong>${totalFormatted} (${totalTerbilang} rupiah)</strong>.</p>
     ${paymentTermsHTML.replace(/\$\{_pasalCounter \+ 1\}/g, String(_pasalCounter))}
-    <p>${_pasalCounter}.5. Keterlambatan pembayaran lebih dari 7 (tujuh) hari kalender dapat dikenakan denda sebesar 2% (dua persen) dari nilai yang jatuh tempo per bulan keterlambatan, kecuali diperjanjikan lain secara tertulis oleh Para Pihak.</p>
+    <p>${_pasalCounter}.5. Keterlambatan pembayaran sewa dikenakan denda sebesar 2% (dua persen) per hari dari jumlah sewa yang seharusnya dibayar, terhitung sejak tanggal jatuh tempo hingga tanggal pembayaran dilunasi, kecuali diperjanjikan lain secara tertulis oleh Para Pihak.</p>
     <p>${_pasalCounter}.6. Seluruh pembayaran dilakukan melalui mekanisme yang disepakati Para Pihak dan disertai bukti transfer/kwitansi yang sah.</p>
     ${data.namaBank
       ? `<p>${_pasalCounter}.7. Pembayaran dilakukan melalui transfer ke rekening: Bank <strong>${data.namaBank}</strong>, No. Rekening: <strong>${data.nomorRekening || "-"}</strong> atas nama PIHAK PERTAMA.</p>`
@@ -284,7 +285,8 @@ export function generateContractHTML(data: ContractData): string {
       <li>Disepakati bersama secara tertulis oleh Para Pihak.</li>
     </ul>
     <p>${_pasalCounter}.3. PIHAK KEDUA yang berkeinginan mengakhiri Perjanjian sebelum waktunya wajib memberikan pemberitahuan tertulis kepada PIHAK PERTAMA paling lambat <strong>${noticePeriod} (${terbilang(noticePeriod)}) hari</strong> sebelumnya dan menyelesaikan seluruh kewajiban yang belum dipenuhi.</p>
-    <p>${_pasalCounter}.4. Dalam hal pengakhiran karena kelalaian PIHAK KEDUA, PIHAK KEDUA wajib meninggalkan Objek Sewa paling lambat 14 (empat belas) hari sejak tanggal pemberitahuan pengakhiran, dan tidak berhak mendapat pengembalian harga sewa yang telah dibayarkan.</p>
+    <p>${_pasalCounter}.4. Apabila PIHAK KEDUA bermaksud mengakhiri perjanjian sebelum berakhirnya jangka waktu sewa, PIHAK KEDUA wajib memberitahukan secara tertulis kepada PIHAK PERTAMA paling lambat 60 (enam puluh) hari sebelumnya. Dalam hal demikian, uang jaminan (deposit) tidak dapat dikembalikan kepada PIHAK KEDUA.</p>
+    <p>${_pasalCounter}.5. Dalam hal pengakhiran karena kelalaian PIHAK KEDUA, PIHAK KEDUA wajib meninggalkan Objek Sewa paling lambat 14 (empat belas) hari sejak tanggal pemberitahuan pengakhiran, dan tidak berhak mendapat pengembalian harga sewa yang telah dibayarkan.</p>
   `);
 
   const pasalForce = pasal("Keadaan Kahar (Force Majeure)", `
@@ -292,6 +294,12 @@ export function generateContractHTML(data: ContractData): string {
     <p>${_pasalCounter}.2. Pihak yang mengalami atau terdampak keadaan kahar wajib memberitahukan pihak lainnya secara tertulis dalam waktu 7 (tujuh) hari sejak terjadinya keadaan kahar tersebut, disertai bukti-bukti yang dapat diverifikasi.</p>
     <p>${_pasalCounter}.3. Para Pihak akan berunding dengan itikad baik untuk menentukan langkah selanjutnya apabila keadaan kahar berlangsung lebih dari 30 (tiga puluh) hari.</p>
     <p>${_pasalCounter}.4. Kewajiban pembayaran sewa yang telah jatuh tempo sebelum terjadinya keadaan kahar tetap menjadi kewajiban Para Pihak dan tidak hapus karenanya.</p>
+  `);
+
+  const pasalAsuransi = pasal("Asuransi", `
+    <p>${_pasalCounter}.1. PIHAK PERTAMA bertanggung jawab atas asuransi bangunan terhadap risiko kebakaran dan bencana alam.</p>
+    <p>${_pasalCounter}.2. PIHAK KEDUA bertanggung jawab atas asuransi barang-barang miliknya yang berada di dalam Objek Sewa.</p>
+    <p>${_pasalCounter}.3. Masing-masing Pihak wajib memberitahukan pihak lainnya apabila terdapat klaim asuransi yang berkaitan dengan Objek Sewa.</p>
   `);
 
   const pasalSengketa = pasal("Penyelesaian Sengketa", `
@@ -398,6 +406,7 @@ export function generateContractHTML(data: ContractData): string {
   ${pasalUtilitas}
   ${pasalKewajibanPihakDua}
   ${pasalKewajibanPihakSatu}
+  ${pasalAsuransi}
   ${pasalPengakhiran}
   ${pasalForce}
   ${pasalSengketa}
