@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send notification email to owner
-    const ownerEmail = process.env.OWNER_EMAIL || "finance@karyaselaksamakna.com";
+    const ownerEmail = process.env.OWNER_EMAIL || "wahyu@karyaselaksamakna.com";
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_APP_URL || "https://www.legal-kan.com";
     const confirmUrl = `${baseUrl}/api/confirm-payment?token=${confirmationToken}&orderId=${orderId}`;
 
