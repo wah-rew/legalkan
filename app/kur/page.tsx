@@ -651,7 +651,7 @@ export default function KURLandingPage() {
           >
             🚀 Mulai Cek Kebutuhan Dokumen
           </Link>
-          <p className="mt-8 text-sm" style={{ color: "rgba(13,27,62,0.5)" }}>
+          <p className="mt-12 text-sm" style={{ color: "rgba(13,27,62,0.5)" }}>
             Tidak perlu daftar akun · Bayar, langsung dapat semua dokumen
           </p>
         </div>
