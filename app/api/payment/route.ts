@@ -79,6 +79,11 @@ export async function POST(req: NextRequest) {
       paymentData = createMockPayment(orderId, contractData, bank, amount);
     }
 
+    // Generate unique 3-digit code (100-999) for manual transfer identification
+    const uniqueCode = Math.floor(Math.random() * 900) + 100;
+    const totalWithCode = paymentData.amount + uniqueCode;
+    paymentData = { ...paymentData, uniqueCode, totalWithCode };
+
     return NextResponse.json({ success: true, paymentData });
   } catch (error) {
     console.error("Payment error:", error);

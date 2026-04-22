@@ -73,6 +73,9 @@ export interface PaymentData {
   bank: "BCA" | "BNI" | "BRI" | "MANDIRI";
   amount: number;
   expiryTime: string;
+  // Manual transfer fields
+  uniqueCode?: number;
+  totalWithCode?: number;
 }
 
 export type BankCode = "BCA" | "BNI" | "BRI" | "MANDIRI";
