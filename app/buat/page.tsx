@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ContractFormData, CONTRACT_PRICES } from "@/types";
 import BankSearch from "@/components/BankSearch";
@@ -38,6 +38,20 @@ export default function BuatPage() {
     saksi2NIK: "",
     lokasiPembuatan: "",
   });
+
+  // Prefill from sessionStorage when user clicks "Edit data kontrak"
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("kontrak_contract");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        const saved = parsed?.formData || parsed?.contractData;
+        if (saved && (saved.contractType === "sewa-properti" || !saved.contractType)) {
+          setForm((prev) => ({ ...prev, ...saved }));
+        }
+      }
+    } catch {}
+  }, []);
 
   const set = (field: keyof ContractFormData, value: string | number | boolean) =>
     setForm((f) => ({ ...f, [field]: value }));
