@@ -245,8 +245,8 @@ export default function PreviewPage() {
           {/* ── Payment sidebar ──────────────────────────────────────────── */}
           <div className="space-y-4">
             {/* Summary */}
-            <div className="card">
-              <h3 className="font-jakarta font-bold mb-4" style={{ color: "#0D1B3E" }}>
+            <div className="card" style={{ background: "white", padding: "1.5rem" }}>
+              <h3 className="font-jakarta font-bold mb-4" style={{ color: "#0D1B3E", fontSize: "1rem" }}>
                 Ringkasan
               </h3>
               {[
@@ -256,18 +256,18 @@ export default function PreviewPage() {
               ].map((r) => (
                 <div
                   key={r.label}
-                  className="flex justify-between text-xs py-2 border-b"
+                  className="py-3 border-b"
                   style={{ borderColor: "rgba(13,27,62,0.06)" }}
                 >
-                  <span style={{ color: "#9BA3C4" }}>{r.label}</span>
-                  <span className="font-semibold text-right" style={{ color: "#0D1B3E", maxWidth: "160px", wordBreak: "break-word", overflowWrap: "break-word" }}>
+                  <p style={{ color: "#9BA3C4", fontSize: "0.7rem", marginBottom: "0.25rem" }}>{r.label}</p>
+                  <p className="font-semibold" style={{ color: "#0D1B3E", fontSize: "0.85rem", lineHeight: 1.4 }}>
                     {r.value}
-                  </span>
+                  </p>
                 </div>
               ))}
-              <div className="flex justify-between items-center mt-3 pt-1" style={{ gap: "0.75rem" }}>
+              <div className="flex justify-between items-center mt-4" style={{ gap: "0.75rem" }}>
                 <span className="text-sm font-bold" style={{ color: "#0D1B3E", whiteSpace: "nowrap" }}>Total Bayar</span>
-                <span className="font-jakarta text-xl font-extrabold" style={{ color: "#FF4D6D", whiteSpace: "nowrap" }}>
+                <span className="font-jakarta font-extrabold" style={{ color: "#FF4D6D", whiteSpace: "nowrap", fontSize: "1.25rem" }}>
                   Rp&nbsp;{new Intl.NumberFormat('id-ID').format(
                     (() => { const ct = (contractData as unknown as Record<string, string>).contractType; return ct && CONTRACT_PRICES[ct] ? CONTRACT_PRICES[ct] : PRICE; })()
                   )}
