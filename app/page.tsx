@@ -843,6 +843,139 @@ export default function Home() {
       </section>
 
       {/* ════════════════════════════════════════
+          BLOG PREVIEW
+          ════════════════════════════════════════ */}
+      <section
+        className="px-4 py-16"
+        style={{ background: "#F0F2FF" }}
+      >
+        <div className="mx-auto" style={{ maxWidth: "72rem" }}>
+          <div className="animate-fade-up" style={{ marginBottom: "2.5rem", display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
+            <div>
+              <span
+                className="badge"
+                style={{
+                  background: "rgba(13,27,62,0.08)",
+                  color: "#0D1B3E",
+                  border: "1px solid rgba(13,27,62,0.12)",
+                }}
+              >
+                📚 Tips &amp; Panduan Legal
+              </span>
+              <h2
+                className="font-jakarta font-extrabold mt-4"
+                style={{ color: "#0D1B3E", fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)" }}
+              >
+                Baca panduan legal gratis
+              </h2>
+              <p className="mt-1 text-sm" style={{ color: "#6B7FA8" }}>
+                Tips hukum praktis tanpa bahasa kaku — seperti ngobrol sama teman.
+              </p>
+            </div>
+            <Link
+              href="/blog"
+              style={{
+                fontSize: "0.82rem",
+                fontWeight: 700,
+                color: "#FF4D6D",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Lihat semua artikel →
+            </Link>
+          </div>
+
+          <style>{`
+            .blog-preview-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 1.25rem;
+            }
+            @media (min-width: 640px) {
+              .blog-preview-grid { grid-template-columns: repeat(3, 1fr); }
+            }
+          `}</style>
+          <div className="blog-preview-grid">
+            {[
+              {
+                slug: "syarat-dokumen-kur-umkm-2024",
+                title: "Syarat Dokumen KUR untuk UMKM 2024 — Panduan Lengkap",
+                category: "KUR & UMKM",
+                readTime: 7,
+                catColor: "#D4A017",
+                catBg: "rgba(255,209,102,0.12)",
+              },
+              {
+                slug: "tips-buat-kontrak-sewa-rumah-aman",
+                title: "7 Hal Wajib Ada di Kontrak Sewa Rumah — Jangan Sampai Ketinggalan",
+                category: "Properti",
+                readTime: 8,
+                catColor: "#FF4D6D",
+                catBg: "rgba(255,77,109,0.10)",
+              },
+              {
+                slug: "kontrak-freelance-indonesia-panduan",
+                title: "Kontrak Freelance Indonesia — Kenapa Penting dan Apa yang Harus Ada",
+                category: "Freelancer",
+                readTime: 7,
+                catColor: "#028A66",
+                catBg: "rgba(6,214,160,0.10)",
+              },
+            ].map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                style={{ textDecoration: "none" }}
+                className="animate-fade-up delay-200"
+              >
+                <div
+                  className="card"
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontSize: "0.65rem",
+                      fontWeight: 700,
+                      padding: "0.2rem 0.5rem",
+                      borderRadius: "9999px",
+                      background: post.catBg,
+                      color: post.catColor,
+                      border: `1px solid ${post.catBg}`,
+                      width: "fit-content",
+                    }}
+                  >
+                    {post.category}
+                  </span>
+                  <h3
+                    className="font-jakarta font-bold"
+                    style={{ fontSize: "0.95rem", color: "#0D1B3E", lineHeight: 1.4, flex: 1 }}
+                  >
+                    {post.title}
+                  </h3>
+                  <span
+                    style={{
+                      fontSize: "0.72rem",
+                      color: "#FF4D6D",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {post.readTime} mnt baca →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
           HOW IT WORKS
           ════════════════════════════════════════ */}
       <section

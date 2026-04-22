@@ -86,6 +86,9 @@ export default function RootLayout({
                 <a href="/buat" className="nav-link">
                   Kontrak
                 </a>
+                <a href="/blog" className="nav-link">
+                  Blog
+                </a>
                 <a href="/hubungi" className="nav-link">
                   Hubungi
                 </a>
