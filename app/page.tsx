@@ -791,6 +791,45 @@ export default function Home() {
             ))}
           </div>
 
+          {/* NIB Guide Banner */}
+          <div className="mt-8 animate-fade-up delay-400">
+            <Link
+              href="/nib-guide"
+              className="flex items-start gap-4 rounded-3xl p-5 transition-all"
+              style={{
+                background: "rgba(255,209,102,0.08)",
+                border: "1.5px solid rgba(255,209,102,0.3)",
+                boxShadow: "0 4px 20px rgba(255,209,102,0.08)",
+              }}
+            >
+              <span style={{ fontSize: "1.75rem", flexShrink: 0 }}>📋</span>
+              <div className="flex-1 min-w-0">
+                <p
+                  className="font-jakarta font-bold text-sm mb-1"
+                  style={{ color: "#FFD166" }}
+                >
+                  Belum punya NIB?
+                </p>
+                <p
+                  className="text-xs"
+                  style={{ color: "#94A3CB", lineHeight: 1.6 }}
+                >
+                  Panduan gratis cara daftar NIB online dalam 15 menit — syarat
+                  wajib sebelum apply KUR.
+                </p>
+              </div>
+              <span
+                className="flex-shrink-0 text-xs font-bold rounded-xl px-3 py-1.5 self-center"
+                style={{
+                  background: "rgba(255,209,102,0.18)",
+                  color: "#FFD166",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Baca Panduan →
+              </span>
+            </Link>
+          </div>
 
         </div>
       </section>

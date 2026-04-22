@@ -74,6 +74,93 @@ interface RecommendedDoc {
   nomorKontrak?: string;
 }
 
+interface KURRecommendation {
+  bank: string;
+  logo: string;
+  product: string;
+  plafonMax: string;
+  bunga: string;
+  highlight: string;
+  cocokUntuk: string;
+  url: string;
+  badge: string | null;
+  badgeColor: string | null;
+}
+
+function getKURRecommendations(s: WizardState): KURRecommendation[] {
+  const recommendations: KURRecommendation[] = [];
+
+  // BRI — always include, best for micro
+  recommendations.push({
+    bank: "BRI",
+    logo: "🏦",
+    product: "KUR Mikro BRI",
+    plafonMax: "Rp 100 juta",
+    bunga: "6% per tahun",
+    highlight: "Penyalur KUR terbesar Indonesia. Proses cepat, kantor di seluruh Indonesia.",
+    cocokUntuk: "Semua jenis usaha mikro",
+    url: "https://bri.co.id/kur",
+    badge: "Terpopuler",
+    badgeColor: "#06D6A0",
+  });
+
+  // BNI — good for agribusiness
+  if (
+    s.bidangUsaha === "Pertanian/Perkebunan" ||
+    s.bidangUsaha === "Peternakan" ||
+    s.bidangUsaha === "Perikanan"
+  ) {
+    recommendations.push({
+      bank: "BNI",
+      logo: "🏛️",
+      product: "KUR BNI Agribisnis",
+      plafonMax: "Rp 500 juta",
+      bunga: "6% per tahun",
+      highlight: "Spesialis agribisnis. Ada pendampingan usaha dari BNI.",
+      cocokUntuk: "Pertanian, peternakan, perikanan",
+      url: "https://bni.co.id/kur",
+      badge: "Cocok untukmu",
+      badgeColor: "#FF4D6D",
+    });
+  }
+
+  // Mandiri — good for larger businesses
+  if (
+    s.omzetPerBulan === ">50jt" ||
+    s.bentukUsaha === "PT" ||
+    s.bentukUsaha === "CV"
+  ) {
+    recommendations.push({
+      bank: "Mandiri",
+      logo: "🏢",
+      product: "KUR Kecil Mandiri",
+      plafonMax: "Rp 500 juta",
+      bunga: "6% per tahun",
+      highlight: "Ideal untuk usaha yang sudah berkembang dengan omzet lebih besar.",
+      cocokUntuk: "CV, PT, usaha omzet > Rp 20 juta/bulan",
+      url: "https://bankmandiri.co.id/kur",
+      badge: null,
+      badgeColor: null,
+    });
+  }
+
+  // BSI — syariah option
+  recommendations.push({
+    bank: "BSI",
+    logo: "🕌",
+    product: "KUR BSI (Syariah)",
+    plafonMax: "Rp 500 juta",
+    bunga: "Akad murabahah setara 6%",
+    highlight: "Pilihan tepat jika kamu ingin pembiayaan sesuai prinsip syariah.",
+    cocokUntuk: "Semua sektor, khususnya yang prefer syariah",
+    url: "https://bankbsi.co.id/kur",
+    badge: null,
+    badgeColor: null,
+  });
+
+  return recommendations;
+}
+
 function getRecommendedDocs(s: WizardState): RecommendedDoc[] {
   const docs: RecommendedDoc[] = [];
 
@@ -600,6 +687,32 @@ export default function KURWizardPage() {
               <div className="mb-5">
                 <FieldLabel>Sudah punya NIB? *</FieldLabel>
                 <YesNoSelect value={data.punyaNIB} onChange={(v) => set("punyaNIB", v)} />
+                {data.punyaNIB === false && (
+                  <div
+                    className="mt-3 rounded-2xl p-4"
+                    style={{
+                      background: "rgba(255,209,102,0.12)",
+                      border: "1.5px solid rgba(255,209,102,0.45)",
+                    }}
+                  >
+                    <p className="font-bold text-sm mb-1" style={{ color: "#0D1B3E" }}>
+                      📋 Belum punya NIB?
+                    </p>
+                    <p className="text-xs mb-3" style={{ color: "#5A6A8A", lineHeight: 1.6 }}>
+                      NIB (Nomor Induk Berusaha) wajib untuk apply KUR di bank.
+                      Kabar baiknya — gratis dan bisa diurus sendiri online dalam 15 menit.
+                    </p>
+                    <a
+                      href="/nib-guide"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-bold"
+                      style={{ color: "#9A7500", textDecoration: "underline" }}
+                    >
+                      Panduan Urus NIB →
+                    </a>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -751,6 +864,153 @@ export default function KURWizardPage() {
                 ))}
               </div>
             </div>
+
+            {/* KUR Bank Matcher */}
+            {(() => {
+              const kurRecs = getKURRecommendations(data);
+              return (
+                <div className="mb-5">
+                  <div
+                    className="rounded-3xl p-5"
+                    style={{
+                      background: "white",
+                      boxShadow: "0 2px 12px rgba(13,27,62,0.06)",
+                      border: "1px solid rgba(13,27,62,0.08)",
+                    }}
+                  >
+                    <p
+                      className="font-jakarta font-extrabold mb-1"
+                      style={{ color: "#0D1B3E", fontSize: "1rem" }}
+                    >
+                      🏦 Bank KUR yang Cocok untuk Kamu
+                    </p>
+                    <p className="text-xs mb-4" style={{ color: "#6B7FA8" }}>
+                      Berdasarkan profil usahamu, ini rekomendasi kami:
+                    </p>
+
+                    <div className="space-y-3">
+                      {kurRecs.map((rec) => (
+                        <div
+                          key={rec.bank}
+                          className="rounded-2xl p-4"
+                          style={{
+                            background: "white",
+                            border: "1.5px solid rgba(13,27,62,0.1)",
+                            position: "relative",
+                            transition: "border-color 0.2s",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLDivElement).style.borderColor = "#FF4D6D";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(13,27,62,0.1)";
+                          }}
+                        >
+                          {rec.badge && (
+                            <span
+                              style={{
+                                position: "absolute",
+                                top: "0.75rem",
+                                right: "0.75rem",
+                                fontSize: "0.6rem",
+                                fontWeight: 700,
+                                padding: "0.2rem 0.5rem",
+                                borderRadius: "9999px",
+                                background: rec.badgeColor
+                                  ? `${rec.badgeColor}22`
+                                  : "rgba(6,214,160,0.15)",
+                                color: rec.badgeColor ?? "#06D6A0",
+                              }}
+                            >
+                              {rec.badge}
+                            </span>
+                          )}
+                          <div className="flex items-center gap-2 mb-2">
+                            <span style={{ fontSize: "1.25rem" }}>{rec.logo}</span>
+                            <span
+                              className="font-jakarta font-bold"
+                              style={{ color: "#0D1B3E", fontSize: "0.9rem" }}
+                            >
+                              {rec.bank}
+                            </span>
+                          </div>
+                          <p
+                            className="text-xs font-semibold mb-1"
+                            style={{ color: "#3D4F7C" }}
+                          >
+                            {rec.product}
+                          </p>
+                          <div
+                            className="flex gap-3 text-xs mb-2"
+                            style={{ color: "#6B7FA8" }}
+                          >
+                            <span>Plafon: s/d {rec.plafonMax}</span>
+                            <span>·</span>
+                            <span>Bunga: {rec.bunga}</span>
+                          </div>
+                          <p
+                            className="text-xs mb-3"
+                            style={{ color: "#5A6A8A", lineHeight: 1.5 }}
+                          >
+                            ✓ {rec.highlight}
+                          </p>
+                          <a
+                            href={rec.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-bold rounded-xl px-3 py-1.5"
+                            style={{
+                              background: "rgba(13,27,62,0.06)",
+                              color: "#0D1B3E",
+                            }}
+                          >
+                            Cek KUR {rec.bank} →
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Lendana assisted card */}
+                  <div
+                    className="rounded-3xl p-5 mt-3"
+                    style={{
+                      background: "rgba(155,138,251,0.08)",
+                      border: "1.5px solid rgba(155,138,251,0.3)",
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span style={{ fontSize: "1.1rem" }}>🤝</span>
+                      <p
+                        className="font-jakarta font-bold text-sm"
+                        style={{ color: "#4B3FAF" }}
+                      >
+                        Butuh bantuan proses pengajuan?
+                      </p>
+                    </div>
+                    <p className="text-xs mb-3" style={{ color: "#6B7FA8", lineHeight: 1.6 }}>
+                      Lendana bisa bantu kamu apply ke bank tanpa ribet.
+                      Plafon sesuai bank mitra · bunga 6% per tahun ·{" "}
+                      <span style={{ fontWeight: 600, color: "#9B8AFB" }}>
+                        Dibantu tim
+                      </span>
+                    </p>
+                    <a
+                      href="https://lendana.id"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-bold rounded-xl px-3 py-1.5"
+                      style={{
+                        background: "rgba(155,138,251,0.18)",
+                        color: "#4B3FAF",
+                      }}
+                    >
+                      Hubungi Lendana →
+                    </a>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Bank selector */}
             <div
