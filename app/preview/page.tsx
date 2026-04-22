@@ -260,15 +260,15 @@ export default function PreviewPage() {
                   style={{ borderColor: "rgba(13,27,62,0.06)" }}
                 >
                   <span style={{ color: "#9BA3C4" }}>{r.label}</span>
-                  <span className="font-semibold text-right max-w-[160px]" style={{ color: "#0D1B3E" }}>
+                  <span className="font-semibold text-right" style={{ color: "#0D1B3E", maxWidth: "160px", wordBreak: "break-word", overflowWrap: "break-word" }}>
                     {r.value}
                   </span>
                 </div>
               ))}
               <div className="flex justify-between items-center mt-3 pt-1">
                 <span className="text-sm font-bold" style={{ color: "#0D1B3E" }}>Total Bayar</span>
-                <span className="font-jakarta text-xl font-extrabold" style={{ color: "#FF4D6D" }}>
-                  Rp {new Intl.NumberFormat('id-ID').format(
+                <span className="font-jakarta text-xl font-extrabold" style={{ color: "#FF4D6D", whiteSpace: "nowrap" }}>
+                  Rp&nbsp;{new Intl.NumberFormat('id-ID').format(
                     (() => { const ct = (contractData as unknown as Record<string, string>).contractType; return ct && CONTRACT_PRICES[ct] ? CONTRACT_PRICES[ct] : PRICE; })()
                   )}
                 </span>
