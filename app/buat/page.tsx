@@ -21,6 +21,7 @@ export default function BuatPage() {
     alamatProperti: "",
     hargaSewa: 0,
     durasiSewa: 12,
+    periodeSewa: "bulanan",
     tanggalMulai: "",
     ketentuanTambahan: "",
     emailPembeli: "",
@@ -561,9 +562,38 @@ export default function BuatPage() {
                     gap: "1rem",
                   }}
                 >
+                  {/* Timeframe toggle */}
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label className="form-label">Periode Sewa <span style={{ color: "#FF4D6D" }}>*</span></label>
+                    <div style={{ display: "flex", gap: "0.5rem" }}>
+                      {(["bulanan", "tahunan"] as const).map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => set("periodeSewa", opt)}
+                          style={{
+                            flex: 1,
+                            padding: "0.75rem",
+                            borderRadius: "12px",
+                            border: "2px solid",
+                            borderColor: form.periodeSewa === opt ? "#FF4D6D" : "rgba(13,27,62,0.12)",
+                            background: form.periodeSewa === opt ? "rgba(255,77,109,0.06)" : "white",
+                            color: form.periodeSewa === opt ? "#FF4D6D" : "#6B7FA8",
+                            fontWeight: 700,
+                            fontSize: "0.875rem",
+                            cursor: "pointer",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          {opt === "bulanan" ? "📅 Bulanan" : "📆 Tahunan"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <div>
                     <label className="form-label">
-                      Harga Sewa / Bulan{" "}
+                      Harga Sewa / {form.periodeSewa === "tahunan" ? "Tahun" : "Bulan"}{" "}
                       <span style={{ color: "#FF4D6D" }}>*</span>
                     </label>
                     <div style={{ position: "relative" }}>
@@ -585,7 +615,7 @@ export default function BuatPage() {
                         className="form-input"
                         type="text"
                         inputMode="numeric"
-                        placeholder="2.500.000"
+                        placeholder={form.periodeSewa === "tahunan" ? "30.000.000" : "2.500.000"}
                         value={formatRp(form.hargaSewa)}
                         onChange={(e) => {
                           const raw = e.target.value.replace(/\D/g, "");
@@ -617,11 +647,14 @@ export default function BuatPage() {
                           padding: "0.875rem 2.5rem 0.875rem 1rem",
                         }}
                       >
-                        {[1, 2, 3, 6, 12, 18, 24, 36].map((m) => (
-                          <option key={m} value={m}>
-                            {m} bulan{m >= 12 ? ` (${m / 12} tahun)` : ""}
-                          </option>
-                        ))}
+                        {form.periodeSewa === "tahunan"
+                          ? [1, 2, 3, 4, 5].map((y) => (
+                              <option key={y} value={y * 12}>{y} tahun</option>
+                            ))
+                          : [1, 2, 3, 6, 12, 18, 24].map((m) => (
+                              <option key={m} value={m}>{m} bulan{m >= 12 ? ` (${m/12} tahun)` : ""}</option>
+                            ))
+                        }
                       </select>
                       <span
                         style={{

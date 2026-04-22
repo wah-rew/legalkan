@@ -5,6 +5,7 @@ export interface ContractFormData {
   alamatProperti: string;
   hargaSewa: number;
   durasiSewa: number;
+  periodeSewa?: string;
   tanggalMulai: string;
   emailPembeli: string;
   nomorWhatsapp?: string;
