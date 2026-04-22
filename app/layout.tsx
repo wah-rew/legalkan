@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import CrispChat from "@/components/CrispChat";
 import { PostHogProvider } from "@/components/PostHogProvider";
+import { JsonLd } from "@/components/JsonLd";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -117,6 +118,17 @@ export default function RootLayout({
           </div>
         </nav>
 
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "LegalKan",
+            url: "https://www.legal-kan.com",
+            description:
+              "Platform pembuatan perjanjian legal online Indonesia",
+            areaServed: "ID",
+          }}
+        />
         <PostHogProvider>
           <main>{children}</main>
           <CrispChat />

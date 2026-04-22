@@ -849,6 +849,439 @@ export const BLOG_POSTS: BlogPost[] = [
 <p>👉 <a href="/">Mulai Legal-Kan Usahamu di LegalKan</a> — 10 jenis kontrak legal, mulai Rp 19.000, selesai dalam 5 menit. Karena bisnis yang sehat butuh fondasi hukum yang kuat.</p>
     `,
   },
+  {
+    slug: "contoh-surat-perjanjian-sewa-rumah",
+    title: "Contoh Surat Perjanjian Sewa Rumah yang Sah dan Lengkap",
+    excerpt:
+      "Mau nyewa atau sewakan properti tapi bingung isi perjanjiannya? Ini contoh surat perjanjian sewa rumah yang sah, lengkap dengan klausul yang wajib ada.",
+    category: "Properti",
+    date: "2026-04-16",
+    readTime: 6,
+    relatedContract: "/buat",
+    metaDescription:
+      "Contoh surat perjanjian sewa rumah yang sah dan lengkap sesuai KUHPerdata. Cek klausul wajib, cara buat, dan download template online mulai Rp 29.000.",
+    content: `
+<h2>Kenapa Perjanjian Sewa Rumah Itu Wajib?</h2>
+<p>Banyak orang masih anggap perjanjian sewa rumah hanya formalitas. Padahal, tanpa perjanjian yang jelas, risiko konflik antara pemilik dan penyewa sangat tinggi — mulai dari masalah uang deposit, tanggung jawab kerusakan, sampai sengketa perpanjangan sewa.</p>
+<p>Di Indonesia, hubungan sewa menyewa diatur dalam KUHPerdata Pasal 1548–1600. Perjanjian yang dibuat secara tertulis dan disepakati kedua belah pihak memiliki kekuatan hukum yang bisa jadi bukti di pengadilan.</p>
+
+<h2>Klausul Wajib dalam Surat Perjanjian Sewa Rumah</h2>
+<p>Perjanjian sewa rumah yang sah minimal harus memuat:</p>
+<ul>
+  <li><strong>Identitas lengkap</strong> pemilik dan penyewa (nama, KTP, alamat)</li>
+  <li><strong>Objek sewa</strong> — alamat lengkap dan deskripsi properti</li>
+  <li><strong>Jangka waktu sewa</strong> — tanggal mulai dan berakhir</li>
+  <li><strong>Harga sewa</strong> dan cara pembayaran (bulanan, tahunan, cicilan)</li>
+  <li><strong>Deposit / uang jaminan</strong> — jumlah dan kondisi pengembalian</li>
+  <li><strong>Tanggung jawab perbaikan</strong> — mana yang ditanggung pemilik, mana penyewa</li>
+  <li><strong>Larangan dan izin</strong> — boleh hewan peliharaan? boleh sublease?</li>
+  <li><strong>Prosedur berakhirnya sewa</strong> — notifikasi minimal berapa hari?</li>
+</ul>
+
+<h2>Contoh Klausul Deposit yang Sering Jadi Sengketa</h2>
+<p>Salah satu klausul yang paling sering menimbulkan perselisihan adalah soal deposit. Pastikan perjanjianmu mencantumkan dengan jelas:</p>
+<ul>
+  <li>Besaran deposit (biasanya 1–3 bulan sewa)</li>
+  <li>Kondisi-kondisi yang membolehkan pemilik memotong deposit</li>
+  <li>Batas waktu pengembalian deposit setelah sewa berakhir (misalnya 14 hari kerja)</li>
+  <li>Prosedur pengecekan kondisi properti saat serah terima</li>
+</ul>
+<p>Tanpa klausul ini, pemilik bisa saja menahan deposit dengan alasan yang tidak jelas — dan penyewa tidak punya dasar hukum untuk menuntut.</p>
+
+<h2>Cara Buat Perjanjian Sewa Rumah yang Sah</h2>
+<p>Ada dua opsi: buat sendiri dari template atau pakai platform legal online. Jika buat sendiri, pastikan mengacu pada KUHPerdata dan ditandatangani di atas materai Rp 10.000. Jika ingin lebih praktis dan terjamin keabsahannya, kamu bisa pakai LegalKan.</p>
+<p>👉 <a href="/buat">Buat Perjanjian Sewa Rumah di LegalKan</a> — mulai Rp 29.000, selesai 5 menit, langsung dapat PDF siap tanda tangan. Tidak perlu repot ke notaris untuk perjanjian sewa standar.</p>
+    `,
+  },
+  {
+    slug: "cara-buat-pkwt-sesuai-uu",
+    title: "Cara Buat PKWT yang Sah Sesuai PP 35/2021",
+    excerpt:
+      "PKWT (Perjanjian Kerja Waktu Tertentu) punya aturan ketat sejak PP 35/2021 berlaku. Ini cara buat PKWT yang benar agar tidak batal demi hukum.",
+    category: "Freelancer",
+    date: "2026-04-16",
+    readTime: 6,
+    relatedContract: "/buat/freelancer",
+    metaDescription:
+      "Cara buat PKWT yang sah sesuai PP 35/2021: syarat, jangka waktu, kompensasi, dan template online. Hindari kesalahan umum yang bikin PKWT batal demi hukum.",
+    content: `
+<h2>Apa Itu PKWT dan Siapa yang Butuh?</h2>
+<p>PKWT (Perjanjian Kerja Waktu Tertentu) adalah kontrak kerja yang berlaku untuk jangka waktu terbatas. Ini berbeda dengan PKWTT (Perjanjian Kerja Waktu Tidak Tertentu) yang berlaku permanen. PKWT cocok untuk freelancer, kontraktor, dan pekerja proyek.</p>
+<p>Sejak PP 35/2021 berlaku sebagai turunan UU Cipta Kerja, aturan PKWT mengalami beberapa perubahan signifikan yang perlu kamu pahami sebelum membuat kontrak.</p>
+
+<h2>Syarat Sah PKWT Menurut PP 35/2021</h2>
+<p>Agar PKWT tidak batal demi hukum, kontrak harus memenuhi syarat-syarat ini:</p>
+<ul>
+  <li><strong>Dibuat secara tertulis</strong> dalam bahasa Indonesia</li>
+  <li><strong>Jangka waktu maksimal 5 tahun</strong> (termasuk perpanjangan dan pembaruan)</li>
+  <li><strong>Untuk pekerjaan yang bersifat sementara</strong> atau pekerjaan yang belum bisa dipastikan selesainya</li>
+  <li><strong>Memuat klausul kompensasi</strong> jika kontrak berakhir sesuai waktu yang ditentukan</li>
+  <li><strong>Didaftarkan ke instansi ketenagakerjaan</strong> paling lambat 3 hari kerja setelah ditandatangani</li>
+</ul>
+
+<h2>Kompensasi PKWT — Aturan Baru yang Wajib Diketahui</h2>
+<p>Salah satu perubahan besar PP 35/2021 adalah kewajiban pemberian kompensasi saat PKWT berakhir. Besarannya:</p>
+<ul>
+  <li>Masa kerja 12 bulan terus-menerus → 1 bulan upah</li>
+  <li>Proporsi untuk masa kerja kurang dari 12 bulan: (masa kerja / 12) × 1 bulan upah</li>
+  <li>Kompensasi diberikan saat kontrak berakhir, bukan saat PHK</li>
+</ul>
+<p>Ini sering dilupakan oleh pemberi kerja. Jika tidak dicantumkan dalam kontrak, pekerja berhak menuntut kompensasi ini secara hukum.</p>
+
+<h2>Template PKWT yang Benar Itu Seperti Apa?</h2>
+<p>PKWT yang baik harus mencakup: identitas para pihak, deskripsi pekerjaan, jangka waktu, upah dan cara pembayaran, hak dan kewajiban, klausul kompensasi, serta tanda tangan bermaterai.</p>
+<p>👉 <a href="/buat/freelancer">Buat PKWT Online di LegalKan</a> — template sesuai PP 35/2021, mulai Rp 49.000. Langsung dapat PDF yang siap ditandatangani, tanpa perlu konsultasi hukum mahal.</p>
+    `,
+  },
+  {
+    slug: "perbedaan-kur-mikro-kecil-menengah",
+    title: "Perbedaan KUR Mikro, KUR Kecil, dan KUR Menengah — Mana yang Cocok?",
+    excerpt:
+      "Bingung pilih jenis KUR yang tepat? Kenali perbedaan KUR Mikro, KUR Kecil, dan KUR Menengah dari sisi plafon, bunga, syarat, dan peruntukan usaha.",
+    category: "KUR & UMKM",
+    date: "2026-04-17",
+    readTime: 7,
+    relatedContract: "/kur",
+    metaDescription:
+      "Perbedaan KUR Mikro, KUR Kecil, dan KUR Menengah: plafon, bunga, syarat dokumen, dan peruntukan. Panduan memilih jenis KUR yang tepat untuk UMKM 2024.",
+    content: `
+<h2>Tiga Jenis KUR — Sekilas Tampak Sama, Padahal Beda Banget</h2>
+<p>KUR (Kredit Usaha Rakyat) bukan satu produk tunggal. Ada tiga varian yang dibedakan berdasarkan skala usaha dan plafon pinjaman: KUR Mikro, KUR Kecil, dan KUR Menengah. Salah pilih jenis KUR bisa bikin pengajuanmu ditolak atau dapat bunga yang lebih tinggi dari seharusnya.</p>
+
+<h2>KUR Mikro — Untuk Usaha yang Baru Mulai</h2>
+<p>KUR Mikro adalah pilihan paling entry-level dengan karakteristik:</p>
+<ul>
+  <li><strong>Plafon</strong>: hingga Rp 100 juta per debitur</li>
+  <li><strong>Bunga</strong>: 6% per tahun (efektif, disubsidi pemerintah)</li>
+  <li><strong>Jaminan</strong>: tidak wajib (tergantung kebijakan bank)</li>
+  <li><strong>Peruntukan</strong>: usaha mikro yang sudah berjalan minimal 6 bulan</li>
+  <li><strong>Dokumen utama</strong>: KTP, KK, NIB atau SKU</li>
+</ul>
+<p>Cocok untuk: warung makan, pedagang kaki lima, usaha rumahan, atau UMKM yang baru mulai formalisasi bisnis.</p>
+
+<h2>KUR Kecil — Untuk Usaha yang Sudah Berkembang</h2>
+<p>KUR Kecil menyasar pelaku usaha yang sudah lebih mapan:</p>
+<ul>
+  <li><strong>Plafon</strong>: Rp 100 juta – Rp 500 juta</li>
+  <li><strong>Bunga</strong>: 6% per tahun</li>
+  <li><strong>Jaminan</strong>: diperlukan (BPKB, SHM, atau aset lain)</li>
+  <li><strong>Peruntukan</strong>: usaha kecil yang sudah berjalan dan punya laporan keuangan</li>
+  <li><strong>Dokumen utama</strong>: KTP, NPWP, NIB, laporan keuangan 6–12 bulan</li>
+</ul>
+
+<h2>KUR Menengah — Untuk Bisnis yang Sudah Serius</h2>
+<p>KUR Menengah adalah tier tertinggi:</p>
+<ul>
+  <li><strong>Plafon</strong>: Rp 500 juta – Rp 10 miliar</li>
+  <li><strong>Bunga</strong>: 6% per tahun</li>
+  <li><strong>Jaminan</strong>: wajib dengan nilai yang memadai</li>
+  <li><strong>Peruntukan</strong>: usaha menengah dengan omzet signifikan</li>
+  <li><strong>Khusus</strong>: sektor pertanian, perikanan, perkebunan, atau industri tertentu</li>
+</ul>
+
+<h2>Cara Memilih Jenis KUR yang Tepat</h2>
+<p>Pilih berdasarkan kebutuhan modal dan kemampuan memenuhi persyaratan. Jangan mengajukan KUR Kecil jika kamu belum punya laporan keuangan — lebih baik mulai dari KUR Mikro dan naik kelas setelah usaha berkembang.</p>
+<p>👉 <a href="/kur">Siapkan Dokumen KUR di LegalKan</a> — paket dokumen KUR-Ready mulai Rp 59.000. Semua dokumen yang dibutuhkan bank, siap dalam 10 menit.</p>
+    `,
+  },
+  {
+    slug: "tips-perjanjian-hutang-antar-keluarga",
+    title: "Tips Buat Perjanjian Hutang dengan Keluarga Tanpa Canggung",
+    excerpt:
+      "Urusan hutang dengan keluarga atau teman sering bikin hubungan jadi renggang. Ini tips buat perjanjian hutang yang jelas tanpa harus awkward.",
+    category: "Hukum Dasar",
+    date: "2026-04-17",
+    readTime: 5,
+    relatedContract: "/buat/hutang-piutang",
+    metaDescription:
+      "Tips membuat perjanjian hutang piutang dengan anggota keluarga atau teman tanpa merusak hubungan. Klausul penting, cara bicara yang tepat, dan template online.",
+    content: `
+<h2>Kenapa Hutang dengan Keluarga Lebih Rumit dari Hutang ke Bank?</h2>
+<p>Meminjam uang dari keluarga memang lebih mudah — tidak perlu survei, tidak ada bunga tinggi, tidak perlu jaminan. Tapi justru di sinilah masalah sering muncul. Karena tidak ada perjanjian tertulis, mudah sekali terjadi kesalahpahaman soal waktu pelunasan, bunga, atau bahkan jumlah pinjaman itu sendiri.</p>
+<p>Penelitian menunjukkan bahwa konflik soal uang adalah salah satu penyebab utama keretakan hubungan keluarga. Solusinya bukan menghindari pinjam meminjam, tapi membuatnya lebih formal — secara sopan.</p>
+
+<h2>Cara Mengajak Bicara Soal Perjanjian Tertulis</h2>
+<p>Banyak orang malu atau sungkan meminta perjanjian tertulis karena takut dianggap tidak percaya. Padahal framing-nya bisa diubah:</p>
+<ul>
+  <li>"Biar aku ingat kewajibanku dan kamu nggak perlu khawatir" — ini menunjukkan tanggung jawabmu</li>
+  <li>"Ini untuk kebaikan kita berdua, biar nggak ada salah paham nanti"</li>
+  <li>"Aku baca artikel soal ini dan katanya justru ini tanda profesional"</li>
+</ul>
+<p>Intinya: posisikan perjanjian sebagai bukti komitmenmu, bukan tanda ketidakpercayaan.</p>
+
+<h2>Klausul Penting yang Harus Ada</h2>
+<p>Untuk pinjaman dengan keluarga atau teman, pastikan perjanjian mencakup:</p>
+<ul>
+  <li><strong>Jumlah pinjaman</strong> yang pasti dalam angka dan huruf</li>
+  <li><strong>Jangka waktu</strong> pelunasan yang realistis</li>
+  <li><strong>Cara pembayaran</strong> — sekaligus atau cicilan berapa kali</li>
+  <li><strong>Bunga</strong> — bahkan jika 0%, tulis "tanpa bunga" secara eksplisit</li>
+  <li><strong>Konsekuensi</strong> jika terlambat — bisa berupa denda kecil atau sekadar pemberitahuan</li>
+  <li><strong>Tanda tangan bermaterai</strong> dari kedua belah pihak</li>
+</ul>
+
+<h2>Bagaimana Jika yang Dipinjam Menolak Bikin Perjanjian?</h2>
+<p>Ini sinyal bahaya. Jika seseorang tidak mau membuat perjanjian tertulis, pertimbangkan apakah kamu benar-benar mau meminjamkan uang. Tidak ada perjanjian = tidak ada bukti = risiko penuh ada di tanganmu.</p>
+<p>👉 <a href="/buat/hutang-piutang">Buat Perjanjian Hutang Piutang di LegalKan</a> — mulai Rp 49.000, format profesional, selesai 5 menit. Hubungan tetap baik, hak tetap terlindungi.</p>
+    `,
+  },
+  {
+    slug: "kbli-usaha-kuliner-warung-restoran",
+    title: "KBLI untuk Usaha Kuliner, Warung, dan Restoran Indonesia",
+    excerpt:
+      "Mau daftar NIB untuk usaha kuliner tapi bingung pilih KBLI yang tepat? Ini panduan lengkap KBLI untuk warung makan, restoran, katering, dan bisnis F&B lainnya.",
+    category: "KUR & UMKM",
+    date: "2026-04-17",
+    readTime: 6,
+    relatedContract: "/nib-guide",
+    metaDescription:
+      "Daftar KBLI untuk usaha kuliner Indonesia: warung makan, restoran, katering, kafe, cloud kitchen. Panduan memilih KBLI yang tepat saat daftar NIB di OSS.",
+    content: `
+<h2>Apa Itu KBLI dan Kenapa Penting untuk Usaha Kuliner?</h2>
+<p>KBLI (Klasifikasi Baku Lapangan Usaha Indonesia) adalah kode yang mengidentifikasi jenis usahamu di sistem pemerintah. Saat mendaftar NIB (Nomor Induk Berusaha) di OSS, kamu wajib memilih KBLI yang sesuai dengan aktivitas bisnismu.</p>
+<p>Pilihan KBLI yang salah bisa berdampak pada izin yang kamu terima, persyaratan yang berlaku, dan akses ke program pemerintah seperti KUR. Jadi penting untuk memilih dengan tepat.</p>
+
+<h2>KBLI Utama untuk Usaha Kuliner</h2>
+<p>Berikut kode KBLI yang paling relevan untuk bisnis makanan dan minuman:</p>
+<ul>
+  <li><strong>56101</strong> — Restoran: usaha penyediaan makanan untuk konsumsi di tempat, dengan pelayan</li>
+  <li><strong>56102</strong> — Warung Makan: usaha penyediaan makanan di tempat, skala lebih kecil</li>
+  <li><strong>56103</strong> — Kedai Makanan: mirip warung, tapi biasanya lebih spesifik pada satu jenis hidangan</li>
+  <li><strong>56210</strong> — Jasa Boga (Katering): menyediakan makanan untuk acara atau pesanan khusus</li>
+  <li><strong>56301</strong> — Bar dan Kafe: usaha yang fokus pada minuman, termasuk kopi dan teh</li>
+  <li><strong>56290</strong> — Penyediaan Makanan Lainnya: termasuk cloud kitchen, food delivery khusus</li>
+</ul>
+
+<h2>Boleh Pilih Lebih dari Satu KBLI?</h2>
+<p>Ya! Di OSS, kamu bisa mendaftarkan lebih dari satu KBLI untuk satu NIB. Misalnya, kamu punya warung makan yang juga terima katering — pilih <strong>56102</strong> dan <strong>56210</strong> sekaligus. Ini disebut KBLI utama dan KBLI tambahan.</p>
+<p>Tips: pilih KBLI yang paling menggambarkan aktivitas utama bisnismu sebagai KBLI utama. Ini yang akan muncul sebagai identitas usahamu di dokumen resmi.</p>
+
+<h2>KBLI yang Dipilih Mempengaruhi Izin Apa Saja?</h2>
+<p>Setelah memilih KBLI, sistem OSS akan otomatis menampilkan izin usaha yang dibutuhkan. Untuk restoran dan warung makan, biasanya yang diperlukan adalah sertifikat laik higiene sanitasi dari dinas kesehatan. Untuk katering, ada tambahan izin produksi pangan.</p>
+<p>👉 <a href="/nib-guide">Panduan Lengkap Daftar NIB di LegalKan</a> — langkah demi langkah, termasuk cara memilih KBLI yang tepat untuk usahamu.</p>
+    `,
+  },
+  {
+    slug: "kontrak-fotografer-pernikahan-indonesia",
+    title: "Kontrak Fotografer Pernikahan — Apa yang Harus Ada?",
+    excerpt:
+      "Bayar DP fotografer pernikahan tapi tidak dapat kontrak? Atau bingung isi kontrak yang benar? Ini klausul penting yang wajib ada dalam kontrak fotografer wedding.",
+    category: "Freelancer",
+    date: "2026-04-18",
+    readTime: 6,
+    relatedContract: "/buat/event-organizer",
+    metaDescription:
+      "Klausul wajib dalam kontrak fotografer pernikahan Indonesia: hak cipta, revisi, keterlambatan, force majeure, dan pengembalian DP. Template online mulai Rp 49.000.",
+    content: `
+<h2>Kenapa Kontrak Fotografer Pernikahan Itu Kritikal?</h2>
+<p>Pernikahan adalah momen sekali seumur hidup. Ketika fotografer membatalkan atau kualitas foto tidak sesuai ekspektasi, tidak ada momen yang bisa diulang. Kontrak yang kuat adalah satu-satunya perlindunganmu — baik sebagai klien maupun sebagai fotografer.</p>
+<p>Di Indonesia, kasus sengketa fotografer pernikahan cukup sering terjadi — mulai dari foto yang tidak selesai diedit berbulan-bulan, fotografer tidak hadir di hari H, sampai konflik soal hak publikasi foto.</p>
+
+<h2>Klausul Wajib dalam Kontrak Fotografer</h2>
+<p>Kontrak fotografer pernikahan yang baik harus mencakup:</p>
+<ul>
+  <li><strong>Tanggal, lokasi, dan durasi</strong> — jam berapa mulai dan selesai, venue mana saja yang dicakup</li>
+  <li><strong>Jumlah fotografer</strong> — satu orang atau ada asisten?</li>
+  <li><strong>Deliverable</strong> — berapa foto yang diedit? Video highlight? Foto album cetak?</li>
+  <li><strong>Tenggat waktu pengiriman</strong> — kapan file foto dikirimkan ke klien?</li>
+  <li><strong>Hak cipta</strong> — apakah klien bebas mencetak sendiri? Bolehkah fotografer mempublikasikan di media sosial?</li>
+  <li><strong>Kebijakan DP dan pelunasan</strong> — berapa persen DP? Kapan pelunasan?</li>
+  <li><strong>Force majeure</strong> — apa yang terjadi jika terjadi musibah? Siapa yang menggantikan fotografer?</li>
+</ul>
+
+<h2>Klausul Hak Cipta yang Sering Dilupakan</h2>
+<p>Banyak pasangan tidak sadar bahwa secara hukum, foto pernikahan adalah karya cipta fotografer. Artinya, tanpa izin eksplisit di kontrak, klien secara teknis tidak boleh mencetak atau mereproduksi foto tersebut secara komersial.</p>
+<p>Pastikan kontrak secara eksplisit menyebutkan: klien mendapat lisensi untuk mencetak dan menggunakan foto untuk keperluan pribadi, sementara fotografer boleh atau tidak boleh menggunakan foto tersebut sebagai portofolio.</p>
+
+<h2>Kebijakan Force Majeure dan Penggantian Fotografer</h2>
+<p>Ini klausul yang paling sering diabaikan tapi paling penting. Jika fotografer jatuh sakit atau mengalami kecelakaan di hari H, siapa yang menggantikan? Pastikan kontrak menyebutkan bahwa fotografer bertanggung jawab menyediakan pengganti yang setara kualitasnya, atau mengembalikan semua pembayaran.</p>
+<p>👉 <a href="/buat/event-organizer">Buat Kontrak Fotografer Pernikahan di LegalKan</a> — template lengkap mulai Rp 49.000. Semua klausul penting sudah ada, tinggal isi detail.</p>
+    `,
+  },
+  {
+    slug: "perjanjian-kerjasama-bisnis-tanpa-notaris",
+    title: "Perjanjian Kerjasama Bisnis Tanpa Notaris — Legal atau Tidak?",
+    excerpt:
+      "Banyak yang berpikir perjanjian bisnis harus lewat notaris agar sah. Faktanya, tidak selalu begitu. Ini penjelasan lengkap kapan butuh notaris dan kapan tidak.",
+    category: "Hukum Dasar",
+    date: "2026-04-18",
+    readTime: 6,
+    relatedContract: "/buat/bagi-hasil",
+    metaDescription:
+      "Apakah perjanjian kerjasama bisnis tanpa notaris sah di Indonesia? Penjelasan lengkap kapan butuh akta notaris dan kapan perjanjian di bawah tangan cukup.",
+    content: `
+<h2>Mitos: Semua Perjanjian Bisnis Harus ke Notaris</h2>
+<p>Ini salah satu miskonsepsi yang paling umum di kalangan pelaku usaha Indonesia. Kenyataannya, sebagian besar perjanjian bisnis sehari-hari — termasuk perjanjian kerjasama bagi hasil — <strong>tidak wajib dibuat di hadapan notaris</strong> untuk sah secara hukum.</p>
+<p>Menurut KUHPerdata Pasal 1320, syarat sah perjanjian adalah: (1) kesepakatan para pihak, (2) kecakapan hukum, (3) hal tertentu, dan (4) sebab yang halal. Tidak disebutkan bahwa perjanjian harus berbentuk akta notaris.</p>
+
+<h2>Kapan Perjanjian HARUS ke Notaris?</h2>
+<p>Ada beberapa jenis perjanjian yang memang wajib dibuat dalam bentuk akta notaris (akta otentik):</p>
+<ul>
+  <li>Pendirian PT, CV, atau badan usaha lain</li>
+  <li>Jual beli tanah dan bangunan (akta PPAT)</li>
+  <li>Hibah properti</li>
+  <li>Perjanjian perkawinan</li>
+  <li>Pembebanan hak tanggungan (SKMHT/APHT)</li>
+</ul>
+<p>Di luar hal-hal di atas, perjanjian bisnis biasa seperti kerjasama bagi hasil, konsinyasi, atau kontrak jasa tidak wajib ke notaris.</p>
+
+<h2>Perjanjian di Bawah Tangan vs Akta Notaris</h2>
+<p>Perbedaan utamanya bukan soal keabsahan, tapi soal kekuatan pembuktian:</p>
+<ul>
+  <li><strong>Akta notaris</strong>: memiliki kekuatan pembuktian sempurna di pengadilan. Isinya dianggap benar tanpa perlu pembuktian tambahan.</li>
+  <li><strong>Perjanjian di bawah tangan</strong>: sah secara hukum, tapi jika terjadi sengketa, perlu pembuktian tambahan bahwa perjanjian itu asli dan kedua pihak benar-benar menandatanganinya.</li>
+</ul>
+<p>Untuk kerjasama bisnis dengan nilai di atas Rp 500 juta atau yang melibatkan aset signifikan, notaris sangat disarankan. Untuk kerjasama modal kecil hingga menengah, perjanjian bermaterai di bawah tangan sudah cukup.</p>
+
+<h2>Materai Rp 10.000 — Apa Fungsinya Sebenarnya?</h2>
+<p>Banyak yang salah kaprah: materai bukan yang membuat perjanjian sah. Materai adalah pajak dokumen (bea materai) yang wajib dilunasi untuk dokumen tertentu. Perjanjian tanpa materai tetap sah, tapi bisa dikenakan sanksi administratif jika dipakai sebagai alat bukti di pengadilan.</p>
+<p>👉 <a href="/buat/bagi-hasil">Buat Perjanjian Kerjasama Bagi Hasil di LegalKan</a> — perjanjian bermaterai yang sah secara hukum, mulai Rp 79.000. Tanpa antri notaris, tanpa biaya mahal.</p>
+    `,
+  },
+  {
+    slug: "cara-hitung-cicilan-hutang-piutang",
+    title: "Cara Hitung Cicilan dan Bunga Hutang Piutang — Contoh Nyata",
+    excerpt:
+      "Bingung cara hitung cicilan dan bunga dalam perjanjian hutang piutang? Ini panduan lengkap dengan contoh perhitungan flat rate dan efektif yang mudah dipahami.",
+    category: "Hukum Dasar",
+    date: "2026-04-18",
+    readTime: 5,
+    relatedContract: "/buat/hutang-piutang",
+    metaDescription:
+      "Cara menghitung cicilan dan bunga hutang piutang antar individu: flat rate vs efektif, contoh perhitungan nyata, dan cara mencantumkannya dalam perjanjian.",
+    content: `
+<h2>Dua Metode Bunga yang Paling Umum</h2>
+<p>Dalam perjanjian hutang piutang antar individu (bukan bank), ada dua metode perhitungan bunga yang paling sering dipakai: <strong>flat rate</strong> dan <strong>efektif</strong>. Keduanya menghasilkan cicilan berbeda meski dengan bunga yang sama.</p>
+
+<h2>Metode Flat Rate — Sederhana dan Mudah Dihitung</h2>
+<p>Dengan metode flat, bunga dihitung dari pokok pinjaman awal dan besarnya sama setiap bulan.</p>
+<p><strong>Contoh:</strong><br/>
+Pokok pinjaman: Rp 12.000.000<br/>
+Bunga: 12% per tahun (1% per bulan)<br/>
+Jangka waktu: 12 bulan</p>
+<ul>
+  <li>Cicilan pokok per bulan: Rp 12.000.000 ÷ 12 = Rp 1.000.000</li>
+  <li>Bunga per bulan: Rp 12.000.000 × 1% = Rp 120.000</li>
+  <li>Total cicilan per bulan: Rp 1.120.000</li>
+  <li>Total yang dibayar: Rp 1.120.000 × 12 = Rp 13.440.000</li>
+</ul>
+
+<h2>Metode Efektif — Lebih Adil tapi Lebih Kompleks</h2>
+<p>Dengan metode efektif, bunga dihitung dari sisa pokok yang belum dilunasi. Artinya bunga mengecil seiring cicilan berjalan.</p>
+<p><strong>Contoh dengan data yang sama:</strong><br/>
+Bulan 1: pokok Rp 12.000.000, bunga = Rp 120.000, cicilan total = Rp 1.120.000<br/>
+Bulan 2: sisa pokok Rp 11.000.000, bunga = Rp 110.000, cicilan total = Rp 1.110.000<br/>
+...<br/>
+Bulan 12: sisa pokok Rp 1.000.000, bunga = Rp 10.000, cicilan total = Rp 1.010.000</p>
+<p>Total yang dibayar dengan metode efektif: lebih rendah dari flat rate.</p>
+
+<h2>Cara Mencantumkan Bunga dalam Perjanjian</h2>
+<p>Agar tidak ada salah paham, perjanjian hutang piutang harus mencantumkan dengan jelas:</p>
+<ul>
+  <li>Besaran bunga dalam persentase dan dalam rupiah (jika flat)</li>
+  <li>Metode perhitungan yang dipakai (flat atau efektif)</li>
+  <li>Jadwal cicilan yang rinci (tanggal jatuh tempo setiap bulan)</li>
+  <li>Denda keterlambatan per hari atau per bulan</li>
+</ul>
+<p>👉 <a href="/buat/hutang-piutang">Buat Perjanjian Hutang Piutang di LegalKan</a> — mulai Rp 49.000. Template sudah include klausul bunga dan jadwal cicilan, tinggal isi angkanya.</p>
+    `,
+  },
+  {
+    slug: "dokumen-checklist-sewa-rumah",
+    title: "Checklist Dokumen yang Dibutuhkan Saat Sewa Rumah",
+    excerpt:
+      "Mau nyewa atau menyewakan rumah? Pastikan semua dokumen ini sudah siap sebelum tanda tangan. Checklist lengkap untuk penyewa dan pemilik properti.",
+    category: "Properti",
+    date: "2026-04-19",
+    readTime: 5,
+    relatedContract: "/buat",
+    metaDescription:
+      "Checklist dokumen sewa rumah Indonesia: untuk penyewa dan pemilik. Dari KTP hingga perjanjian sewa, ini semua yang perlu disiapkan sebelum tanda tangan kontrak.",
+    content: `
+<h2>Dokumen untuk Penyewa</h2>
+<p>Sebagai penyewa, kamu biasanya diminta menyiapkan dokumen berikut oleh pemilik properti:</p>
+<ul>
+  <li><strong>KTP</strong> yang masih berlaku (fotokopi dan asli untuk verifikasi)</li>
+  <li><strong>KK (Kartu Keluarga)</strong> — terutama jika menyewa untuk keluarga</li>
+  <li><strong>NPWP</strong> — beberapa pemilik meminta ini untuk penyewa profesional</li>
+  <li><strong>Surat keterangan kerja atau slip gaji</strong> — sebagai bukti kemampuan bayar</li>
+  <li><strong>Referensi dari pemilik sebelumnya</strong> — untuk penyewa yang punya riwayat sewa</li>
+  <li><strong>Bukti transfer DP atau uang muka</strong> setelah deal disepakati</li>
+</ul>
+
+<h2>Dokumen untuk Pemilik Properti</h2>
+<p>Sebagai pemilik, kamu perlu menyiapkan:</p>
+<ul>
+  <li><strong>SHM/SHGB/SHB</strong> — bukti kepemilikan properti (sertifikat)</li>
+  <li><strong>IMB atau PBG</strong> — izin mendirikan bangunan</li>
+  <li><strong>KTP</strong> pemilik yang masih berlaku</li>
+  <li><strong>PBB tahun berjalan</strong> — bukti properti tidak bermasalah pajak</li>
+  <li><strong>Tagihan utilitas terakhir</strong> — PLN, PDAM, sebagai referensi penyewa</li>
+</ul>
+
+<h2>Dokumen Perjanjian yang Wajib Dibuat</h2>
+<p>Setelah kedua pihak sepakat, dokumen hukum yang harus disiapkan:</p>
+<ul>
+  <li><strong>Perjanjian sewa menyewa</strong> — dibuat rangkap 2, masing-masing untuk penyewa dan pemilik</li>
+  <li><strong>Berita acara serah terima</strong> — daftar kondisi properti dan inventaris saat masuk</li>
+  <li><strong>Kuitansi pembayaran</strong> — untuk setiap pembayaran sewa dan deposit</li>
+  <li><strong>Materai Rp 10.000</strong> — pada dokumen perjanjian</li>
+</ul>
+
+<h2>Tips: Berita Acara Serah Terima Itu Penting!</h2>
+<p>Sering dilupakan, padahal ini dokumen kritis. Berita acara serah terima mencatat kondisi properti secara detail — dari cat dinding yang mengelupas hingga keramik yang retak. Ini yang jadi acuan saat akhir masa sewa apakah ada kerusakan baru atau tidak.</p>
+<p>Ambil foto kondisi properti secara menyeluruh saat hari pertama masuk, dan lampirkan sebagai bagian dari berita acara.</p>
+<p>👉 <a href="/buat">Buat Perjanjian Sewa di LegalKan</a> — mulai Rp 29.000. Sudah include berita acara serah terima dan semua klausul penting. Siap tanda tangan dalam 5 menit.</p>
+    `,
+  },
+  {
+    slug: "tips-umkm-lolos-kur-bri",
+    title: "Tips UMKM Agar Lolos KUR BRI — Dari Dokumen sampai Wawancara",
+    excerpt:
+      "Pengajuan KUR BRI ditolak? Atau mau memastikan permohonanmu disetujui dari awal? Ini tips lengkap dari persiapan dokumen hingga wawancara dengan analis bank.",
+    category: "KUR & UMKM",
+    date: "2026-04-19",
+    readTime: 7,
+    relatedContract: "/kur/wizard",
+    metaDescription:
+      "Tips agar UMKM lolos KUR BRI: persiapan dokumen lengkap, cara meningkatkan skor kredit, tips wawancara, dan kesalahan umum yang harus dihindari.",
+    content: `
+<h2>Kenapa Banyak Pengajuan KUR Ditolak?</h2>
+<p>Meski bunga KUR sangat rendah dan prosesnya relatif mudah, tidak semua pengajuan disetujui. Dari data BRI, alasan penolakan yang paling umum adalah: dokumen tidak lengkap, usaha tidak terverifikasi secara fisik, rekam jejak keuangan yang buruk, atau pemohon masuk daftar hitam BI Checking (SLIK OJK).</p>
+
+<h2>Persiapkan Dokumen dengan Benar</h2>
+<p>Ini dokumen yang harus 100% lengkap sebelum mengajukan KUR BRI:</p>
+<ul>
+  <li><strong>KTP dan KK</strong> yang masih berlaku</li>
+  <li><strong>NPWP</strong> pribadi (wajib untuk pinjaman di atas Rp 50 juta)</li>
+  <li><strong>NIB (Nomor Induk Berusaha)</strong> dari OSS — ini mutlak diperlukan</li>
+  <li><strong>SKU (Surat Keterangan Usaha)</strong> dari kelurahan/kecamatan setempat</li>
+  <li><strong>Foto tempat usaha</strong> yang jelas dan menunjukkan aktivitas bisnis</li>
+  <li><strong>Catatan keuangan atau rekening koran</strong> minimal 3–6 bulan terakhir</li>
+  <li><strong>Surat nikah</strong> (jika sudah menikah, pasangan biasanya ikut ditandatangani)</li>
+</ul>
+
+<h2>Tips Meningkatkan Peluang Disetujui</h2>
+<p>Selain dokumen, ada beberapa hal yang meningkatkan peluang persetujuan:</p>
+<ul>
+  <li><strong>Buka rekening tabungan BRI</strong> sebelum apply — nasabah existing lebih mudah disetujui</li>
+  <li><strong>Tunjukkan rekam jejak transaksi</strong> yang aktif di rekening</li>
+  <li><strong>Bersihkan catatan BI Checking</strong> — lunasi cicilan yang macet sebelum apply</li>
+  <li><strong>Siapkan proposal bisnis</strong> sederhana — tulis perencanaan penggunaan dana KUR</li>
+  <li><strong>Pastikan usaha sudah berjalan minimal 6 bulan</strong> dan bisa diverifikasi surveyor</li>
+</ul>
+
+<h2>Tips Wawancara dengan Analis KUR</h2>
+<p>Wawancara KUR bukan ujian — ini kesempatan kamu menunjukkan keseriusan usahamu. Beberapa tips:</p>
+<ul>
+  <li>Ceritakan usahamu dengan percaya diri dan spesifik — omzet, jumlah pelanggan, target pasar</li>
+  <li>Jelaskan dengan jelas untuk apa dana KUR akan digunakan</li>
+  <li>Tunjukkan bahwa kamu bisa membayar cicilan — hitung dulu kemampuan membayar sebelum wawancara</li>
+  <li>Jangan melebih-lebihkan kondisi usaha — bank akan memverifikasi</li>
+</ul>
+<p>👉 <a href="/kur/wizard">Gunakan KUR Wizard LegalKan</a> — bantu kamu mempersiapkan semua dokumen KUR dengan panduan langkah demi langkah. Mulai sekarang dan tingkatkan peluang persetujuanmu.</p>
+    `,
+  },
 ];
 
 export const CATEGORIES = [

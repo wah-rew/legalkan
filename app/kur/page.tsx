@@ -2,25 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Paket Dokumen KUR UMKM | LegalKan",
+  title: "Dokumen KUR UMKM Siap 10 Menit | Paket KUR-Ready LegalKan",
   description:
-    "Siapkan semua dokumen KUR kamu dalam 10 menit. Auto-detect dokumen yang kamu butuhkan berdasarkan profil usaha. Mulai Rp 59.000.",
-  keywords: [
-    "dokumen KUR",
-    "syarat KUR UMKM",
-    "cara apply KUR 2024",
-    "persiapan KUR bank",
-    "dokumen pengajuan KUR",
-    "KUR Mikro",
-    "KUR BRI",
-    "KUR BNI",
-    "UMKM legal",
-  ],
+    "Siapkan semua dokumen KUR (Kredit Usaha Rakyat) dalam 10 menit. Auto-detect dokumen yang dibutuhkan berdasarkan profil usaha. Mulai Rp 59.000.",
+  keywords:
+    "dokumen KUR UMKM, syarat KUR BRI 2024, persiapan dokumen KUR bank, paket KUR ready",
   openGraph: {
-    title: "Paket Dokumen KUR UMKM | LegalKan",
+    title: "Dokumen KUR UMKM Siap 10 Menit | Paket KUR-Ready LegalKan",
     description:
-      "Siapkan semua dokumen KUR kamu dalam 10 menit. Auto-detect dokumen yang dibutuhkan. Mulai Rp 59.000.",
-    url: "https://legal-kan.com/kur",
+      "Siapkan semua dokumen KUR (Kredit Usaha Rakyat) dalam 10 menit. Auto-detect dokumen yang dibutuhkan berdasarkan profil usaha. Mulai Rp 59.000.",
+    type: "website",
   },
 };
 

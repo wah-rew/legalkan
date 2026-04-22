@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getPostBySlug, getRelatedPosts } from "@/lib/blog-posts";
 import CopyLinkButton from "@/components/CopyLinkButton";
+import { JsonLd } from "@/components/JsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -64,8 +65,26 @@ export default async function BlogPostPage({ params }: Props) {
     `Baca artikel menarik di LegalKan: ${post.title} — https://legal-kan.com/blog/${post.slug}`
   );
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.metaDescription,
+    datePublished: post.date,
+    author: {
+      "@type": "Organization",
+      name: "Tim LegalKan",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LegalKan",
+      url: "https://www.legal-kan.com",
+    },
+  };
+
   return (
     <div style={{ background: "#F8F9FF", minHeight: "100vh" }}>
+      <JsonLd data={articleSchema} />
       {/* ── Breadcrumb ── */}
       <div
         style={{

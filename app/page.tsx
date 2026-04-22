@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CONTRACT_PRICES } from "@/types";
+import { JsonLd } from "@/components/JsonLd";
 
 const ANIMATED_WORDS = [
   "Sewa Properti",
@@ -222,8 +223,22 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <div>
+      <JsonLd data={faqSchema} />
       {/* ════════════════════════════════════════
           HERO — Full-viewport, animated gradient
           ════════════════════════════════════════ */}
