@@ -179,7 +179,7 @@ export default function KURSuksesPage() {
           >
             🗂 Langkah Selanjutnya
           </h3>
-          <ol className="space-y-3">
+          <ol className="space-y-4">
             {[
               "Unduh semua dokumen di atas",
               "Buka setiap file HTML dan cetak (Ctrl+P) atau simpan sebagai PDF",
@@ -187,14 +187,14 @@ export default function KURSuksesPage() {
               "Tandatangani setiap dokumen, tempel meterai Rp 10.000",
               "Bawa ke bank penyalur KUR (BRI, BNI, BCA, Mandiri, dll)",
             ].map((step, i) => (
-              <li key={i} className="flex gap-3 items-start text-sm">
+              <li key={i} className="flex gap-4 items-start">
                 <span
-                  className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold shrink-0"
-                  style={{ background: "#FFD166", color: "#0D1B3E" }}
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold shrink-0 mt-0.5"
+                  style={{ background: "#FFD166", color: "#0D1B3E", fontSize: "0.75rem" }}
                 >
                   {i + 1}
                 </span>
-                <span style={{ color: "#94A3CB" }}>{step}</span>
+                <span style={{ color: "#94A3CB", fontSize: "0.9rem", lineHeight: 1.7 }}>{step}</span>
               </li>
             ))}
           </ol>
