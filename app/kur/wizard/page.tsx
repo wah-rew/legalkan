@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import CitySearch from "@/components/CitySearch";
 
 const STEPS = ["Profil Usaha", "Skala Usaha", "Struktur Usaha", "Rekomendasi"];
 
@@ -626,11 +627,11 @@ export default function KURWizardPage() {
 
               <div>
                 <FieldLabel>Kota / Kabupaten *</FieldLabel>
-                <input
-                  style={inputStyle}
-                  placeholder="Contoh: Jakarta Selatan"
+                <CitySearch
                   value={data.kotaUsaha}
-                  onChange={(e) => set("kotaUsaha", e.target.value)}
+                  onChange={(val) => set("kotaUsaha", val)}
+                  placeholder="Cari kota atau kabupaten..."
+                  required
                 />
               </div>
             </div>

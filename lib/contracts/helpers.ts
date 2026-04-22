@@ -100,6 +100,7 @@ export function disclaimerPasal(pb: PasalBuilder): string {
   `);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function baseFooter(nomorKontrak: string, tanggalPembuatan: string): string {
   return `
   <div class="disclaimer-box">
