@@ -436,7 +436,7 @@ export const BLOG_POSTS: BlogPost[] = [
 <h2>Tips Agar Pinjaman Terlunasi dengan Baik</h2>
 <ul>
   <li>Selalu bayar via transfer agar ada jejak digital</li>
-  <li>Kirim tagihan lewat WhatsApp seminggu sebelum jatuh tempo — bukan untuk menekan, tapi sebagai pengingat</li>
+  <li>Kirim tagihan lewat pesan seminggu sebelum jatuh tempo — bukan untuk menekan, tapi sebagai pengingat</li>
   <li>Jika ada keterlambatan, diskusikan segera dan buat addendum kesepakatan baru</li>
 </ul>
 

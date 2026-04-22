@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
 import BankSearch from "@/components/BankSearch";
+import CitySearch from "@/components/CitySearch";
 
 const STEPS = ["Para Pihak", "Detail Produk", "Komisi & Periode", "Ketentuan", "Review"];
 
@@ -252,10 +253,7 @@ export default function KonsinyasiPage() {
           </FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Dibuat di (Kota)" required>
-              <input className="form-input" placeholder="Jakarta" value={form.kota_penandatanganan} onChange={e => {
-                set("kota_penandatanganan", e.target.value);
-                if (!form.lokasiPembuatan) set("lokasiPembuatan", e.target.value);
-              }} />
+              <CitySearch value={form.kota_penandatanganan} onChange={(val) => { set("kota_penandatanganan", val); if (!form.lokasiPembuatan) set("lokasiPembuatan", val); }} placeholder="Cari kota atau kabupaten..." />
             </FormInput>
             <FormInput label="Tanggal TTD" required>
               <input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} />

@@ -202,15 +202,18 @@ export async function GET(req: NextRequest) {
   // Remove from memory store (one-time use)
   transferStore.delete(orderId);
 
-  // Generate contract HTML
+  // Generate contract HTML (also used by WA sending when re-enabled)
   let contractHTML = "";
   try {
     contractHTML = generateContractHTML(contractData);
   } catch (genErr) {
     console.error("[confirm-payment] Contract generation error (non-fatal):", genErr);
   }
+  void contractHTML; // used by WA sending (currently disabled) — do not remove
 
   const userEmail = contractData.emailPembeli || (contractDataRaw.customer_email as string) || "";
+  // userPhone kept for future WA re-activation
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const userPhone = contractData.nomorWhatsapp || (contractDataRaw.customer_phone as string) || "";
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_APP_URL || "https://www.legal-kan.com";
 
@@ -275,36 +278,37 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  // Send WhatsApp notification if available
-  if (userPhone) {
-    try {
-      const waModule = await import("@/lib/whatsapp");
-      const { sendPDF, getWhatsAppClient } = waModule;
-      const client = getWhatsAppClient();
-      if (client && contractHTML) {
-        const pdfRes = await fetch(`${baseUrl}/api/pdf`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ html: contractHTML }),
-        });
-        if (pdfRes.ok) {
-          const pdfBuffer = Buffer.from(await pdfRes.arrayBuffer());
-          const filename = `kontrak-${(contractData.nomorKontrak || orderId).replace(/[^a-zA-Z0-9-]/g, "_")}.pdf`;
-          await sendPDF(userPhone, pdfBuffer, filename,
-            `🎉 Hei! Pembayaranmu sudah terkonfirmasi.\n\nBerikut dokumen kontrakmu dari LegalKan. Tanda tangani dua rangkap bersama pihak lain ya!\n\n📜 LegalKan — Legal-kan sekarang.`
-          );
-        }
-      }
-    } catch (waError) {
-      console.error("[confirm-payment] WhatsApp error (non-fatal):", waError);
-    }
-  }
+  // WhatsApp sending disabled — email only
+  // (WA code kept below for future re-activation)
+  // if (userPhone) {
+  //   try {
+  //     const waModule = await import("@/lib/whatsapp");
+  //     const { sendPDF, getWhatsAppClient } = waModule;
+  //     const client = getWhatsAppClient();
+  //     if (client && contractHTML) {
+  //       const pdfRes = await fetch(`${baseUrl}/api/pdf`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ html: contractHTML }),
+  //       });
+  //       if (pdfRes.ok) {
+  //         const pdfBuffer = Buffer.from(await pdfRes.arrayBuffer());
+  //         const filename = `kontrak-${(contractData.nomorKontrak || orderId).replace(/[^a-zA-Z0-9-]/g, "_")}.pdf`;
+  //         await sendPDF(userPhone, pdfBuffer, filename,
+  //           `🎉 Hei! Pembayaranmu sudah terkonfirmasi.\n\nBerikut dokumen kontrakmu dari LegalKan. Tanda tangani dua rangkap bersama pihak lain ya!\n\n📜 LegalKan — Legal-kan sekarang.`
+  //         );
+  //       }
+  //     }
+  //   } catch (waError) {
+  //     console.error("[confirm-payment] WhatsApp error (non-fatal):", waError);
+  //   }
+  // }
 
   return htmlPage(
     "Pembayaran Dikonfirmasi",
     "✅",
     "Pembayaran dikonfirmasi!",
-    `<p>Dokumen sudah dikirim ke user melalui email${userPhone ? " dan WhatsApp" : ""}.</p>
+    `<p>Dokumen sudah dikirim ke user melalui email.</p>
      <p style="margin-top: 8px; font-size: 0.8rem; color: #B8BDD6;">Order: ${orderId}</p>`
   );
 }

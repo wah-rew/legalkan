@@ -68,7 +68,7 @@ export default function BuatPage() {
           form.nomorWhatsapp.replace(/\s/g, "")
         )
       )
-        return "Format nomor WhatsApp tidak valid (contoh: 08123456789)";
+        return "Format nomor telepon tidak valid (contoh: 08123456789)";
     }
     if (step === 1) {
       if (!form.alamatProperti.trim()) return "Alamat properti wajib diisi";
@@ -338,17 +338,7 @@ export default function BuatPage() {
 
               <div>
                 <label className="form-label">
-                  Nomor WhatsApp
-                  <span
-                    style={{
-                      marginLeft: "0.375rem",
-                      fontSize: "0.72rem",
-                      fontWeight: 400,
-                      color: "#9BA3C4",
-                    }}
-                  >
-                    (opsional)
-                  </span>
+                  Nomor Telepon (opsional)
                 </label>
                 <input
                   className="form-input"
@@ -365,7 +355,7 @@ export default function BuatPage() {
                     marginTop: "0.375rem",
                   }}
                 >
-                  📱 PDF kontrak juga akan dikirim ke WhatsApp ini.
+                  📧 Hanya email yang digunakan untuk pengiriman dokumen.
                 </p>
               </div>
             </div>
@@ -982,7 +972,7 @@ export default function BuatPage() {
                 { label: "Penyewa", value: form.namaPihakKedua },
                 { label: "Email Kontrak", value: form.emailPembeli },
                 ...(form.nomorWhatsapp
-                  ? [{ label: "WhatsApp", value: form.nomorWhatsapp }]
+                  ? [{ label: "Nomor Telepon", value: form.nomorWhatsapp }]
                   : []),
                 { label: "Alamat Properti", value: form.alamatProperti },
                 ...(form.jenisSertifikat

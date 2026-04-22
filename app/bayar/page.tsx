@@ -250,12 +250,7 @@ export default function BayarPage() {
             PDF dikirim ke:{" "}
             <strong>{paymentData.contractData.emailPembeli}</strong>
           </p>
-          {paymentData.contractData.nomorWhatsapp && (
-            <p style={{ color: "#6B7FA8" }}>
-              WA:{" "}
-              <strong>{paymentData.contractData.nomorWhatsapp}</strong>
-            </p>
-          )}
+          {/* WA delivery removed — email only */}
         </div>
 
         {error && (

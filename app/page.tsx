@@ -131,7 +131,7 @@ const HOW_STEPS = [
     num: "03",
     icon: "⚡",
     title: "Bayar & terima dokumen",
-    desc: "Bayar via VA bank. PDF langsung dikirim ke email & WA kamu.",
+    desc: "Bayar via VA bank. PDF langsung dikirim ke email kamu.",
   },
 ];
 
@@ -180,7 +180,7 @@ const FAQS = [
   },
   {
     q: "Berapa lama kontrak jadinya?",
-    a: "Instan. Begitu pembayaran masuk, PDF langsung bisa diunduh dan dikirim ke email & WhatsApp kamu.",
+    a: "Instan. Begitu pembayaran masuk, PDF langsung bisa diunduh dan dikirim ke email kamu.",
   },
   {
     q: "Data saya aman?",
@@ -351,7 +351,7 @@ export default function Home() {
             </div>
 
             <div className="hero-meta-row mt-10 text-xs" style={{ color: "#6B7FA8", gap: "1.5rem" }}>
-              <span>📧 PDF ke Email & WhatsApp</span>
+              <span>📧 PDF ke Email</span>
               <span>🇮🇩 Hukum Indonesia</span>
               <span>🔒 Data Terenkripsi</span>
             </div>

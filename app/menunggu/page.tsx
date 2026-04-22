@@ -29,7 +29,7 @@ function downloadOrderPDF(orderId: string) {
 <div class="label">Order ID</div>
 <div class="order-id">${orderId}</div>
 <hr class="divider">
-<p class="note">Dokumen kamu sedang dalam proses verifikasi pembayaran.<br>Setelah dikonfirmasi, dokumen akan dikirim ke email & WhatsApp kamu dalam 1×24 jam.</p>
+<p class="note">Dokumen kamu sedang dalam proses verifikasi pembayaran.<br>Setelah dikonfirmasi, dokumen akan dikirim ke email kamu dalam 1×24 jam.</p>
 <p class="note">Simpan Order ID ini sebagai referensi jika kamu perlu menghubungi tim LegalKan.</p>
 <div class="footer">© LegalKan — legal-kan.com</div>
 </body>
@@ -163,7 +163,7 @@ export default function MenungguPage() {
             {[
               { emoji: "🔍", text: "Tim kami memeriksa mutasi rekening" },
               { emoji: "✅", text: "Setelah transfer terkonfirmasi, dokumen langsung dibuat" },
-              { emoji: "📧", text: "Dokumen dikirim ke email & WhatsApp kamu" },
+              { emoji: "📧", text: "Dokumen dikirim ke email kamu" },
             ].map((item, i) => (
               <li key={i} className="flex gap-3 items-start text-sm">
                 <span
@@ -187,7 +187,7 @@ export default function MenungguPage() {
             ⏰ Maksimal 1×24 jam
           </p>
           <p className="text-xs mt-1" style={{ color: "#B8930A" }}>
-            Dokumen akan dikirim ke email & WhatsApp kamu setelah kami konfirmasi pembayaran.
+            Dokumen akan dikirim ke email kamu setelah kami konfirmasi pembayaran.
           </p>
         </div>
 

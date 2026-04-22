@@ -262,7 +262,7 @@ export default function NDAPage() {
               onChange={e => set("emailPembeli", e.target.value)}
             />
           </FormInput>
-          <FormInput label="WhatsApp" hint="opsional">
+          <FormInput label="Nomor Telepon (opsional)">
             <input
               className="form-input"
               placeholder="08xxx"

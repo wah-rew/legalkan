@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
+import CitySearch from "@/components/CitySearch";
 
 const STEPS = ["Para Pihak", "Detail Barang", "Harga & Serah Terima", "Review"];
 
@@ -207,7 +208,7 @@ export default function JualBeliPage() {
           </div>
           <FormInput label="Alamat Saksi" hint="opsional"><input className="form-input" placeholder="Alamat lengkap saksi" value={form.saksi1_alamat} onChange={e => set("saksi1_alamat", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormInput label="Kota Penandatanganan" required><input className="form-input" value={form.kota_penandatanganan} onChange={e => set("kota_penandatanganan", e.target.value)} /></FormInput>
+            <FormInput label="Kota Penandatanganan" required><CitySearch value={form.kota_penandatanganan} onChange={(val) => set("kota_penandatanganan", val)} placeholder="Cari kota atau kabupaten..." /></FormInput>
             <FormInput label="Tanggal TTD" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
           </div>
           <FormInput label="Lokasi Pembuatan" hint="opsional — jika berbeda dari kota TTD"><input className="form-input" placeholder="Misal: Jakarta Selatan" value={form.lokasi_pembuatan} onChange={e => set("lokasi_pembuatan", e.target.value)} /></FormInput>

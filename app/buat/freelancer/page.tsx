@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
 import BankSearch from "@/components/BankSearch";
+import CitySearch from "@/components/CitySearch";
 
 const STEPS = ["Para Pihak", "Detail Pekerjaan", "Kompensasi & HKI", "Review"];
 
@@ -150,7 +151,7 @@ export default function FreelancerPage() {
           <FormInput label="Email Penerima Dokumen" required>
             <input className="form-input" type="email" placeholder="email@contoh.com" value={form.emailPembeli} onChange={e => set("emailPembeli", e.target.value)} />
           </FormInput>
-          <FormInput label="WhatsApp" hint="opsional">
+          <FormInput label="Nomor Telepon (opsional)">
             <input className="form-input" placeholder="08xxx" value={form.nomorWhatsapp} onChange={e => set("nomorWhatsapp", e.target.value)} />
           </FormInput>
         </div>
@@ -238,7 +239,7 @@ export default function FreelancerPage() {
           )}
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Kota Penandatanganan" required>
-              <input className="form-input" placeholder="Jakarta" value={form.kota_penandatanganan} onChange={e => set("kota_penandatanganan", e.target.value)} />
+              <CitySearch value={form.kota_penandatanganan} onChange={(val) => set("kota_penandatanganan", val)} placeholder="Cari kota atau kabupaten..." />
             </FormInput>
             <FormInput label="Tanggal TTD" required>
               <input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} />

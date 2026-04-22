@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
+import CitySearch from "@/components/CitySearch";
 
 const STEPS = ["Para Pihak", "Detail Usaha", "Bagi Hasil & Kelola", "Pengakhiran & Saksi", "Review"];
 
@@ -158,7 +159,7 @@ export default function BagiHasilPage() {
           <FormInput label="Nama Lengkap" required><input className="form-input" value={form.nama_pihak_1} onChange={e => set("nama_pihak_1", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="NIK"><input className="form-input" maxLength={16} value={form.nik_pihak_1} onChange={e => set("nik_pihak_1", e.target.value)} /></FormInput>
-            <FormInput label="No. Telepon/WhatsApp"><input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.nomorTelepon1} onChange={e => set("nomorTelepon1", e.target.value)} /></FormInput>
+            <FormInput label="No. Telepon"><input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.nomorTelepon1} onChange={e => set("nomorTelepon1", e.target.value)} /></FormInput>
           </div>
           <FormInput label="Peran/Kontribusi"><input className="form-input" placeholder="Modal uang" value={form.peran_pihak_1} onChange={e => set("peran_pihak_1", e.target.value)} /></FormInput>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_pihak_1} onChange={e => set("alamat_pihak_1", e.target.value)} /></FormInput>
@@ -179,7 +180,7 @@ export default function BagiHasilPage() {
           <FormInput label="Nama Lengkap" required><input className="form-input" value={form.nama_pihak_2} onChange={e => set("nama_pihak_2", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="NIK"><input className="form-input" maxLength={16} value={form.nik_pihak_2} onChange={e => set("nik_pihak_2", e.target.value)} /></FormInput>
-            <FormInput label="No. Telepon/WhatsApp"><input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.nomorTelepon2} onChange={e => set("nomorTelepon2", e.target.value)} /></FormInput>
+            <FormInput label="No. Telepon"><input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.nomorTelepon2} onChange={e => set("nomorTelepon2", e.target.value)} /></FormInput>
           </div>
           <FormInput label="Peran/Kontribusi"><input className="form-input" placeholder="Tenaga & keahlian" value={form.peran_pihak_2} onChange={e => set("peran_pihak_2", e.target.value)} /></FormInput>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_pihak_2} onChange={e => set("alamat_pihak_2", e.target.value)} /></FormInput>
@@ -308,7 +309,7 @@ export default function BagiHasilPage() {
           )}
           <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
           <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0D1B3E" }}>Penandatanganan</p>
-          <FormInput label="Lokasi Pembuatan / Kota Penandatanganan" required><input className="form-input" placeholder="Jakarta" value={form.kota_penandatanganan} onChange={e => { set("kota_penandatanganan", e.target.value); if (!form.lokasiPembuatan) set("lokasiPembuatan", e.target.value); }} /></FormInput>
+          <FormInput label="Lokasi Pembuatan / Kota Penandatanganan" required><CitySearch value={form.kota_penandatanganan} onChange={(val) => { set("kota_penandatanganan", val); if (!form.lokasiPembuatan) set("lokasiPembuatan", val); }} placeholder="Cari kota atau kabupaten..." /></FormInput>
           <FormInput label="Tanggal Penandatanganan" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
         </div>
       )}

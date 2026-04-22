@@ -165,24 +165,7 @@ export default function SuksesPage() {
           </div>
         </div>
 
-        {/* WhatsApp notice */}
-        {result.contractData.nomorWhatsapp && (
-          <div
-            className="rounded-2xl px-5 py-4 mb-5 flex gap-3 items-start"
-            style={{ background: "rgba(37,211,102,0.10)", border: "1px solid rgba(37,211,102,0.35)" }}
-          >
-            <span className="text-xl shrink-0">📱</span>
-            <div>
-              <p className="text-sm font-bold" style={{ color: "#1a8a45" }}>
-                Kontrak juga dikirim ke WhatsApp Anda
-              </p>
-              <p className="text-xs mt-0.5" style={{ color: "#1a6b38" }}>
-                📱 Kontrak juga dikirim ke WhatsApp Anda dalam beberapa menit ke{" "}
-                <strong>{result.contractData.nomorWhatsapp}</strong>.
-              </p>
-            </div>
-          </div>
-        )}
+        {/* Dokumen dikirim via email saja */}
 
         {/* Action buttons */}
         <div className="space-y-3 mb-6">
