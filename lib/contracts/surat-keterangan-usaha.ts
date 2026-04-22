@@ -1,22 +1,33 @@
-// ─── Surat Keterangan Usaha ────────────────────────────────────────────────────
-// Dokumen keterangan usaha untuk keperluan KUR dan perbankan
+// ─── Surat Keterangan Usaha (Format Resmi RT/Lurah) ────────────────────────────
+// Format resmi yang dikeluarkan oleh Ketua RT — digunakan untuk pengajuan KUR bank
 
 import { formatTanggal, baseCSS, baseFooter } from "./helpers";
 
 export interface SuratKeteranganUsahaData {
-  nama_pemilik: string;
-  nik_pemilik: string;
-  tempat_lahir_pemilik?: string;
-  tanggal_lahir_pemilik?: string;
-  alamat_pemilik: string;
-  nama_usaha: string;
-  jenis_usaha: string;
-  bidang_usaha: string;
-  alamat_usaha: string;
-  kota_usaha: string;
-  lama_usaha: string; // "2 tahun", "6 bulan", etc.
-  tanggal_surat: string;
-  kota_penandatanganan: string;
+  // Business info
+  namaUsaha: string;
+  jenisUsaha: string;
+  alamatUsaha: string;
+  lamaUsaha: string; // angka tahun, e.g. "2", "3"
+
+  // Owner
+  namaPemilik: string;
+  nikPemilik: string;
+
+  // RT/Lurah info
+  nomorRT: string;
+  nomorRW: string;
+  kelurahan: string;
+  kecamatan: string;
+  kodePos: string;
+  kota: string;
+  provinsi: string;
+  namaKetuaRT: string;
+  namaKetuaRW: string;
+  namaLurah: string;
+  nomorSurat: string; // auto-generated = nomorKontrak
+  tanggalSurat: string;
+
   // Meta
   emailPembeli: string;
   nomorWhatsapp?: string;
@@ -27,7 +38,19 @@ export interface SuratKeteranganUsahaData {
 }
 
 export function generateSuratKeteranganUsahaHTML(d: SuratKeteranganUsahaData): string {
-  const tglSurat = formatTanggal(d.tanggal_surat);
+  const tglSurat = formatTanggal(d.tanggalSurat || d.tanggalPembuatan);
+
+  const rt = d.nomorRT || "___";
+  const rw = d.nomorRW || "___";
+  const kelurahan = d.kelurahan || "___________________";
+  const kecamatan = d.kecamatan || "___________________";
+  const kota = d.kota || "___________________";
+  const provinsi = d.provinsi || "___________________";
+  const kodePos = d.kodePos || "_____";
+  const namaKetuaRT = d.namaKetuaRT || "___________________";
+  const namaKetuaRW = d.namaKetuaRW || "___________________";
+  const namaLurah = d.namaLurah || "___________________";
+  const nomorSurat = d.nomorSurat || d.nomorKontrak;
 
   return `<!DOCTYPE html>
 <html lang="id">
@@ -38,38 +61,23 @@ export function generateSuratKeteranganUsahaHTML(d: SuratKeteranganUsahaData): s
     .kop { text-align: center; margin-bottom: 24px; }
     .kop h1 { font-size: 16pt; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
     .kop .nomor { font-size: 11pt; margin-top: 4px; }
-    .intro { margin: 20px 0; text-align: justify; }
-    .data-table { width: 100%; margin: 16px 0; border-collapse: collapse; }
-    .data-table td { padding: 5px 8px; vertical-align: top; }
-    .data-table td:first-child { width: 220px; font-weight: 600; }
+    .intro { margin: 16px 0; text-align: justify; }
+    .data-table { width: 100%; margin: 10px 0; border-collapse: collapse; }
+    .data-table td { padding: 4px 8px; vertical-align: top; }
+    .data-table td:first-child { width: 200px; font-weight: 600; }
     .data-table td:nth-child(2) { width: 16px; }
-    .pernyataan-box { 
-      border: 1px solid #333; 
-      padding: 20px 24px; 
-      margin: 20px 0; 
-      border-radius: 4px;
-      background: #f9f9f9;
-    }
-    .ttd-section { margin-top: 40px; }
-    .ttd-block { display: inline-block; width: 220px; text-align: center; vertical-align: top; }
-    .ttd-line { height: 70px; border-bottom: 1px solid #333; margin: 0 20px 6px; }
-    .materai-box {
-      display: inline-block;
-      width: 80px; height: 60px;
-      border: 1px dashed #888;
-      border-radius: 4px;
-      text-align: center;
-      font-size: 8pt;
-      color: #888;
-      line-height: 60px;
-      margin-bottom: 8px;
-    }
+    .ttd-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+    .ttd-table td { text-align: center; vertical-align: top; padding: 0 6px; width: 33.33%; }
+    .ttd-header { font-weight: 700; font-size: 10pt; margin-bottom: 4px; }
+    .ttd-line { height: 70px; border-bottom: 1px solid #333; margin: 4px 12px 6px; }
+    .ttd-name { font-weight: 700; font-size: 10pt; }
+    .ttd-date { font-size: 9pt; color: #555; margin-top: 6px; }
   </style>
 </head>
 <body>
   <div class="kop">
     <h1>Surat Keterangan Usaha</h1>
-    <div class="nomor">Nomor: ${d.nomorKontrak}</div>
+    <div class="nomor">Nomor: ${nomorSurat}</div>
   </div>
   <hr class="divider" />
 
@@ -78,48 +86,66 @@ export function generateSuratKeteranganUsahaHTML(d: SuratKeteranganUsahaData): s
   </div>
 
   <table class="data-table">
-    <tr><td>Nama Lengkap</td><td>:</td><td><strong>${d.nama_pemilik}</strong></td></tr>
-    <tr><td>NIK / KTP</td><td>:</td><td>${d.nik_pemilik}</td></tr>
-    ${d.tempat_lahir_pemilik ? `<tr><td>Tempat / Tgl Lahir</td><td>:</td><td>${d.tempat_lahir_pemilik}${d.tanggal_lahir_pemilik ? `, ${formatTanggal(d.tanggal_lahir_pemilik)}` : ''}</td></tr>` : ''}
-    <tr><td>Alamat</td><td>:</td><td>${d.alamat_pemilik}</td></tr>
+    <tr><td>Nama</td><td>:</td><td><strong>${namaKetuaRT}</strong></td></tr>
+    <tr><td>Jabatan</td><td>:</td><td>Ketua RT ${rt}</td></tr>
+    <tr><td>Alamat</td><td>:</td><td>RT ${rt}/RW ${rw}, Kelurahan ${kelurahan}, Kecamatan ${kecamatan}, ${kota}, ${provinsi}</td></tr>
   </table>
 
   <div class="intro">
-    <p>Dengan ini menerangkan bahwa benar adanya usaha sebagai berikut:</p>
+    <p>Dengan ini menerangkan bahwa:</p>
   </div>
 
-  <div class="pernyataan-box">
-    <table class="data-table" style="background: transparent;">
-      <tr><td>Nama Usaha</td><td>:</td><td><strong>${d.nama_usaha}</strong></td></tr>
-      <tr><td>Jenis / Bentuk Usaha</td><td>:</td><td>${d.jenis_usaha}</td></tr>
-      <tr><td>Bidang Usaha</td><td>:</td><td>${d.bidang_usaha}</td></tr>
-      <tr><td>Alamat Usaha</td><td>:</td><td>${d.alamat_usaha}, ${d.kota_usaha}</td></tr>
-      <tr><td>Lama Usaha Berjalan</td><td>:</td><td>± ${d.lama_usaha}</td></tr>
-    </table>
-  </div>
+  <table class="data-table">
+    <tr><td>Nama</td><td>:</td><td><strong>${d.namaPemilik}</strong></td></tr>
+    <tr><td>No. KTP</td><td>:</td><td>${d.nikPemilik}</td></tr>
+    <tr><td>Alamat</td><td>:</td><td>${d.alamatUsaha}, RT ${rt}/RW ${rw}, Kelurahan ${kelurahan}, Kecamatan ${kecamatan}, ${kota}, ${provinsi} ${kodePos}</td></tr>
+  </table>
 
   <div class="intro">
-    <p>Surat Keterangan Usaha ini dibuat dengan sebenar-benarnya dan dapat digunakan sebagai salah satu syarat pengajuan Kredit Usaha Rakyat (KUR) atau keperluan perbankan lainnya.</p>
-    <p style="margin-top: 12px;">Demikian Surat Keterangan Usaha ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</p>
+    <p>Adalah benar-benar warga yang berdomisili di wilayah RT ${rt}/RW ${rw} dan memiliki usaha dengan keterangan sebagai berikut:</p>
   </div>
 
-  <div class="ttd-section">
-    <p style="margin-bottom: 4px;">${d.kota_penandatanganan}, ${tglSurat}</p>
-    <p style="margin-bottom: 20px;">Yang Membuat Pernyataan,</p>
-    <table style="width: 100%;">
-      <tr>
-        <td style="width: 50%; text-align: center; vertical-align: top;">
-          <div class="materai-box">Materai<br/>Rp 10.000</div>
-          <div class="ttd-line"></div>
-          <p><strong>${d.nama_pemilik}</strong></p>
-          <p style="font-size: 10pt; color: #555;">${d.nik_pemilik}</p>
-        </td>
-        <td style="width: 50%;"></td>
-      </tr>
-    </table>
+  <table class="data-table">
+    <tr><td>Nama Usaha</td><td>:</td><td><strong>${d.namaUsaha}</strong></td></tr>
+    <tr><td>Jenis Usaha</td><td>:</td><td>${d.jenisUsaha}</td></tr>
+    <tr><td>Alamat Usaha</td><td>:</td><td>${d.alamatUsaha}, ${kelurahan}, ${kecamatan}, ${kota}</td></tr>
+    <tr><td>Lama Usaha</td><td>:</td><td>${d.lamaUsaha} tahun</td></tr>
+  </table>
+
+  <div class="intro">
+    <p>Usaha tersebut telah berjalan dengan baik dan merupakan mata pencaharian utama yang bersangkutan.</p>
+    <p style="margin-top: 12px;">Surat keterangan ini dibuat dengan sebenarnya dan dapat dipergunakan sebagai salah satu syarat pengajuan Kredit Usaha Rakyat (KUR) di bank.</p>
+    <p style="margin-top: 12px;">Demikian surat keterangan ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</p>
   </div>
 
-  ${baseFooter(d.nomorKontrak, formatTanggal(d.tanggalPembuatan))}
+  <p style="margin-top: 32px; margin-bottom: 4px;">${kota}, ${tglSurat}</p>
+
+  <p style="font-weight: 700; margin: 20px 0 8px; text-transform: uppercase; font-size: 10pt; letter-spacing: 1px;">Mengetahui:</p>
+
+  <table class="ttd-table">
+    <tr>
+      <td>
+        <div class="ttd-header">KETUA RT ${rt}</div>
+        <div class="ttd-line"></div>
+        <div class="ttd-name">${namaKetuaRT}</div>
+        <div class="ttd-date">Tanggal: ___________________</div>
+      </td>
+      <td>
+        <div class="ttd-header">KETUA RW ${rw}</div>
+        <div class="ttd-line"></div>
+        <div class="ttd-name">${namaKetuaRW}</div>
+        <div class="ttd-date">Tanggal: ___________________</div>
+      </td>
+      <td>
+        <div class="ttd-header">LURAH ${kelurahan.toUpperCase()}</div>
+        <div class="ttd-line"></div>
+        <div class="ttd-name">${namaLurah}</div>
+        <div class="ttd-date">Tanggal: ___________________</div>
+      </td>
+    </tr>
+  </table>
+
+  ${baseFooter(nomorSurat, formatTanggal(d.tanggalPembuatan))}
 </body>
 </html>`;
 }

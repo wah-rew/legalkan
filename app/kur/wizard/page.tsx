@@ -54,6 +54,18 @@ interface Step5Data {
   namaPenerimaKuasa: string;
   nikPenerimaKuasa: string;
   keperluanKuasa: string;
+  // SKU (Surat Keterangan Usaha) RT/Lurah fields
+  namaUsahaSKU: string;
+  jenisUsahaSKU: string;
+  lamaUsahaSKU: string;
+  nomorRT: string;
+  nomorRW: string;
+  kelurahan: string;
+  kecamatan: string;
+  kodePos: string;
+  namaKetuaRT: string;
+  namaKetuaRW: string;
+  namaLurah: string;
 }
 
 const INITIAL: WizardState = {
@@ -221,8 +233,13 @@ export default function KURWizardPage() {
     namaMitra: "", nikMitra: "", porsiPemilik: "",
     namaPemberiPinjaman: "", nikPemberiPinjaman: "", jumlahPinjaman: "", bungaPerTahun: "0", jangkaWaktu: "",
     namaPemberKuasa: "", namaPenerimaKuasa: "", nikPenerimaKuasa: "", keperluanKuasa: "mengurus pengajuan KUR",
+    // SKU fields
+    namaUsahaSKU: "", jenisUsahaSKU: "", lamaUsahaSKU: "",
+    nomorRT: "", nomorRW: "", kelurahan: "", kecamatan: "", kodePos: "",
+    namaKetuaRT: "", namaKetuaRW: "", namaLurah: "",
   });
   const [expandedEmployees, setExpandedEmployees] = useState<Set<number>>(new Set([0]));
+  const [skuSectionOpen, setSkuSectionOpen] = useState(true);
 
   const set = (k: keyof WizardState, v: unknown) => setData((prev) => ({ ...prev, [k]: v }));
   const setStep5D = (k: keyof Omit<Step5Data, "karyawan">, v: string) =>
@@ -261,6 +278,7 @@ export default function KURWizardPage() {
   const hasHutang = nonPkwtDocs.some((d) => d.id === "hutang-piutang") && !skippedDocs.has("hutang-piutang");
   const hasSuratKuasa = nonPkwtDocs.some((d) => d.id === "surat-kuasa") && !skippedDocs.has("surat-kuasa");
   const showPKWTSection = hasPKWT && !skippedDocs.has("pkwt") && effectivePkwtCount > 0;
+  const hasSKU = !skippedDocs.has("surat-keterangan-usaha");
 
   function toggleSkip(docId: string) {
     setSkippedDocs((prev) => {
@@ -279,11 +297,20 @@ export default function KURWizardPage() {
   }
 
   function initStep5() {
+    const skuLamaFill = data.lamaUsaha === "<6bln" ? "< 1"
+      : data.lamaUsaha === "6-12bln" ? "1"
+      : data.lamaUsaha === "1-2thn" ? "2"
+      : data.lamaUsaha === ">2thn" ? "3"
+      : "";
     setStep5Data((prev) => ({
       ...prev,
       namaLengkapPemilik: prev.namaLengkapPemilik || data.namaPemilik,
       alamatLengkap: prev.alamatLengkap || data.alamatUsaha,
       namaPemberKuasa: prev.namaPemberKuasa || data.namaPemilik,
+      // Pre-fill SKU fields from wizard Step 1
+      namaUsahaSKU: prev.namaUsahaSKU || data.namaUsaha,
+      jenisUsahaSKU: prev.jenisUsahaSKU || data.bidangUsaha,
+      lamaUsahaSKU: prev.lamaUsahaSKU || skuLamaFill,
     }));
   }
 
@@ -397,6 +424,19 @@ export default function KURWizardPage() {
             namaPenerimaKuasa: step5Data.namaPenerimaKuasa,
             nikPenerimaKuasa: step5Data.nikPenerimaKuasa,
             keperluanKuasa: step5Data.keperluanKuasa,
+            // SKU RT/Lurah fields
+            namaUsahaSKU: step5Data.namaUsahaSKU,
+            jenisUsahaSKU: step5Data.jenisUsahaSKU,
+            lamaUsahaSKU: step5Data.lamaUsahaSKU,
+            nomorRT: step5Data.nomorRT,
+            nomorRW: step5Data.nomorRW,
+            kelurahan: step5Data.kelurahan,
+            kecamatan: step5Data.kecamatan,
+            kodePos: step5Data.kodePos,
+            kotaSKU: data.kotaUsaha,
+            namaKetuaRT: step5Data.namaKetuaRT,
+            namaKetuaRW: step5Data.namaKetuaRW,
+            namaLurah: step5Data.namaLurah,
           },
         }),
       });
@@ -836,6 +876,85 @@ export default function KURWizardPage() {
                 <FieldLabel>Tanggal Lahir *</FieldLabel>
                 <input type="date" style={inputStyle} value={step5Data.tanggalLahirPemilik} onChange={(e) => setStep5D("tanggalLahirPemilik", e.target.value)} />
               </div>
+
+              {/* SKU Subsection — collapsible */}
+              {hasSKU && (
+                <div className="mt-5 rounded-2xl overflow-hidden" style={{ border: "1.5px solid rgba(13,27,62,0.1)" }}>
+                  <button type="button" onClick={() => setSkuSectionOpen(!skuSectionOpen)}
+                    className="w-full flex items-center justify-between px-4 py-3 text-left"
+                    style={{ background: skuSectionOpen ? "rgba(255,77,109,0.04)" : "rgba(13,27,62,0.02)", cursor: "pointer", border: "none" }}>
+                    <div>
+                      <span className="font-bold text-sm" style={{ color: "#0D1B3E" }}>📋 Data untuk Surat Keterangan Usaha</span>
+                      <p className="text-xs mt-0.5" style={{ color: "#6B7FA8" }}>Dibutuhkan RT/RW/Lurah untuk mengeluarkan surat resmi</p>
+                    </div>
+                    <span style={{ color: "#6B7FA8", fontSize: "0.8rem", flexShrink: 0 }}>{skuSectionOpen ? "▲" : "▼"}</span>
+                  </button>
+                  {skuSectionOpen && (
+                    <div className="p-4 space-y-4" style={{ borderTop: "1px solid rgba(13,27,62,0.08)" }}>
+                      <div>
+                        <FieldLabel>Nama Usaha</FieldLabel>
+                        <input style={inputStyle} placeholder="Nama usaha Anda (contoh: Warung Bu Siti)" value={step5Data.namaUsahaSKU}
+                          onChange={(e) => setStep5D("namaUsahaSKU", e.target.value)} />
+                      </div>
+                      <div>
+                        <FieldLabel>Jenis / Bidang Usaha</FieldLabel>
+                        <input style={inputStyle} placeholder="Contoh: Perdagangan, Kuliner, Jasa" value={step5Data.jenisUsahaSKU}
+                          onChange={(e) => setStep5D("jenisUsahaSKU", e.target.value)} />
+                      </div>
+                      <div>
+                        <FieldLabel>Lama Usaha Berjalan (tahun)</FieldLabel>
+                        <input style={inputStyle} placeholder="Contoh: 2" value={step5Data.lamaUsahaSKU}
+                          onChange={(e) => setStep5D("lamaUsahaSKU", e.target.value)} />
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                        <div>
+                          <FieldLabel>Nomor RT</FieldLabel>
+                          <input style={inputStyle} placeholder="001" value={step5Data.nomorRT}
+                            onChange={(e) => setStep5D("nomorRT", e.target.value)} />
+                        </div>
+                        <div>
+                          <FieldLabel>Nomor RW</FieldLabel>
+                          <input style={inputStyle} placeholder="003" value={step5Data.nomorRW}
+                            onChange={(e) => setStep5D("nomorRW", e.target.value)} />
+                        </div>
+                      </div>
+                      <div>
+                        <FieldLabel>Kelurahan</FieldLabel>
+                        <input style={inputStyle} placeholder="Nama kelurahan" value={step5Data.kelurahan}
+                          onChange={(e) => setStep5D("kelurahan", e.target.value)} />
+                      </div>
+                      <div>
+                        <FieldLabel>Kecamatan</FieldLabel>
+                        <input style={inputStyle} placeholder="Nama kecamatan" value={step5Data.kecamatan}
+                          onChange={(e) => setStep5D("kecamatan", e.target.value)} />
+                      </div>
+                      <div>
+                        <FieldLabel>Kode Pos</FieldLabel>
+                        <input style={inputStyle} placeholder="5 digit kode pos" maxLength={5} inputMode="numeric"
+                          value={step5Data.kodePos} onChange={(e) => setStep5D("kodePos", e.target.value.replace(/\D/g, ""))} />
+                      </div>
+                      <div>
+                        <FieldLabel>Nama Ketua RT</FieldLabel>
+                        <input style={inputStyle} placeholder="Nama ketua RT" value={step5Data.namaKetuaRT}
+                          onChange={(e) => setStep5D("namaKetuaRT", e.target.value)} />
+                      </div>
+                      <div>
+                        <FieldLabel>Nama Ketua RW</FieldLabel>
+                        <input style={inputStyle} placeholder="Nama ketua RW" value={step5Data.namaKetuaRW}
+                          onChange={(e) => setStep5D("namaKetuaRW", e.target.value)} />
+                      </div>
+                      <div>
+                        <FieldLabel>Nama Lurah</FieldLabel>
+                        <input style={inputStyle} placeholder="Nama lurah / kepala kelurahan" value={step5Data.namaLurah}
+                          onChange={(e) => setStep5D("namaLurah", e.target.value)} />
+                      </div>
+                      <div className="rounded-xl px-3 py-2" style={{ background: "rgba(255,209,102,0.08)", border: "1px solid rgba(255,209,102,0.25)" }}>
+                        <p className="text-xs" style={{ color: "#9A7500" }}>💡 Kosongkan jika belum tahu — bisa diisi manual di dokumen setelah diunduh.</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Section B: Data Karyawan (PKWT) */}

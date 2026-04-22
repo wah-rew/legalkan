@@ -33,6 +33,20 @@ export interface Step5DocDetails {
   namaPenerimaKuasa?: string;
   nikPenerimaKuasa?: string;
   keperluanKuasa?: string;
+  // SKU (Surat Keterangan Usaha) RT/Lurah fields
+  namaUsahaSKU?: string;
+  jenisUsahaSKU?: string;
+  lamaUsahaSKU?: string;
+  nomorRT?: string;
+  nomorRW?: string;
+  kelurahan?: string;
+  kecamatan?: string;
+  kodePos?: string;
+  kotaSKU?: string;
+  provinsi?: string;
+  namaKetuaRT?: string;
+  namaKetuaRW?: string;
+  namaLurah?: string;
 }
 
 export interface KURWizardData {
@@ -177,13 +191,40 @@ export async function POST(req: NextRequest) {
     // ── 2. Surat Keterangan Usaha (ALWAYS unless skipped) ────────────────────
     if (!skipped.has("surat-keterangan-usaha")) {
       const nomorKontrak = generateContractNumber();
+      const skuLamaUsaha = details.lamaUsahaSKU
+        || (wizard.lamaUsaha === "<6bln" ? "< 1"
+          : wizard.lamaUsaha === "6-12bln" ? "1"
+          : wizard.lamaUsaha === "1-2thn" ? "2"
+          : wizard.lamaUsaha === ">2thn" ? "3"
+          : "1");
       docs.push({
         id: "surat-keterangan-usaha",
         title: "Surat Keterangan Usaha",
         description: "Dokumen formal yang menerangkan keberadaan, jenis, dan alamat usahamu untuk keperluan bank.",
         html: generateSuratKeteranganUsahaHTML({
-          ...baseData,
+          namaUsaha: details.namaUsahaSKU || wizard.namaUsaha,
+          jenisUsaha: details.jenisUsahaSKU || wizard.bidangUsaha,
+          alamatUsaha: wizard.alamatUsaha,
+          lamaUsaha: skuLamaUsaha,
+          namaPemilik,
+          nikPemilik,
+          nomorRT: details.nomorRT || "",
+          nomorRW: details.nomorRW || "",
+          kelurahan: details.kelurahan || "",
+          kecamatan: details.kecamatan || "",
+          kodePos: details.kodePos || "",
+          kota: details.kotaSKU || wizard.kotaUsaha,
+          provinsi: details.provinsi || "",
+          namaKetuaRT: details.namaKetuaRT || "",
+          namaKetuaRW: details.namaKetuaRW || "",
+          namaLurah: details.namaLurah || "",
+          nomorSurat: nomorKontrak,
+          tanggalSurat: tanggalPembuatan,
+          emailPembeli: wizard.emailPembeli,
+          nomorWhatsapp: wizard.nomorWhatsapp,
           nomorKontrak,
+          tanggalPembuatan,
+          contractType: "kur-bundle",
           contractTitle: "Surat Keterangan Usaha",
         } as SuratKeteranganUsahaData),
         nomorKontrak,
