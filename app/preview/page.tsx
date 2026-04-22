@@ -118,6 +118,19 @@ export default function PreviewPage() {
     setLoading(true);
     setError("");
     try {
+      // Save TnC consent to Supabase
+      await fetch("/api/consent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: contractData.nomorKontrak,
+          consentType: "tnc_agreement",
+          consentText: "LegalKan hanya menyediakan template draft perjanjian, bukan kantor hukum. Tidak bertanggung jawab atas konsekuensi hukum, sengketa, atau litigasi.",
+          consentVersion: "v1.0",
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch(() => {}); // non-fatal, don't block payment
+
       const res = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -126,7 +139,6 @@ export default function PreviewPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal membuat pembayaran");
       sessionStorage.setItem("kontrak_payment", JSON.stringify(data.paymentData));
-      // Track payment initiated
       captureEvent('payment_initiated', {
         contractType: (contractData as unknown as Record<string, unknown>)?.contractType,
         amount: Number(process.env.NEXT_PUBLIC_PRICE) || 29000,
