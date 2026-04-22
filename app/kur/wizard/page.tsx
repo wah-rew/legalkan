@@ -889,15 +889,16 @@ export default function KURWizardPage() {
                       Berdasarkan profil usahamu, ini rekomendasi kami:
                     </p>
 
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {kurRecs.map((rec) => (
                         <div
                           key={rec.bank}
-                          className="rounded-2xl p-4"
+                          className="rounded-2xl"
                           style={{
                             background: "white",
                             border: "1.5px solid rgba(13,27,62,0.1)",
                             position: "relative",
+                            padding: "1.25rem 1.5rem",
                             transition: "border-color 0.2s",
                           }}
                           onMouseEnter={(e) => {
@@ -926,23 +927,23 @@ export default function KURWizardPage() {
                               {rec.badge}
                             </span>
                           )}
-                          <div className="flex items-center gap-2 mb-2">
-                            <span style={{ fontSize: "1.25rem" }}>{rec.logo}</span>
+                          <div className="flex items-center gap-2 mb-3">
+                            <span style={{ fontSize: "1.5rem" }}>{rec.logo}</span>
                             <span
                               className="font-jakarta font-bold"
-                              style={{ color: "#0D1B3E", fontSize: "0.9rem" }}
+                              style={{ color: "#0D1B3E", fontSize: "1rem" }}
                             >
                               {rec.bank}
                             </span>
                           </div>
                           <p
-                            className="text-xs font-semibold mb-1"
+                            className="text-sm font-semibold mb-2"
                             style={{ color: "#3D4F7C" }}
                           >
                             {rec.product}
                           </p>
                           <div
-                            className="flex gap-3 text-xs mb-2"
+                            className="flex gap-3 text-xs mb-3"
                             style={{ color: "#6B7FA8" }}
                           >
                             <span>Plafon: s/d {rec.plafonMax}</span>
@@ -950,8 +951,8 @@ export default function KURWizardPage() {
                             <span>Bunga: {rec.bunga}</span>
                           </div>
                           <p
-                            className="text-xs mb-3"
-                            style={{ color: "#5A6A8A", lineHeight: 1.5 }}
+                            className="text-xs mb-4"
+                            style={{ color: "#5A6A8A", lineHeight: 1.7 }}
                           >
                             ✓ {rec.highlight}
                           </p>
@@ -959,7 +960,7 @@ export default function KURWizardPage() {
                             href={rec.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs font-bold rounded-xl px-3 py-1.5"
+                            className="inline-flex items-center gap-1 text-xs font-bold rounded-xl px-4 py-2"
                             style={{
                               background: "rgba(13,27,62,0.06)",
                               color: "#0D1B3E",
