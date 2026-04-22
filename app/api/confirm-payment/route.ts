@@ -182,7 +182,7 @@ export async function GET(req: NextRequest) {
       const resend = new Resend(resendKey);
 
       await resend.emails.send({
-        from: process.env.EMAIL_FROM || "LegalKan <onboarding@resend.dev>",
+        from: process.env.EMAIL_FROM || "LegalKan <noreply@legal-kan.com>",
         to: userEmail,
         subject: `🎉 Kontrakmu sudah jadi! — ${contractData.nomorKontrak || orderId}`,
         html: `

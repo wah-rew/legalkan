@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         const resend = new Resend(resendKey);
 
         await resend.emails.send({
-          from: process.env.EMAIL_FROM || "LegalKan <onboarding@resend.dev>",
+          from: process.env.EMAIL_FROM || "LegalKan <noreply@legal-kan.com>",
           to: paymentData.contractData.emailPembeli,
           subject: `Kontrakmu sudah jadi! — ${paymentData.contractData.nomorKontrak}`,
           html: `

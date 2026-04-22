@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send notification email to owner
-    const ownerEmail = process.env.OWNER_EMAIL || "wahyu@karyaselaksamakna.com";
+    const ownerEmail = process.env.OWNER_EMAIL || "finance@karyaselaksamakna.com";
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_APP_URL || "https://www.legal-kan.com";
     const confirmUrl = `${baseUrl}/api/confirm-payment?token=${confirmationToken}&orderId=${orderId}`;
 
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
         const resend = new Resend(resendKey);
 
         await resend.emails.send({
-          from: process.env.EMAIL_FROM || "LegalKan <onboarding@resend.dev>",
+          from: process.env.EMAIL_FROM || "LegalKan <noreply@legal-kan.com>",
           to: ownerEmail,
           subject: `💰 Transfer masuk — ${orderId} perlu dikonfirmasi`,
           html: `
