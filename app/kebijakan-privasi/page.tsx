@@ -298,11 +298,11 @@ export default function KebijakanPrivasiPage() {
               <li>
                 <strong>Halaman Hubungi Kami:</strong>{" "}
                 <a href="/hubungi" style={{ color: "#FF4D6D", textDecoration: "underline" }}>
-                  legalkan.id/hubungi
+                  legal-kan.com/hubungi
                 </a>
               </li>
               <li>
-                <strong>Email:</strong> halo@legalkan.id
+                <strong>Email:</strong> wahyu@karyaselaksamakna.com
               </li>
             </ul>
             <p>
