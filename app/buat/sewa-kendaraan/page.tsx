@@ -15,12 +15,15 @@ interface FormState {
   tahun_kendaraan: string; warna_kendaraan: string; nomor_polisi: string;
   nomor_rangka: string; nomor_mesin: string; kondisi_awal_kendaraan: string; km_awal: string;
   tanggal_mulai_sewa: string; tanggal_selesai_sewa: string;
+  jamPenyerahan: string; jamPengembalian: string;
   harga_sewa_per_hari: number; total_harga_sewa: number;
   batas_km_per_hari: string; biaya_km_lebih: number;
+  dendaKeterlambatan: number;
   jumlah_deposit: number; kapan_deposit_dikembalikan: string;
   skema_pembayaran: string; area_penggunaan: string;
-  saksi_1_nama: string;
-  kota_penandatanganan: string; tanggal_penandatanganan: string;
+  saksi_1_nama: string; saksi1Alamat: string;
+  saksi_2_nama: string; saksi2Alamat: string;
+  kota_penandatanganan: string; lokasiPembuatan: string; tanggal_penandatanganan: string;
   emailPembeli: string; nomorWhatsapp: string;
 }
 
@@ -28,11 +31,15 @@ const init: FormState = {
   nama_pemilik_kendaraan: "", nik_pemilik: "", alamat_pemilik: "", nomor_telepon_pemilik: "", nomor_rekening_pemilik: "", nama_bank_pemilik: "BCA",
   nama_penyewa: "", nik_penyewa: "", alamat_penyewa: "", nomor_telepon_penyewa: "", nomor_sim: "", jenis_sim: "C",
   jenis_kendaraan: "motor", merek_kendaraan: "", model_kendaraan: "", tahun_kendaraan: "", warna_kendaraan: "", nomor_polisi: "", nomor_rangka: "", nomor_mesin: "", kondisi_awal_kendaraan: "Baik, tidak ada kerusakan berarti", km_awal: "0",
-  tanggal_mulai_sewa: "", tanggal_selesai_sewa: "", harga_sewa_per_hari: 0, total_harga_sewa: 0, batas_km_per_hari: "0", biaya_km_lebih: 0,
+  tanggal_mulai_sewa: "", tanggal_selesai_sewa: "",
+  jamPenyerahan: "08:00", jamPengembalian: "18:00",
+  harga_sewa_per_hari: 0, total_harga_sewa: 0, batas_km_per_hari: "0", biaya_km_lebih: 0,
+  dendaKeterlambatan: 200000,
   jumlah_deposit: 0, kapan_deposit_dikembalikan: "7 hari kerja setelah kendaraan dikembalikan",
   skema_pembayaran: "lunas_di_muka", area_penggunaan: "dalam_kota",
-  saksi_1_nama: "",
-  kota_penandatanganan: "", tanggal_penandatanganan: "",
+  saksi_1_nama: "", saksi1Alamat: "",
+  saksi_2_nama: "", saksi2Alamat: "",
+  kota_penandatanganan: "", lokasiPembuatan: "", tanggal_penandatanganan: "",
   emailPembeli: "", nomorWhatsapp: "",
 };
 
@@ -66,12 +73,25 @@ export default function SewaKendaraanPage() {
 
   const next = () => { const err = validate(); if (err) { setError(err); return; } setError(""); setStep(s => s + 1); };
 
+  // Convert HH:MM → HH.MM WIB for contract template
+  const toWIB = (t: string) => t ? t.replace(":", ".") + " WIB" : undefined;
+
   const submit = async () => {
     setLoading(true); setError("");
     try {
+      const payload = {
+        ...form,
+        tahun_kendaraan: parseInt(form.tahun_kendaraan) || 2020,
+        km_awal: parseInt(form.km_awal) || 0,
+        batas_km_per_hari: parseInt(form.batas_km_per_hari) || 0,
+        jamPenyerahan: toWIB(form.jamPenyerahan),
+        jamPengembalian: toWIB(form.jamPengembalian),
+        dendaKeterlambatan: String(form.dendaKeterlambatan || 200000),
+        lokasiPembuatan: form.lokasiPembuatan || form.kota_penandatanganan,
+      };
       const res = await fetch("/api/generate/sewa-kendaraan", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, tahun_kendaraan: parseInt(form.tahun_kendaraan) || 2020, km_awal: parseInt(form.km_awal) || 0, batas_km_per_hari: parseInt(form.batas_km_per_hari) || 0 }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal generate kontrak");
@@ -88,7 +108,7 @@ export default function SewaKendaraanPage() {
           <FormInput label="Nama Lengkap" required><input className="form-input" value={form.nama_pemilik_kendaraan} onChange={e => set("nama_pemilik_kendaraan", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="NIK"><input className="form-input" maxLength={16} value={form.nik_pemilik} onChange={e => set("nik_pemilik", e.target.value)} /></FormInput>
-            <FormInput label="Telepon"><input className="form-input" value={form.nomor_telepon_pemilik} onChange={e => set("nomor_telepon_pemilik", e.target.value)} /></FormInput>
+            <FormInput label="Telepon"><input className="form-input" type="tel" value={form.nomor_telepon_pemilik} onChange={e => set("nomor_telepon_pemilik", e.target.value)} /></FormInput>
           </div>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_pemilik} onChange={e => set("alamat_pemilik", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -100,7 +120,7 @@ export default function SewaKendaraanPage() {
           <FormInput label="Nama Lengkap" required><input className="form-input" value={form.nama_penyewa} onChange={e => set("nama_penyewa", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="NIK"><input className="form-input" maxLength={16} value={form.nik_penyewa} onChange={e => set("nik_penyewa", e.target.value)} /></FormInput>
-            <FormInput label="Telepon"><input className="form-input" value={form.nomor_telepon_penyewa} onChange={e => set("nomor_telepon_penyewa", e.target.value)} /></FormInput>
+            <FormInput label="Telepon"><input className="form-input" type="tel" value={form.nomor_telepon_penyewa} onChange={e => set("nomor_telepon_penyewa", e.target.value)} /></FormInput>
           </div>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_penyewa} onChange={e => set("alamat_penyewa", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -152,13 +172,21 @@ export default function SewaKendaraanPage() {
             <FormInput label="Tanggal Mulai Sewa" required><input className="form-input" type="date" value={form.tanggal_mulai_sewa} onChange={e => set("tanggal_mulai_sewa", e.target.value)} /></FormInput>
             <FormInput label="Tanggal Selesai Sewa" required><input className="form-input" type="date" value={form.tanggal_selesai_sewa} onChange={e => set("tanggal_selesai_sewa", e.target.value)} /></FormInput>
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="Jam Penyerahan" hint="default 08:00"><input className="form-input" type="time" value={form.jamPenyerahan} onChange={e => set("jamPenyerahan", e.target.value)} /></FormInput>
+            <FormInput label="Jam Pengembalian" hint="default 18:00"><input className="form-input" type="time" value={form.jamPengembalian} onChange={e => set("jamPengembalian", e.target.value)} /></FormInput>
+          </div>
           <RpInput label="Harga Sewa per Hari" value={form.harga_sewa_per_hari} onChange={v => set("harga_sewa_per_hari", v)} />
           <RpInput label="Total Harga Sewa" required value={form.total_harga_sewa} onChange={v => set("total_harga_sewa", v)} />
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Batas KM/Hari (0 = bebas)"><input className="form-input" type="number" min="0" value={form.batas_km_per_hari} onChange={e => set("batas_km_per_hari", e.target.value)} /></FormInput>
             {parseInt(form.batas_km_per_hari) > 0 && <RpInput label="Biaya Kelebihan KM" value={form.biaya_km_lebih} onChange={v => set("biaya_km_lebih", v)} />}
           </div>
+          <FormInput label="Denda Keterlambatan per Jam (Rp)" hint="default Rp 200.000">
+            <input className="form-input" type="number" min="0" step="10000" value={form.dendaKeterlambatan} onChange={e => set("dendaKeterlambatan", parseInt(e.target.value) || 0)} />
+          </FormInput>
           <RpInput label="Deposit / Uang Jaminan" required value={form.jumlah_deposit} onChange={v => set("jumlah_deposit", v)} />
+          <FormInput label="Kapan Deposit Dikembalikan"><input className="form-input" value={form.kapan_deposit_dikembalikan} onChange={e => set("kapan_deposit_dikembalikan", e.target.value)} /></FormInput>
           <FormInput label="Skema Pembayaran">
             <select className="form-input" value={form.skema_pembayaran} onChange={e => set("skema_pembayaran", e.target.value)}>
               <option value="lunas_di_muka">Lunas di muka sebelum kendaraan diserahkan</option>
@@ -172,23 +200,38 @@ export default function SewaKendaraanPage() {
               <option value="seluruh_Indonesia">Seluruh Indonesia</option>
             </select>
           </FormInput>
-          <FormInput label="Nama Saksi" hint="opsional"><input className="form-input" value={form.saksi_1_nama} onChange={e => set("saksi_1_nama", e.target.value)} /></FormInput>
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
+          <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0D1B3E" }}>Saksi (Opsional)</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="Nama Saksi 1"><input className="form-input" value={form.saksi_1_nama} onChange={e => set("saksi_1_nama", e.target.value)} /></FormInput>
+            <FormInput label="Alamat Saksi 1"><input className="form-input" value={form.saksi1Alamat} onChange={e => set("saksi1Alamat", e.target.value)} /></FormInput>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="Nama Saksi 2"><input className="form-input" value={form.saksi_2_nama} onChange={e => set("saksi_2_nama", e.target.value)} /></FormInput>
+            <FormInput label="Alamat Saksi 2"><input className="form-input" value={form.saksi2Alamat} onChange={e => set("saksi2Alamat", e.target.value)} /></FormInput>
+          </div>
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Kota Penandatanganan" required><input className="form-input" value={form.kota_penandatanganan} onChange={e => set("kota_penandatanganan", e.target.value)} /></FormInput>
-            <FormInput label="Tanggal TTD" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
+            <FormInput label="Lokasi Pembuatan" hint="opsional, default = kota TTD"><input className="form-input" value={form.lokasiPembuatan} onChange={e => set("lokasiPembuatan", e.target.value)} /></FormInput>
           </div>
+          <FormInput label="Tanggal TTD" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
         </div>
       )}
 
       {step === 3 && (
         <div className="space-y-1">
           <ReviewRow label="Pemilik Kendaraan" value={form.nama_pemilik_kendaraan} />
+          <ReviewRow label="Telepon Pemilik" value={form.nomor_telepon_pemilik} />
           <ReviewRow label="Penyewa" value={form.nama_penyewa} />
+          <ReviewRow label="Telepon Penyewa" value={form.nomor_telepon_penyewa} />
           <ReviewRow label="Kendaraan" value={`${form.merek_kendaraan} ${form.model_kendaraan} (${form.nomor_polisi})`} />
-          <ReviewRow label="Periode Sewa" value={`${form.tanggal_mulai_sewa} – ${form.tanggal_selesai_sewa}`} />
+          <ReviewRow label="Periode Sewa" value={`${form.tanggal_mulai_sewa} ${form.jamPenyerahan} – ${form.tanggal_selesai_sewa} ${form.jamPengembalian}`} />
           <ReviewRow label="Total Sewa" value={`Rp ${new Intl.NumberFormat("id-ID").format(form.total_harga_sewa)}`} />
           <ReviewRow label="Deposit" value={`Rp ${new Intl.NumberFormat("id-ID").format(form.jumlah_deposit)}`} />
+          <ReviewRow label="Denda Keterlambatan" value={`Rp ${new Intl.NumberFormat("id-ID").format(form.dendaKeterlambatan)}/jam`} />
           <ReviewRow label="Area Penggunaan" value={form.area_penggunaan.replace(/_/g, " ")} />
+          <ReviewRow label="Kota TTD" value={form.kota_penandatanganan} />
           <ReviewRow label="Email Dokumen" value={form.emailPembeli} />
           <PriceBox price={CONTRACT_PRICES['sewa-kendaraan']} />
         </div>
