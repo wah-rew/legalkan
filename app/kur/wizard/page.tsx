@@ -837,25 +837,26 @@ export default function KURWizardPage() {
                 {docs.map((doc) => (
                   <div
                     key={doc.id}
-                    className="flex items-start gap-3 rounded-xl p-3"
-                    style={{ background: "rgba(255,255,255,0.05)" }}
+                    className="flex items-start gap-4 rounded-2xl"
+                    style={{ background: "rgba(255,255,255,0.05)", padding: "1rem 1.25rem" }}
                   >
-                    <span style={{ fontSize: "1.5rem", flexShrink: 0 }}>{doc.icon}</span>
+                    <span style={{ fontSize: "1.75rem", flexShrink: 0, marginTop: "0.1rem" }}>{doc.icon}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm text-white">{doc.title}</p>
-                      <p className="text-xs mt-0.5" style={{ color: "#94A3CB", lineHeight: 1.5 }}>
+                      <p className="font-bold text-sm text-white mb-1">{doc.title}</p>
+                      <p className="text-xs" style={{ color: "#94A3CB", lineHeight: 1.7 }}>
                         {doc.description || doc.desc}
                       </p>
                     </div>
                     <span
                       style={{
                         flexShrink: 0,
-                        fontSize: "0.6rem",
+                        fontSize: "0.65rem",
                         fontWeight: 700,
-                        padding: "0.2rem 0.5rem",
+                        padding: "0.3rem 0.65rem",
                         borderRadius: "9999px",
                         background: "rgba(6,214,160,0.15)",
                         color: "#06D6A0",
+                        marginTop: "0.1rem",
                       }}
                     >
                       ✓ Termasuk
