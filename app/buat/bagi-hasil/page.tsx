@@ -33,6 +33,8 @@ interface FormState {
   // Non-compete
   radiusNonCompete: string;
   durasiNonCompete: string;
+  // Sanksi
+  sanksiDenda: string;
   // Saksi
   saksi_1: string; nik_saksi_1: string; saksi1Alamat: string;
   saksi_2: string; nik_saksi_2: string; saksi2Alamat: string;
@@ -62,6 +64,7 @@ const init: FormState = {
   masaPemberitahuanKeluar: "3",
   radiusNonCompete: "500",
   durasiNonCompete: "1",
+  sanksiDenda: "1% omzet bulanan",
   saksi_1: "", nik_saksi_1: "", saksi1Alamat: "",
   saksi_2: "", nik_saksi_2: "", saksi2Alamat: "",
   kota_penandatanganan: "", lokasiPembuatan: "", tanggal_penandatanganan: "",
@@ -122,6 +125,7 @@ export default function BagiHasilPage() {
           persen_tanggung_rugi_pihak_1: tr1, persen_tanggung_rugi_pihak_2: tr2,
           batasModalTambahan: String(form.batasModalTambahan),
           batasInvestasi: String(form.batasInvestasi),
+          sanksiDenda: form.sanksiDenda || undefined,
           lokasiPembuatan: form.lokasiPembuatan || form.kota_penandatanganan,
         }),
       });
@@ -270,6 +274,9 @@ export default function BagiHasilPage() {
           <FormInput label="Durasi Larangan Persaingan setelah berakhir (tahun)">
             <input className="form-input" type="number" min="1" max="5" placeholder="1" value={form.durasiNonCompete} onChange={e => set("durasiNonCompete", e.target.value)} />
           </FormInput>
+          <FormInput label="Sanksi Denda Wanprestasi" hint="misal: 1% omzet bulanan, Rp 500.000/hari">
+            <input className="form-input" placeholder="1% omzet bulanan" value={form.sanksiDenda} onChange={e => set("sanksiDenda", e.target.value)} />
+          </FormInput>
           <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
           <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0D1B3E" }}>Saksi-Saksi</p>
           <p className="text-xs" style={{ color: "#666" }}>Saksi memberikan legitimasi tambahan pada dokumen perjanjian</p>
@@ -303,6 +310,7 @@ export default function BagiHasilPage() {
           <ReviewRow label="Tgl Pembagian" value={`Setiap tgl ${form.tanggalPembagian}`} />
           <ReviewRow label="Tgl Laporan" value={`Setiap tgl ${form.tanggalLaporan}`} />
           <ReviewRow label="Non-compete" value={`${form.radiusNonCompete}m, ${form.durasiNonCompete} thn`} />
+          {form.sanksiDenda && <ReviewRow label="Sanksi Denda" value={form.sanksiDenda} />}
           <ReviewRow label="Jangka Waktu" value={form.jangka_waktu_perjanjian.replace(/_/g, " ")} />
           <ReviewRow label="Email Dokumen" value={form.emailPembeli} />
           <PriceBox price={CONTRACT_PRICES['bagi-hasil']} />

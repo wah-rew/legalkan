@@ -119,7 +119,7 @@ export function generateBagiHasilHTML(d: BagiHasilData): string {
 
   // ── Pasal 2: Para Pihak ───────────────────────────────────────────────────
   const paraPihak = pb.pasal("Para Pihak", `
-    <p>Perjanjian ini dibuat di <strong>${lokasiPembuatan}</strong> pada tanggal <strong>${tglTtd}</strong>, oleh dan antara:</p>
+    <p>Pada tanggal <strong>${tglTtd}</strong> di <strong>${lokasiPembuatan}</strong>, Perjanjian Kemitraan ini ditandatangani oleh dan antara:</p>
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong></p>
       <p><strong>Nama :</strong> ${d.nama_pihak_1}</p>
@@ -171,7 +171,7 @@ export function generateBagiHasilHTML(d: BagiHasilData): string {
       <li>Modal kerja operasional harian.</li>
     </ul>
     <p>3. Kontribusi berupa aset non-tunai dinilai berdasarkan kesepakatan Para Pihak sebagaimana tercantum di atas dan tidak dapat dipermasalahkan kembali setelah Perjanjian ini ditandatangani.</p>
-    <p>4. Para Pihak wajib menyetorkan kontribusi modal pada tanggal <strong>${tglMulai}</strong>.</p>
+    <p>4. Kontribusi modal masing-masing Pihak disetor paling lambat pada tanggal <strong>${tglMulai}</strong>.</p>
     <p>5. Penambahan modal oleh salah satu pihak hanya dapat dilakukan atas persetujuan tertulis Para Pihak, sebagaimana diatur dalam Pasal Pengambilan Keputusan.</p>
     ${d.apakah_ada_gaji_pengelola && d.gaji_pengelola ? `<p>6. Pengelola mendapat honor pengelolaan sebesar <strong>${formatRupiah(d.gaji_pengelola)}</strong> per bulan, dibebankan sebagai biaya operasional usaha sebelum perhitungan bagi hasil.</p>` : ""}
   `);
@@ -194,13 +194,13 @@ export function generateBagiHasilHTML(d: BagiHasilData): string {
       <li>Penyusutan aset usaha;</li>
       <li>Cadangan modal kerja yang disepakati Para Pihak.</li>
     </ul>
-    <p>4. Pembagian keuntungan dilakukan <strong>${periodeLabel}</strong>, setiap tanggal <strong>${tanggalPembagian}</strong> berdasarkan laporan keuangan periode sebelumnya. Para Pihak dapat bersepakat secara tertulis untuk menahan sebagian laba sebagai cadangan modal kerja.</p>
+    <p>4. Distribusi keuntungan dilaksanakan <strong>${periodeLabel}</strong> pada tanggal <strong>${tanggalPembagian}</strong> berdasarkan laporan keuangan periode berjalan yang telah diverifikasi. Atas kesepakatan tertulis Para Pihak, sebagian laba dapat ditahan sebagai cadangan modal kerja.</p>
     <p>5. <strong>Larangan Klausul Leonine:</strong> Sesuai KUHPerdata Pasal 1635, tidak diperbolehkan membebankan seluruh kerugian kepada satu pihak saja. Apabila terdapat ketentuan demikian, demi hukum klausul tersebut batal.</p>
   `);
 
   // ── Pasal 6: Pelaporan Keuangan ───────────────────────────────────────────
   const pelaporanKeuangan = pb.pasal("Tata Cara Pelaporan Keuangan", `
-    <p>1. <strong>Pencatatan Harian:</strong> Pengelola wajib melakukan pencatatan transaksi harian secara tertib, lengkap, dan disertai bukti transaksi yang sah (nota, kwitansi, atau bukti pembayaran lainnya).</p>
+    <p>1. <strong>Pencatatan Harian:</strong> Pihak pengelola berkewajiban mencatat setiap transaksi harian secara tertib, lengkap, dan dilengkapi bukti transaksi yang valid (nota, kwitansi, atau bukti pembayaran lainnya).</p>
     <p>2. <strong>Laporan Bulanan:</strong> Pihak yang mengelola usaha wajib menyusun dan menyerahkan laporan keuangan bulanan kepada seluruh Mitra paling lambat tanggal <strong>${tanggalLaporan}</strong> setiap bulannya, terdiri dari:</p>
     <ul>
       <li>Laporan laba rugi periode berjalan;</li>
@@ -278,7 +278,7 @@ export function generateBagiHasilHTML(d: BagiHasilData): string {
 
   // ── Pasal 10: Larangan dan Pembatasan ────────────────────────────────────
   const laranganPembatasan = pb.pasal("Larangan dan Pembatasan", `
-    <p>1. <strong>Larangan Persaingan (Non-Compete):</strong> Selama Perjanjian berlaku dan dalam jangka waktu <strong>${durasiNonCompete} (${durasiNonCompete === "1" ? "satu" : durasiNonCompete}) tahun</strong> setelah Perjanjian berakhir, Para Pihak dilarang mendirikan, memiliki, atau terlibat dalam usaha sejenis yang bersaing dengan usaha kemitraan ini dalam radius <strong>${radiusNonCompete} (${radiusNonCompete} meter)</strong> dari lokasi usaha, kecuali mendapat persetujuan tertulis dari pihak lain.</p>
+    <p>1. <strong>Klausul Non-Compete:</strong> Sepanjang Perjanjian berlaku dan selama <strong>${durasiNonCompete} (${durasiNonCompete === "1" ? "satu" : durasiNonCompete}) tahun</strong> setelah Perjanjian berakhir, Para Pihak dilarang mendirikan, memiliki, atau terlibat dalam usaha sejenis yang bersaing dengan usaha kemitraan ini dalam radius <strong>${radiusNonCompete} (${radiusNonCompete} meter)</strong> dari lokasi usaha, kecuali mendapat persetujuan tertulis dari pihak lain.</p>
     <p>2. <strong>Kerahasiaan Informasi:</strong> Para Pihak wajib menjaga kerahasiaan seluruh informasi bisnis, data pelanggan, strategi usaha, dan informasi keuangan yang diperoleh selama kemitraan berlangsung. Kewajiban kerahasiaan ini berlaku selama kemitraan dan <strong>${durasiNonCompete} tahun</strong> setelah berakhir.</p>
     <p>3. <strong>Penggunaan Aset:</strong> Aset usaha kemitraan hanya dapat digunakan untuk kepentingan usaha dan tidak boleh dijaminkan, dipindahtangankan, atau digunakan untuk kepentingan pribadi tanpa persetujuan tertulis Para Pihak.</p>
     <p>4. <strong>Benturan Kepentingan:</strong> Para Pihak wajib mengungkapkan setiap benturan kepentingan yang mungkin memengaruhi pengambilan keputusan usaha dan mengambil langkah-langkah yang diperlukan untuk mengatasinya.</p>
@@ -286,7 +286,7 @@ export function generateBagiHasilHTML(d: BagiHasilData): string {
 
   // ── Pasal 11: Wanprestasi dan Sanksi ─────────────────────────────────────
   const wanprestasi = pb.pasal("Wanprestasi dan Sanksi", `
-    <p>1. Wanprestasi terjadi apabila salah satu pihak tidak memenuhi kewajiban sebagaimana diatur dalam Perjanjian ini, termasuk namun tidak terbatas pada: tidak menyetor modal tepat waktu, tidak menyerahkan laporan keuangan, menyalahgunakan aset usaha, atau melanggar ketentuan larangan persaingan.</p>
+    <p>1. Suatu Pihak dinyatakan wanprestasi ketika yang bersangkutan lalai memenuhi kewajiban yang diatur dalam Perjanjian ini, termasuk namun tidak terbatas pada: tidak menyetor modal tepat waktu, tidak menyerahkan laporan keuangan, menyalahgunakan aset usaha, atau melanggar ketentuan larangan persaingan.</p>
     <p>2. <strong>Sanksi Bertingkat:</strong></p>
     <ul>
       <li><strong>Tahap 1 – Teguran Tertulis:</strong> Pihak yang dirugikan menyampaikan teguran tertulis kepada pihak yang wanprestasi. Pihak yang wanprestasi diberi waktu 14 (empat belas) hari untuk memenuhi kewajibannya;</li>
@@ -319,11 +319,11 @@ export function generateBagiHasilHTML(d: BagiHasilData): string {
 
   // ── Pasal 14: Ketentuan Penutup ───────────────────────────────────────────
   const ketentuan = pb.pasal("Ketentuan Penutup", `
-    <p>1. Perjanjian ini berlaku sejak ditandatangani oleh Para Pihak.</p>
+    <p>1. Perjanjian ini mulai mengikat Para Pihak terhitung sejak tanggal penandatanganan.</p>
     <p>2. Perjanjian ini dibuat dalam <strong>2 (dua) rangkap</strong> bermaterai cukup, masing-masing mempunyai kekuatan hukum yang sama.</p>
     <p>3. Perubahan atas Perjanjian ini hanya sah apabila dilakukan secara tertulis dan ditandatangani oleh Para Pihak.</p>
     <p>4. Apabila salah satu ketentuan dalam Perjanjian ini dinyatakan tidak sah atau tidak dapat dilaksanakan (<em>severability</em>), ketentuan lainnya tetap berlaku penuh.</p>
-    <p>5. Perjanjian ini menggantikan seluruh perjanjian, kesepakatan, atau pembicaraan sebelumnya mengenai hal yang sama antara Para Pihak.</p>
+    <p>5. Perjanjian ini merupakan satu-satunya dasar kesepakatan yang berlaku, dan dengan ini menggantikan segala perjanjian, diskusi, atau negosiasi sebelumnya mengenai hal yang sama.</p>
     <p>6. Para Pihak sepakat untuk melaksanakan Perjanjian ini dengan itikad baik (good faith) sesuai asas-asas hukum perjanjian yang berlaku.</p>
   `);
 

@@ -9,6 +9,7 @@ const STEPS = ["Para Pihak", "Detail Pekerjaan", "Kompensasi & HKI", "Review"];
 interface FormState {
   nama_pemberi_kerja: string; nama_perusahaan: string; alamat_pemberi_kerja: string;
   nama_freelancer: string; nik_freelancer: string; alamat_freelancer: string;
+  telepon_freelancer: string; email_freelancer: string;
   nomor_rekening_freelancer: string; nama_bank_freelancer: string; atas_nama_rekening: string;
   judul_pekerjaan: string; deskripsi_pekerjaan: string; deliverable: string;
   jumlah_revisi: string; tanggal_mulai: string; tanggal_selesai: string;
@@ -24,6 +25,7 @@ interface FormState {
 const init: FormState = {
   nama_pemberi_kerja: "", nama_perusahaan: "", alamat_pemberi_kerja: "",
   nama_freelancer: "", nik_freelancer: "", alamat_freelancer: "",
+  telepon_freelancer: "", email_freelancer: "",
   nomor_rekening_freelancer: "", nama_bank_freelancer: "BCA", atas_nama_rekening: "",
   judul_pekerjaan: "", deskripsi_pekerjaan: "", deliverable: "",
   jumlah_revisi: "2", tanggal_mulai: "", tanggal_selesai: "", lokasi_kerja: "remote",
@@ -74,7 +76,7 @@ export default function FreelancerPage() {
       const dpAmount = Math.round(form.jumlah_imbalan * dpPersen / 100);
       const res = await fetch("/api/generate/freelancer", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, jumlah_revisi: parseInt(form.jumlah_revisi) || 2, dp_persen: dpPersen, dp_jumlah: dpAmount }),
+        body: JSON.stringify({ ...form, jumlah_revisi: parseInt(form.jumlah_revisi) || 2, dp_persen: dpPersen, dp_jumlah: dpAmount, telepon_karyawan: form.telepon_freelancer || undefined, email_karyawan: form.email_freelancer || undefined }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal generate kontrak");
@@ -110,6 +112,14 @@ export default function FreelancerPage() {
           <FormInput label="Alamat Lengkap" required>
             <textarea className="form-input" rows={2} value={form.alamat_freelancer} onChange={e => set("alamat_freelancer", e.target.value)} />
           </FormInput>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="No. Telepon" hint="opsional">
+              <input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.telepon_freelancer} onChange={e => set("telepon_freelancer", e.target.value)} />
+            </FormInput>
+            <FormInput label="Email Freelancer" hint="opsional">
+              <input className="form-input" type="email" placeholder="email@contoh.com" value={form.email_freelancer} onChange={e => set("email_freelancer", e.target.value)} />
+            </FormInput>
+          </div>
           <div className="grid gap-4 sm:grid-cols-3">
             <FormInput label="Bank">
               <select className="form-input" value={form.nama_bank_freelancer} onChange={e => set("nama_bank_freelancer", e.target.value)}>
@@ -228,6 +238,8 @@ export default function FreelancerPage() {
         <div className="space-y-1">
           <ReviewRow label="Pemberi Kerja" value={form.nama_pemberi_kerja} />
           <ReviewRow label="Freelancer" value={form.nama_freelancer} />
+          {form.telepon_freelancer && <ReviewRow label="Telepon Freelancer" value={form.telepon_freelancer} />}
+          {form.email_freelancer && <ReviewRow label="Email Freelancer" value={form.email_freelancer} />}
           <ReviewRow label="Pekerjaan" value={form.judul_pekerjaan} />
           <ReviewRow label="Deadline" value={form.tanggal_selesai} />
           <ReviewRow label="Total Nilai" value={`Rp ${new Intl.NumberFormat("id-ID").format(form.jumlah_imbalan)}`} />

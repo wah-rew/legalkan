@@ -96,7 +96,7 @@ export function generateSewaKendaraanHTML(d: SewaKendaraanData): string {
 
   // ── Pasal 2: Para Pihak ───────────────────────────────────────────────────
   const paraPihak = pb.pasal("Para Pihak", `
-    <p>Perjanjian ini dibuat di <strong>${lokasiPembuatan}</strong> pada tanggal <strong>${tglTtd}</strong>, oleh dan antara:</p>
+    <p>Pada tanggal <strong>${tglTtd}</strong>, bertempat di <strong>${lokasiPembuatan}</strong>, Perjanjian ini disepakati oleh dan antara:</p>
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong> (Pemilik / Pemberi Sewa Kendaraan)</p>
       <p><strong>Nama :</strong> ${d.nama_pemilik_kendaraan}</p>
@@ -145,7 +145,7 @@ export function generateSewaKendaraanHTML(d: SewaKendaraanData): string {
 
   // ── Pasal 4: Jangka Waktu Sewa ────────────────────────────────────────────
   const jangkaWaktu = pb.pasal("Jangka Waktu Sewa", `
-    <p>1. Sewa kendaraan berlaku dari tanggal <strong>${tglMulai}</strong> pukul <strong>${jamPenyerahan}</strong> sampai dengan tanggal <strong>${tglSelesai}</strong> pukul <strong>${jamPengembalian}</strong>.</p>
+    <p>1. Periode sewa kendaraan dimulai pada tanggal <strong>${tglMulai}</strong> pukul <strong>${jamPenyerahan}</strong> dan berakhir pada tanggal <strong>${tglSelesai}</strong> pukul <strong>${jamPengembalian}</strong>.</p>
     <p>2. Penyerahan dan pengembalian kendaraan dilakukan pada waktu dan tempat yang disepakati Para Pihak sesuai angka 1 di atas.</p>
     <p>3. Apabila PIHAK KEDUA bermaksud memperpanjang masa sewa, pemberitahuan wajib disampaikan kepada PIHAK PERTAMA <strong>paling lambat 24 (dua puluh empat) jam</strong> sebelum masa sewa berakhir, dan perpanjangan baru sah setelah mendapat persetujuan tertulis dari PIHAK PERTAMA.</p>
     <p>4. Keterlambatan pengembalian tanpa pemberitahuan atau tanpa persetujuan perpanjangan dikenakan denda sebagaimana diatur dalam Pasal Denda dan Sanksi.</p>
@@ -188,11 +188,11 @@ export function generateSewaKendaraanHTML(d: SewaKendaraanData): string {
     <p>1. PIHAK KEDUA berhak menggunakan kendaraan sesuai spesifikasi, jangka waktu, dan area yang disepakati.</p>
     <p>2. PIHAK KEDUA berkewajiban untuk:</p>
     <ul>
-      <li>Menggunakan kendaraan dengan penuh tanggung jawab sesuai peraturan lalu lintas yang berlaku;</li>
+      <li>Mengemudikan kendaraan secara bertanggung jawab dan mematuhi seluruh peraturan lalu lintas yang berlaku;</li>
       <li>Memiliki SIM yang valid dan sesuai jenis kendaraan sepanjang masa sewa;</li>
       <li>Merawat kendaraan selama masa sewa seperti milik sendiri;</li>
       <li>Membayar BBM, tol, parkir, dan biaya operasional lainnya;</li>
-      <li>Menghubungi PIHAK PERTAMA dalam waktu <strong>1 (satu) jam</strong> apabila terjadi kecelakaan atau kerusakan;</li>
+      <li>Segera menghubungi PIHAK PERTAMA — paling lambat <strong>1 (satu) jam</strong> setelah kejadian — apabila terjadi kecelakaan atau kerusakan;</li>
       <li>Mengembalikan kendaraan tepat waktu dalam kondisi bersih dan tidak lebih buruk dari saat diserahkan;</li>
       <li>Mengembalikan kendaraan beserta seluruh kelengkapan yang diserahterimakan.</li>
     </ul>
@@ -250,7 +250,7 @@ export function generateSewaKendaraanHTML(d: SewaKendaraanData): string {
 
   // ── Pasal 11: Denda dan Sanksi ────────────────────────────────────────────
   const dendaSanksi = pb.pasal("Denda dan Sanksi", `
-    <p>1. <strong>Denda Keterlambatan:</strong> Keterlambatan pengembalian kendaraan dikenakan denda <strong>${dendaPerJam} per jam</strong>, terhitung sejak waktu seharusnya kendaraan dikembalikan.</p>
+    <p>1. <strong>Denda Pengembalian Terlambat:</strong> Atas setiap jam keterlambatan dalam pengembalian kendaraan, PIHAK KEDUA dikenai denda sebesar <strong>${dendaPerJam}/jam</strong> yang dihitung mulai saat jadwal pengembalian yang disepakati.</p>
     <p>2. <strong>Denda Tilang:</strong></p>
     <ul>
       <li>Setiap pelanggaran lalu lintas dan tilang yang terjadi selama masa sewa menjadi tanggung jawab sepenuhnya PIHAK KEDUA;</li>
@@ -263,7 +263,7 @@ export function generateSewaKendaraanHTML(d: SewaKendaraanData): string {
 
   // ── Pasal 12: Pengakhiran Perjanjian ──────────────────────────────────────
   const pengakhiran = pb.pasal("Pengakhiran Perjanjian", `
-    <p>1. <strong>Berakhir Normal:</strong> Perjanjian berakhir dengan sendirinya pada tanggal ${tglSelesai} pukul ${jamPengembalian}, dengan dikembalikannya kendaraan dalam kondisi baik dan dilunaskannya seluruh kewajiban PIHAK KEDUA.</p>
+    <p>1. <strong>Berakhir Normal:</strong> Perjanjian gugur dengan sendirinya pada tanggal ${tglSelesai} pukul ${jamPengembalian}, manakala kendaraan telah diserahkan kembali dalam kondisi baik dan seluruh kewajiban PIHAK KEDUA telah diselesaikan.</p>
     <p>2. <strong>Pengakhiran Sebelum Waktunya oleh PIHAK KEDUA:</strong> Apabila PIHAK KEDUA mengakhiri sewa sebelum tanggal yang disepakati, biaya sewa yang telah dibayarkan <strong>tidak dapat dikembalikan (no refund)</strong>, kecuali disepakati lain secara tertulis oleh Para Pihak.</p>
     <p>3. <strong>Pengakhiran Sepihak oleh PIHAK PERTAMA:</strong> PIHAK PERTAMA berhak mengakhiri perjanjian secara sepihak apabila PIHAK KEDUA melanggar ketentuan perjanjian ini, khususnya larangan-larangan yang diatur dalam Pasal Larangan Penggunaan, tanpa kewajiban mengembalikan biaya sewa.</p>
     <p>4. Pengakhiran perjanjian wajib disertai Berita Acara Pengembalian Kendaraan yang ditandatangani Para Pihak.</p>
@@ -278,7 +278,7 @@ export function generateSewaKendaraanHTML(d: SewaKendaraanData): string {
 
   // ── Pasal 14: Ketentuan Lain-lain ─────────────────────────────────────────
   const ketentuan = pb.pasal("Ketentuan Lain-lain", `
-    <p>1. <strong>Force Majeure:</strong> Apabila terjadi keadaan kahar (bencana alam, perang, pandemi, atau kejadian di luar kendali manusia) yang menghalangi pelaksanaan perjanjian, pihak yang terdampak wajib memberitahukan pihak lainnya dalam waktu <strong>24 (dua puluh empat) jam</strong> sejak terjadinya keadaan kahar. Para Pihak berunding dalam itikad baik untuk menyelesaikan dampaknya.</p>
+    <p>1. <strong>Force Majeure:</strong> Dalam hal terjadi keadaan kahar — antara lain bencana alam, perang, pandemi, atau kejadian lain di luar kendali manusia — yang menghalangi terlaksananya perjanjian, Pihak yang terdampak wajib memberitahu Pihak lainnya dalam waktu <strong>24 (dua puluh empat) jam</strong> sejak kejadian. Kedua belah pihak kemudian berunding dengan itikad baik guna menemukan penyelesaian yang tepat.</p>
     <p>2. <strong>Perubahan Perjanjian:</strong> Setiap perubahan atau penambahan ketentuan perjanjian ini hanya sah apabila dibuat secara tertulis dan ditandatangani oleh Para Pihak.</p>
     <p>3. <strong>Hukum yang Berlaku:</strong> Perjanjian ini tunduk pada hukum yang berlaku di Negara Republik Indonesia.</p>
     <p>4. <strong>Keaslian Dokumen:</strong> Perjanjian ini dibuat dalam <strong>2 (dua) rangkap bermaterai cukup</strong>, masing-masing mempunyai kekuatan hukum yang sama, satu untuk PIHAK PERTAMA dan satu untuk PIHAK KEDUA.</p>

@@ -43,6 +43,9 @@ export interface ContractFormData {
   namaBank?: string;
   nomorRekening?: string;
 
+  // ─── Lokasi Pembuatan ──────────────────────────────────────────
+  lokasiPembuatan?: string;        // kota/tempat dibuat, default = kota TTD
+
   // ─── Saksi-Saksi ────────────────────────────────────────
   saksiEnabled?: boolean;
   saksi1Nama?: string;

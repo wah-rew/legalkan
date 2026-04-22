@@ -79,12 +79,12 @@ export function generatePKWTHTML(d: PKWTData): string {
       <li>Peraturan Pemerintah No. 35 Tahun 2021 tentang Perjanjian Kerja Waktu Tertentu, Alih Daya, Waktu Kerja dan Waktu Istirahat, dan Pemutusan Hubungan Kerja;</li>
       <li>Peraturan perundang-undangan ketenagakerjaan lain yang berlaku di Republik Indonesia.</li>
     </ol>
-    <p style="margin-top: 10px;">Perjanjian ini merupakan PKWT sebagaimana dimaksud dalam PP No. 35/2021, untuk pekerjaan yang bersifat tidak tetap atau untuk jangka waktu tertentu. <strong>PKWT ini tidak memuat masa percobaan</strong> sesuai Pasal 12 PP No. 35/2021.</p>
+    <p style="margin-top: 10px;">Perjanjian ini merupakan PKWT sebagaimana dimaksud dalam PP No. 35/2021, untuk pekerjaan yang bersifat tidak tetap atau untuk jangka waktu tertentu. Sesuai ketentuan Pasal 12 PP No. 35/2021, <strong>PKWT ini tidak mencantumkan masa percobaan kerja</strong>.</p>
   `);
 
   // ─── Pasal 2: Para Pihak ──────────────────────────────────────────────────
   const paraPihak = pb.pasal("Para Pihak", `
-    <p>Perjanjian ini dibuat dan ditandatangani di <strong>${d.kota_penandatanganan}</strong> pada tanggal <strong>${tglPenandatanganan}</strong>, oleh dan antara:</p>
+    <p>Di <strong>${d.kota_penandatanganan}</strong>, pada tanggal <strong>${tglPenandatanganan}</strong>, Perjanjian Kerja ini disepakati oleh dan antara:</p>
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong> (Pemberi Kerja / Perusahaan)</p>
       <p><strong>Nama Perusahaan :</strong> ${d.jenis_perusahaan} ${d.nama_perusahaan}</p>
@@ -167,7 +167,7 @@ export function generatePKWTHTML(d: PKWTData): string {
 
   // ─── Pasal 7: Hak dan Kewajiban ──────────────────────────────────────────
   const hakKewajiban = pb.pasal("Hak dan Kewajiban Para Pihak", `
-    <p><strong>A. Kewajiban PIHAK KEDUA (Pekerja):</strong></p>
+    <p><strong>A. Tanggung Jawab PIHAK KEDUA (Pekerja):</strong></p>
     <ul>
       <li>Melaksanakan pekerjaan dengan penuh tanggung jawab, disiplin, dan integritas;</li>
       <li>Mematuhi peraturan perusahaan, tata tertib kerja, dan kode etik yang berlaku;</li>
@@ -233,7 +233,7 @@ export function generatePKWTHTML(d: PKWTData): string {
 
   // ─── Pasal 11: Kompensasi PKWT ───────────────────────────────────────────
   const kompensasi = pb.pasal("Kompensasi Berakhirnya PKWT", `
-    <p>1. Sesuai Pasal 15 dan 16 PP No. 35/2021, PIHAK PERTAMA wajib memberikan uang kompensasi kepada PIHAK KEDUA pada saat berakhirnya PKWT ini, dengan ketentuan sebagai berikut:</p>
+    <p>1. Berdasarkan Pasal 15 dan 16 PP No. 35/2021, PIHAK PERTAMA berkewajiban membayarkan uang kompensasi kepada PIHAK KEDUA ketika PKWT ini berakhir, dengan ketentuan sebagai berikut:</p>
     <ul>
       <li>Masa kerja <strong>12 (dua belas) bulan secara terus-menerus</strong>: kompensasi sebesar <strong>1 (satu) bulan upah</strong>;</li>
       <li>Masa kerja di bawah 12 (dua belas) bulan: dihitung secara proporsional (prorata) dengan rumus: <strong>(masa kerja ÷ 12) × 1 bulan upah</strong>.</li>
@@ -245,7 +245,7 @@ export function generatePKWTHTML(d: PKWTData): string {
 
   // ─── Pasal 12: Pengakhiran ────────────────────────────────────────────────
   const pengakhiran = pb.pasal("Pengakhiran Perjanjian", `
-    <p>1. PKWT ini berakhir secara otomatis pada tanggal yang telah ditetapkan (<strong>${tglBerakhir}</strong>) tanpa diperlukan pemberitahuan khusus.</p>
+    <p>1. Demi hukum, PKWT ini berakhir dengan sendirinya pada tanggal <strong>${tglBerakhir}</strong> tanpa memerlukan pemberitahuan pengakhiran secara khusus.</p>
     <p>2. Perjanjian dapat diakhiri sebelum waktunya apabila:</p>
     <ul>
       <li>PIHAK KEDUA mengundurkan diri secara sukarela dengan pemberitahuan tertulis minimal <strong>30 (tiga puluh) hari</strong> sebelumnya;</li>
@@ -259,7 +259,7 @@ export function generatePKWTHTML(d: PKWTData): string {
 
   // ─── Pasal 13: Force Majeure ──────────────────────────────────────────────
   const forceMajeure = pb.pasal("Keadaan Kahar (Force Majeure)", `
-    <p>1. Yang dimaksud dengan keadaan kahar dalam perjanjian ini adalah kejadian di luar kemampuan Para Pihak yang mengakibatkan tidak dapat dilaksanakannya kewajiban, termasuk namun tidak terbatas pada: bencana alam, kebakaran, wabah penyakit, perang, pemberontakan, atau kebijakan pemerintah yang secara langsung menghalangi pelaksanaan perjanjian.</p>
+    <p>1. Keadaan kahar dalam perjanjian ini mencakup segala kejadian di luar kendali wajar Para Pihak yang menyebabkan terhambatnya atau tidak dapat dipenuhinya kewajiban, termasuk namun tidak terbatas pada: bencana alam, kebakaran, wabah penyakit, perang, pemberontakan, atau kebijakan pemerintah yang secara langsung menghalangi pelaksanaan perjanjian.</p>
     <p>2. Pihak yang mengalami keadaan kahar wajib memberitahukan kepada Pihak lainnya secara tertulis dalam waktu <strong>7 (tujuh) hari</strong> sejak terjadinya keadaan kahar.</p>
     <p>3. Keadaan kahar yang berlangsung lebih dari 30 (tiga puluh) hari berturut-turut dapat menjadi alasan pengakhiran perjanjian berdasarkan kesepakatan tertulis Para Pihak.</p>
   `);
@@ -273,7 +273,7 @@ export function generatePKWTHTML(d: PKWTData): string {
 
   // ─── Pasal 15: Ketentuan Penutup ─────────────────────────────────────────
   const penutup = pb.pasal("Ketentuan Penutup", `
-    <p>1. Perjanjian ini dibuat dalam rangkap 2 (dua) yang masing-masing mempunyai kekuatan hukum yang sama, satu untuk PIHAK PERTAMA dan satu untuk PIHAK KEDUA.</p>
+    <p>1. Perjanjian ini disusun dalam 2 (dua) rangkap asli, masing-masing berkekuatan hukum yang setara — satu disimpan oleh PIHAK PERTAMA dan satu oleh PIHAK KEDUA.</p>
     <p>2. Perubahan, penambahan, atau pengakhiran atas perjanjian ini hanya dapat dilakukan dengan persetujuan tertulis yang ditandatangani oleh Para Pihak.</p>
     <p>3. Apabila terdapat ketentuan dalam perjanjian ini yang bertentangan dengan peraturan perundang-undangan yang berlaku, maka ketentuan tersebut dianggap tidak berlaku dan digantikan oleh ketentuan yang sah berdasarkan hukum yang berlaku, sementara ketentuan lainnya dalam perjanjian ini tetap berlaku penuh.</p>
     <p>4. Para Pihak menyatakan telah membaca, memahami, dan menyetujui seluruh isi perjanjian ini dengan sukarela dan tanpa paksaan dari pihak manapun.</p>

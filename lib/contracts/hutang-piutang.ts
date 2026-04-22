@@ -80,7 +80,7 @@ export function generateHutangPiutangHTML(d: HutangPiutangData): string {
   `);
 
   const pembukaan = pb.pasal("Para Pihak", `
-    <p>Perjanjian ini dibuat dan ditandatangani di <strong>${lokasiTtd}</strong> pada tanggal <strong>${tglPenandatanganan}</strong>, oleh dan antara:</p>
+    <p>Pada tanggal <strong>${tglPenandatanganan}</strong>, bertempat di <strong>${lokasiTtd}</strong>, Perjanjian ini dibuat oleh dan antara:</p>
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong> (Pemberi Pinjaman / Kreditur)</p>
       <p><strong>Nama :</strong> ${d.nama_pemberi_pinjaman}</p>
@@ -111,7 +111,7 @@ export function generateHutangPiutangHTML(d: HutangPiutangData): string {
   `);
 
   const jangkaWaktu = pb.pasal("Jangka Waktu dan Cara Pembayaran", `
-    <p>1. Pinjaman ini wajib dikembalikan oleh PIHAK KEDUA kepada PIHAK PERTAMA paling lambat pada tanggal <strong>${tglJatuhTempo}</strong>.</p>
+    <p>1. Pengembalian pinjaman oleh PIHAK KEDUA kepada PIHAK PERTAMA dilaksanakan selambat-lambatnya pada tanggal <strong>${tglJatuhTempo}</strong>.</p>
     <p>2. Cara pengembalian: <strong>${
       d.cara_pembayaran_kembali === "sekaligus"
         ? "sekaligus lunas pada tanggal jatuh tempo"
@@ -163,7 +163,7 @@ export function generateHutangPiutangHTML(d: HutangPiutangData): string {
   );
 
   const wanprestasi = pb.pasal("Wanprestasi dan Konsekuensi", `
-    <p>1. PIHAK KEDUA dinyatakan <strong>wanprestasi (cidera janji)</strong> apabila:</p>
+    <p>1. PIHAK KEDUA dikategorikan telah <strong>wanprestasi (cidera janji)</strong> dalam kondisi berikut:</p>
     <ul>
       <li>Tidak membayar cicilan atau pokok pinjaman pada waktu yang telah ditentukan;</li>
       <li>Tidak memenuhi kewajiban lain sebagaimana diatur dalam Perjanjian ini.</li>
@@ -176,7 +176,7 @@ export function generateHutangPiutangHTML(d: HutangPiutangData): string {
   `);
 
   const forceMajeure = pb.pasal("Keadaan Memaksa (Force Majeure)", `
-    <p>1. <strong>Definisi:</strong> Keadaan memaksa (force majeure) adalah suatu keadaan yang berada di luar kemampuan Para Pihak dan tidak dapat diantisipasi, termasuk namun tidak terbatas pada: bencana alam, wabah penyakit, perang, huru-hara, pemogokan massal, kebakaran, gempa bumi, banjir bandang, atau kebijakan pemerintah yang secara langsung menghalangi pelaksanaan kewajiban berdasarkan Perjanjian ini.</p>
+    <p>1. <strong>Definisi:</strong> Keadaan memaksa (force majeure) diartikan sebagai kondisi di luar kemampuan dan kendali Para Pihak yang tidak dapat diprediksi sebelumnya, termasuk namun tidak terbatas pada: bencana alam, wabah penyakit, perang, huru-hara, pemogokan massal, kebakaran, gempa bumi, banjir bandang, atau kebijakan pemerintah yang secara langsung menghalangi pelaksanaan kewajiban berdasarkan Perjanjian ini.</p>
     <p>2. Pihak yang mengalami force majeure wajib memberitahukan secara tertulis kepada pihak lain dalam waktu <strong>14 (empat belas) hari kalender</strong> sejak terjadinya peristiwa force majeure, disertai bukti-bukti yang relevan.</p>
     <p>3. Selama force majeure berlangsung, kewajiban Pihak yang terdampak ditangguhkan dan tidak dianggap sebagai wanprestasi, sesuai dengan lamanya peristiwa force majeure berlangsung.</p>
     <p>4. Apabila force majeure berlangsung lebih dari 60 (enam puluh) hari kalender berturut-turut, Para Pihak dapat merundingkan kembali syarat-syarat Perjanjian ini atau mengakhiri Perjanjian secara bersama-sama tanpa ada pihak yang dapat menuntut ganti rugi.</p>
@@ -189,14 +189,14 @@ export function generateHutangPiutangHTML(d: HutangPiutangData): string {
   `);
 
   const sengketa = pb.pasal("Penyelesaian Sengketa", `
-    <p>1. Setiap sengketa yang timbul dari atau berkaitan dengan Perjanjian ini akan diselesaikan secara <strong>musyawarah untuk mencapai mufakat</strong> dalam waktu 30 (tiga puluh) hari kalender sejak salah satu pihak menyampaikan keberatan secara tertulis.</p>
+    <p>1. Setiap perselisihan yang muncul dari atau sehubungan dengan Perjanjian ini terlebih dahulu diselesaikan melalui <strong>musyawarah untuk mencapai mufakat</strong> dalam waktu 30 (tiga puluh) hari kalender sejak salah satu pihak menyampaikan keberatan secara tertulis.</p>
     <p>2. Apabila penyelesaian musyawarah tidak tercapai, Para Pihak sepakat menyelesaikan sengketa melalui <strong>Pengadilan Negeri</strong> di wilayah hukum tempat Perjanjian ini ditandatangani, yaitu Pengadilan Negeri di kota <strong>${d.kota_penandatanganan}</strong>.</p>
     <p>3. Para Pihak memilih domisili hukum yang tetap di kantor Panitera Pengadilan Negeri ${d.kota_penandatanganan}.</p>
     <p>4. Pilihan hukum yang berlaku adalah <strong>Hukum Negara Republik Indonesia</strong>.</p>
   `);
 
   const ketentuan = pb.pasal("Ketentuan Penutup", `
-    <p>1. Perjanjian ini merupakan keseluruhan kesepakatan Para Pihak dan menggantikan seluruh perjanjian lisan maupun tertulis sebelumnya mengenai hal yang sama.</p>
+    <p>1. Dokumen ini mencerminkan keseluruhan kesepakatan Para Pihak, serta menggantikan seluruh perjanjian, pembicaraan, atau komunikasi sebelumnya — baik lisan maupun tertulis — yang berkaitan dengan pokok yang sama.</p>
     <p>2. Setiap perubahan Perjanjian ini hanya sah apabila dibuat secara tertulis dan ditandatangani oleh Para Pihak.</p>
     <p>3. Perjanjian ini dibuat dalam <strong>2 (dua) rangkap asli</strong>, masing-masing bermaterai cukup dan mempunyai kekuatan hukum yang sama, satu rangkap untuk masing-masing pihak.</p>
     <p>4. Perjanjian ini tunduk pada hukum Republik Indonesia, khususnya KUHPerdata Pasal 1313, 1320, 1338, dan 1754–1773.</p>

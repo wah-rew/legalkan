@@ -34,6 +34,7 @@ export default function BuatPage() {
     saksi1NIK: "",
     saksi2Nama: "",
     saksi2NIK: "",
+    lokasiPembuatan: "",
   });
 
   const set = (field: keyof ContractFormData, value: string | number | boolean) =>
@@ -655,6 +656,38 @@ export default function BuatPage() {
                 />
               </div>
 
+              <div>
+                <label className="form-label">
+                  Lokasi Pembuatan Kontrak
+                  <span
+                    style={{
+                      marginLeft: "0.375rem",
+                      fontSize: "0.72rem",
+                      fontWeight: 400,
+                      color: "#9BA3C4",
+                    }}
+                  >
+                    (opsional)
+                  </span>
+                </label>
+                <input
+                  className="form-input"
+                  placeholder="Contoh: Jakarta Selatan, Bandung, dll."
+                  value={form.lokasiPembuatan ?? ""}
+                  onChange={(e) => set("lokasiPembuatan", e.target.value)}
+                  style={{ fontSize: "0.95rem", padding: "0.875rem 1rem" }}
+                />
+                <p
+                  style={{
+                    fontSize: "0.72rem",
+                    color: "#9BA3C4",
+                    marginTop: "0.375rem",
+                  }}
+                >
+                  📍 Dicantumkan pada bagian penandatanganan kontrak
+                </p>
+              </div>
+
               {/* Total preview */}
               {form.hargaSewa > 0 && form.durasiSewa > 0 && (
                 <div
@@ -943,6 +976,9 @@ export default function BuatPage() {
                   : []),
                 ...(form.nomorRekening
                   ? [{ label: "No. Rekening", value: form.nomorRekening }]
+                  : []),
+                ...(form.lokasiPembuatan
+                  ? [{ label: "Lokasi Pembuatan", value: form.lokasiPembuatan }]
                   : []),
                 ...(form.saksiEnabled
                   ? [{ label: "Saksi", value: "Ya — dengan saksi" }]

@@ -75,7 +75,7 @@ export function generateJualBeliHTML(d: JualBeliData): string {
   const isKendaraan = d.jenis_barang === "kendaraan_bermotor";
 
   const paraPihak = pb.pasal("Para Pihak", `
-    <p>Perjanjian ini dibuat di <strong>${d.kota_penandatanganan}</strong> pada tanggal <strong>${tglTtd}</strong>, oleh dan antara:</p>
+    <p>Di <strong>${d.kota_penandatanganan}</strong> pada tanggal <strong>${tglTtd}</strong>, Perjanjian Jual Beli ini dibuat dan ditandatangani oleh:</p>
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong> (Penjual)</p>
       <p><strong>Nama :</strong> ${d.nama_penjual}</p>
@@ -114,11 +114,11 @@ export function generateJualBeliHTML(d: JualBeliData): string {
       ${d.nomor_seri ? `<p><strong>Nomor Seri/IMEI :</strong> ${d.nomor_seri}</p>` : ""}
     </div>
     <p>2. <strong>Keterangan Kondisi:</strong> ${d.deskripsi_kondisi}</p>
-    <p>3. PIHAK KEDUA menyatakan telah memeriksa dan melihat kondisi barang secara langsung dan menerima barang dalam kondisi <strong>sebagaimana adanya ("as is")</strong>. Segala cacat, kekurangan, atau kelemahan barang yang telah diketahui atau seharusnya diketahui saat pemeriksaan bukan menjadi tanggung jawab PIHAK PERTAMA.</p>
+    <p>3. Dengan menandatangani Perjanjian ini, PIHAK KEDUA menyatakan telah memeriksa kondisi barang secara langsung dan bersedia menerima barang dalam keadaan <strong>apa adanya ("as is")</strong>. Segala cacat atau kekurangan yang telah diketahui maupun yang seharusnya dapat diketahui saat pemeriksaan bukan merupakan tanggung jawab PIHAK PERTAMA.</p>
   `);
 
   const kepemilikanKeaslian = pb.pasal("Kepemilikan dan Keaslian Barang", `
-    <p>1. PIHAK PERTAMA dengan ini menyatakan dan menjamin bahwa:</p>
+    <p>1. Guna memberikan kepastian hukum kepada PIHAK KEDUA, PIHAK PERTAMA menyatakan dan memberikan jaminan bahwa:</p>
     <ul>
       <li>Barang yang dijual adalah <strong>milik sah PIHAK PERTAMA</strong> dan PIHAK PERTAMA memiliki hak penuh untuk menjualnya;</li>
       <li>Barang <strong>tidak sedang dalam sengketa hukum</strong> apapun;</li>
@@ -155,7 +155,7 @@ export function generateJualBeliHTML(d: JualBeliData): string {
     </div>
     <p>2. Para Pihak menyatakan bahwa harga tersebut telah disepakati atas kehendak bebas tanpa paksaan.</p>
     ${pembayaranDetail}
-    <p>4. <strong>Kepemilikan barang berpindah ke PIHAK KEDUA setelah pembayaran lunas diterima</strong> oleh PIHAK PERTAMA dan serah terima barang selesai dilakukan.</p>
+    <p>4. <strong>Hak kepemilikan barang beralih kepada PIHAK KEDUA</strong> terhitung sejak diterimanya pembayaran lunas oleh PIHAK PERTAMA dan selesainya prosedur serah terima.</p>
   `);
 
   const serahTerima = pb.pasal("Serah Terima Barang", `
@@ -173,13 +173,13 @@ export function generateJualBeliHTML(d: JualBeliData): string {
   `) : "";
 
   const sengketa = pb.pasal("Penyelesaian Sengketa", `
-    <p>1. Sengketa diselesaikan secara musyawarah dalam 14 (empat belas) hari.</p>
+    <p>1. Setiap perselisihan yang timbul dari Perjanjian ini diselesaikan terlebih dahulu melalui musyawarah dalam jangka waktu 14 (empat belas) hari.</p>
     <p>2. Apabila gagal, diselesaikan melalui <strong>Pengadilan Negeri ${d.kota_penandatanganan}</strong>.</p>
     <p>3. Perjanjian ini tunduk pada KUHPerdata Pasal 1457–1540 tentang Jual Beli.</p>
   `);
 
   const ketentuan = pb.pasal("Ketentuan Umum", `
-    <p>1. Perjanjian ini dibuat dalam <strong>2 (dua) rangkap</strong> bermaterai cukup.</p>
+    <p>1. Perjanjian ini disusun dalam <strong>2 (dua) rangkap</strong> bermaterai cukup sesuai ketentuan perundang-undangan yang berlaku.</p>
     <p>2. Perubahan hanya sah secara tertulis dan ditandatangani Para Pihak.</p>
   `);
 

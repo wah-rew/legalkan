@@ -105,7 +105,7 @@ export function generateKonsinyasiHTML(d: KonsinyasiData): string {
 
   // ─── Pasal 2: Para Pihak ───────────────────────────────────────────────────
   const paraPihak = pb.pasal("Para Pihak", `
-    <p>Perjanjian ini dibuat di <strong>${lokasiPembuatan}</strong> pada tanggal <strong>${tglTtd}</strong>, oleh dan antara:</p>
+    <p>Bertempat di <strong>${lokasiPembuatan}</strong>, pada tanggal <strong>${tglTtd}</strong>, Perjanjian ini ditandatangani oleh dan antara:</p>
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong> (Penitip / Pemilik Barang)</p>
       <p><strong>Nama :</strong> ${d.nama_konsinyor}</p>
@@ -139,7 +139,7 @@ export function generateKonsinyasiHTML(d: KonsinyasiData): string {
       <p><strong>Total Nilai Titipan :</strong> ${totalNilaiTitipan}</p>
       ${d.masaKadaluarsa ? `<p><strong>Masa Kadaluarsa Produk :</strong> ${d.masaKadaluarsa} hari sejak tanggal produksi</p>` : ""}
     </div>
-    <p>2. <strong>Kepemilikan Barang:</strong> Barang konsinyasi tetap menjadi <strong>milik PIHAK PERTAMA</strong> sampai terjual dan pembayaran diterima. PIHAK KEDUA hanya bertindak sebagai pemegang titipan.</p>
+    <p>2. <strong>Status Kepemilikan:</strong> Seluruh barang konsinyasi senantiasa berstatus <strong>milik PIHAK PERTAMA</strong> hingga terjual dan hasil penjualannya diterima. PIHAK KEDUA berkedudukan semata-mata sebagai pihak yang diserahi titipan.</p>
     <p>3. Penyerahan barang konsinyasi dilakukan pada tanggal <strong>${tglSerah}</strong> dan wajib disertai <strong>Berita Acara Serah Terima Barang (BASTB)</strong> yang ditandatangani Para Pihak, memuat jumlah dan kondisi barang secara rinci.</p>
     <p>4. PIHAK KEDUA dilarang menjual barang di bawah harga yang ditetapkan tanpa izin tertulis PIHAK PERTAMA${d.boleh_diskon && d.diskon_maks ? `, kecuali diskon maksimal ${d.diskon_maks}%` : ""}.</p>
   `);
@@ -169,7 +169,7 @@ export function generateKonsinyasiHTML(d: KonsinyasiData): string {
 
   // ─── Pasal 6: Pelaporan dan Pembayaran ────────────────────────────────────
   const pelaporanPembayaran = pb.pasal("Pelaporan dan Pembayaran", `
-    <p>1. PIHAK KEDUA wajib memberikan <strong>laporan penjualan</strong> kepada PIHAK PERTAMA setiap <strong>${periodelaporan} (${periodelaporan === "7" ? "tujuh" : periodelaporan === "14" ? "empat belas" : periodelaporan === "30" ? "tiga puluh" : periodelaporan}) hari</strong>, mencakup:</p>
+    <p>1. Setiap <strong>${periodelaporan} (${periodelaporan === "7" ? "tujuh" : periodelaporan === "14" ? "empat belas" : periodelaporan === "30" ? "tiga puluh" : periodelaporan}) hari</strong>, PIHAK KEDUA diwajibkan menyampaikan <strong>laporan penjualan</strong> kepada PIHAK PERTAMA yang memuat:</p>
     <ul>
       <li>Jumlah unit terjual pada periode laporan;</li>
       <li>Jumlah stok tersisa;</li>
@@ -267,7 +267,7 @@ export function generateKonsinyasiHTML(d: KonsinyasiData): string {
 
   // ─── Pasal 12: Wanprestasi dan Sanksi ─────────────────────────────────────
   const wanprestasi = pb.pasal("Wanprestasi dan Sanksi", `
-    <p>1. Apabila PIHAK KEDUA terlambat menyetor hasil penjualan melewati batas waktu yang ditentukan, dikenakan <strong>denda keterlambatan sebesar ${dendaKeterlambatan}% (${dendaKeterlambatan === "2" ? "dua" : dendaKeterlambatan} persen) dari nilai barang</strong> yang pembayarannya terlambat untuk setiap minggu keterlambatan.</p>
+    <p>1. Keterlambatan penyetoran hasil penjualan oleh PIHAK KEDUA yang melampaui batas waktu yang disepakati mengakibatkan pengenaan <strong>denda keterlambatan sebesar ${dendaKeterlambatan}% (${dendaKeterlambatan === "2" ? "dua" : dendaKeterlambatan} persen) dari nilai barang</strong> yang terlambat dibayarkan, dihitung per minggu keterlambatan.</p>
     <p>2. Mekanisme penyelesaian wanprestasi ditempuh secara bertahap:</p>
     <ul>
       <li><strong>Tahap 1 – Teguran Tertulis:</strong> PIHAK PERTAMA mengirimkan teguran tertulis pertama;</li>
@@ -287,7 +287,7 @@ export function generateKonsinyasiHTML(d: KonsinyasiData): string {
   // ─── Pasal 14: Ketentuan Lain-lain ────────────────────────────────────────
   const ketentuanLain = pb.pasal("Ketentuan Lain-lain", `
     <p>1. <strong>Kerahasiaan:</strong> Para Pihak sepakat menjaga kerahasiaan informasi bisnis, data produk, dan harga yang diperoleh dalam pelaksanaan Perjanjian ini.</p>
-    <p>2. <strong>Perubahan Perjanjian:</strong> Segala perubahan atau penambahan atas Perjanjian ini hanya sah apabila dibuat secara tertulis dan ditandatangani oleh Para Pihak.</p>
+    <p>2. <strong>Amandemen:</strong> Setiap perubahan atau penambahan terhadap Perjanjian ini dinyatakan sah hanya jika dituangkan dalam bentuk tertulis yang ditandatangani oleh Para Pihak.</p>
     <p>3. <strong>Hukum yang Berlaku:</strong> Perjanjian ini tunduk pada hukum Negara Republik Indonesia.</p>
     <p>4. <strong>Keutuhan Perjanjian:</strong> Apabila salah satu ketentuan dalam Perjanjian ini dinyatakan tidak sah atau tidak dapat dilaksanakan, ketentuan lainnya tetap berlaku secara penuh.</p>
   `);

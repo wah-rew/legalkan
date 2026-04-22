@@ -52,7 +52,7 @@ export function generateNDA(data: NDAFormData): string {
 
   // ── Mukadimah / Para Pihak ───────────────────────────────────────────────────
   const paraPihak = pb.pasal("Para Pihak", `
-    <p>Perjanjian Kerahasiaan (Non-Disclosure Agreement) ini dibuat pada tanggal <strong>${tglPerjanjian}</strong>, oleh dan antara:</p>
+    <p>Pada tanggal <strong>${tglPerjanjian}</strong>, Perjanjian Kerahasiaan (Non-Disclosure Agreement) ini disepakati oleh dan antara:</p>
 
     <div class="pihak-box">
       <p><strong>PIHAK PERTAMA</strong></p>
@@ -82,7 +82,7 @@ export function generateNDA(data: NDAFormData): string {
   // ── Pasal 2: Definisi ────────────────────────────────────────────────────────
   const definisi = pb.pasal("Definisi", `
     <p>Dalam Perjanjian ini, yang dimaksud dengan:</p>
-    <p>1. <strong>"Informasi Rahasia"</strong> adalah semua informasi, data, dan materi yang diungkapkan oleh salah satu Pihak ("Pihak Pengungkap") kepada Pihak lainnya ("Pihak Penerima") dalam rangka Tujuan, baik secara lisan, tertulis, digital, visual, atau dalam bentuk lain, yang meliputi namun tidak terbatas pada:</p>
+    <p>1. <strong>"Informasi Rahasia"</strong> mencakup seluruh informasi, data, dan materi apa pun yang disampaikan oleh salah satu Pihak ("Pihak Pengungkap") kepada Pihak lainnya ("Pihak Penerima") sehubungan dengan Tujuan, baik secara lisan, tertulis, digital, visual, atau dalam bentuk lain, yang meliputi namun tidak terbatas pada:</p>
     <ul>
       <li>data keuangan, proyeksi pendapatan, dan informasi akuntansi;</li>
       <li>rencana bisnis, strategi pemasaran, dan roadmap produk;</li>
@@ -100,7 +100,7 @@ export function generateNDA(data: NDAFormData): string {
 
   // ── Pasal 3: Kewajiban Kerahasiaan ──────────────────────────────────────────
   const kewajiban = pb.pasal("Kewajiban Kerahasiaan", `
-    <p>1. Pihak Penerima berkewajiban untuk:</p>
+    <p>1. Dalam kapasitasnya sebagai Pihak Penerima, pihak tersebut terikat untuk:</p>
     <ul>
       <li>menjaga kerahasiaan Informasi Rahasia dengan standar perlindungan sekurang-kurangnya setara dengan yang diterapkan pada informasi rahasia miliknya sendiri, dan tidak kurang dari standar yang wajar;</li>
       <li>tidak mengungkapkan Informasi Rahasia kepada pihak ketiga manapun tanpa persetujuan tertulis terlebih dahulu dari Pihak Pengungkap;</li>
@@ -132,7 +132,7 @@ export function generateNDA(data: NDAFormData): string {
 
   // ── Pasal 5: Jangka Waktu ───────────────────────────────────────────────────
   const jangkaWaktu = pb.pasal("Jangka Waktu Perjanjian", `
-    <p>1. Perjanjian ini mulai berlaku sejak tanggal <strong>${tglEfektif}</strong> dan berakhir pada tanggal <strong>${tglBerakhir}</strong> ("Jangka Waktu").</p>
+    <p>1. Perjanjian ini berlaku efektif sejak tanggal <strong>${tglEfektif}</strong> sampai dengan tanggal <strong>${tglBerakhir}</strong> ("Masa Berlaku").</p>
     <p>2. Berakhirnya Jangka Waktu Perjanjian tidak menghapus kewajiban kerahasiaan Para Pihak. Kewajiban kerahasiaan tetap berlaku selama <strong>${data.durasiKerahasiaan}</strong> sejak tanggal berakhirnya Perjanjian ini.</p>
     <p>3. Hak dan kewajiban yang telah timbul selama Jangka Waktu tetap berlaku meskipun Perjanjian telah berakhir.</p>
     <p>4. Perjanjian ini dapat diakhiri lebih awal apabila Para Pihak sepakat secara tertulis, atau apabila salah satu Pihak melakukan pelanggaran material yang tidak diperbaiki dalam waktu 14 (empat belas) hari sejak pemberitahuan tertulis oleh Pihak lainnya.</p>
@@ -159,7 +159,7 @@ export function generateNDA(data: NDAFormData): string {
 
   // ── Pasal 8: Ganti Rugi ──────────────────────────────────────────────────────
   const gantiRugi = pb.pasal("Ganti Rugi dan Konsekuensi Pelanggaran", `
-    <p>1. Para Pihak mengakui bahwa pelanggaran terhadap kewajiban kerahasiaan dalam Perjanjian ini akan menimbulkan <strong>kerugian yang tidak dapat diperbaiki sepenuhnya melalui ganti rugi uang</strong> (<em>irreparable harm</em>) bagi Pihak Pengungkap.</p>
+    <p>1. Para Pihak mengakui dan memahami bahwa setiap pelanggaran atas kewajiban kerahasiaan yang diatur dalam Perjanjian ini berpotensi menimbulkan <strong>kerugian yang tidak dapat sepenuhnya dipulihkan melalui ganti rugi berupa uang</strong> (<em>irreparable harm</em>) bagi Pihak Pengungkap.</p>
     <p>2. Pihak yang melanggar kewajiban kerahasiaan wajib mengganti seluruh kerugian yang diderita Pihak lainnya, termasuk namun tidak terbatas pada:</p>
     <ul>
       <li>kerugian materiil langsung yang dapat dibuktikan;</li>
@@ -217,7 +217,7 @@ export function generateNDA(data: NDAFormData): string {
 
   // ── Pasal 12: Ketentuan Umum ─────────────────────────────────────────────────
   const ketentuanUmum = pb.pasal("Ketentuan Umum", `
-    <p>1. <strong>Keseluruhan Perjanjian.</strong> Perjanjian ini merupakan keseluruhan kesepakatan Para Pihak mengenai kerahasiaan informasi dan menggantikan seluruh perjanjian, negosiasi, pernyataan, atau komunikasi sebelumnya, baik lisan maupun tertulis, yang berkaitan dengan hal yang sama.</p>
+    <p>1. <strong>Kelengkapan Perjanjian.</strong> Dokumen ini merupakan satu-satunya kesepakatan lengkap Para Pihak terkait kerahasiaan informasi, dan menggantikan seluruh perjanjian, diskusi, pernyataan, atau komunikasi sebelumnya, baik lisan maupun tertulis, yang berkaitan dengan hal yang sama.</p>
     <p>2. <strong>Perubahan.</strong> Setiap perubahan atau penambahan terhadap Perjanjian ini hanya sah apabila dibuat secara tertulis dan ditandatangani oleh wakil yang berwenang dari masing-masing Pihak.</p>
     <p>3. <strong>Dapat Dipisahkan (<em>Severability</em>).</strong> Apabila salah satu ketentuan dalam Perjanjian ini dinyatakan tidak sah, tidak berlaku, atau tidak dapat dilaksanakan oleh pengadilan atau arbiter yang berwenang, maka ketentuan-ketentuan lainnya tetap berlaku sepenuhnya.</p>
     <p>4. <strong>Mengikat Penerus.</strong> Perjanjian ini mengikat dan berlaku bagi Para Pihak beserta penerus hak, pengganti, penerima pengalihan, dan perwakilan yang sah dari masing-masing Pihak.</p>

@@ -96,11 +96,11 @@ export function generateContractHTML(data: ContractData): string {
       <p><strong>Nama:</strong> ${data.namaPihakKedua}</p>
       <p>Selanjutnya disebut sebagai <strong>"PIHAK KEDUA"</strong> atau <strong>"Penyewa"</strong>.</p>
     </div>
-    <p>PIHAK PERTAMA dan PIHAK KEDUA secara bersama-sama selanjutnya disebut <strong>"Para Pihak"</strong>.</p>
+    <p>PIHAK PERTAMA dan PIHAK KEDUA, secara bersama-sama, selanjutnya disebut <strong>"Para Pihak"</strong>.</p>
   `);
 
   const pasalObjekSewa = pasal("Objek Sewa", `
-    <p>PIHAK PERTAMA dengan ini sepakat untuk menyewakan kepada PIHAK KEDUA, dan PIHAK KEDUA sepakat untuk menyewa dari PIHAK PERTAMA, properti berupa:</p>
+    <p>Atas dasar kesepakatan bersama, PIHAK PERTAMA menyewakan kepada PIHAK KEDUA dan PIHAK KEDUA menerima sewa dari PIHAK PERTAMA atas properti berupa:</p>
     <div class="pihak-box">
       <p><strong>Alamat Properti:</strong> ${data.alamatProperti}</p>
       ${data.penggunaanProperti ? `<p><strong>Peruntukan:</strong> ${labelPenggunaan(data.penggunaanProperti)}</p>` : ""}
@@ -127,7 +127,7 @@ export function generateContractHTML(data: ContractData): string {
   `) : "";
 
   const pasalJangkaWaktu = pasal("Jangka Waktu Sewa", `
-    <p>${_pasalCounter}.1. Perjanjian ini berlaku selama <strong>${data.durasiSewa} (${terbilang(data.durasiSewa)}) bulan</strong>, terhitung sejak tanggal <strong>${tanggalMulaiFormatted}</strong> sampai dengan tanggal <strong>${tanggalBerakhirFormatted}</strong>.</p>
+    <p>${_pasalCounter}.1. Masa berlaku Perjanjian ini adalah <strong>${data.durasiSewa} (${terbilang(data.durasiSewa)}) bulan</strong>, dimulai sejak tanggal <strong>${tanggalMulaiFormatted}</strong> hingga tanggal <strong>${tanggalBerakhirFormatted}</strong>.</p>
     <p>${_pasalCounter}.2. PIHAK KEDUA wajib memberitahukan kepada PIHAK PERTAMA secara tertulis paling lambat <strong>${noticePeriod} (${terbilang(noticePeriod)}) hari</strong> sebelum berakhirnya masa sewa apabila bermaksud tidak memperpanjang atau mengakhiri perjanjian.</p>
     ${data.perpanjanganOtomatis
       ? `<p>${_pasalCounter}.3. Apabila tidak ada pemberitahuan dari PIHAK KEDUA dalam batas waktu sebagaimana dimaksud ayat (2), maka Perjanjian ini akan <strong>diperpanjang secara otomatis</strong> untuk jangka waktu yang sama dengan syarat dan ketentuan yang disepakati bersama, termasuk kemungkinan penyesuaian harga sewa.</p>`
@@ -225,7 +225,7 @@ export function generateContractHTML(data: ContractData): string {
   laranganList.push("Melakukan kegiatan yang mengganggu ketertiban umum, keamanan lingkungan, atau melanggar hukum yang berlaku.");
 
   const pasalLarangan = pasal("Larangan-Larangan", `
-    <p>${_pasalCounter}.1. Selama masa sewa berlangsung, PIHAK KEDUA dilarang untuk:</p>
+    <p>${_pasalCounter}.1. Sepanjang masa sewa berjalan, PIHAK KEDUA tidak diperkenankan untuk:</p>
     <ul>
       ${laranganList.map((l) => `<li>${l}</li>`).join("\n      ")}
     </ul>
@@ -249,7 +249,7 @@ export function generateContractHTML(data: ContractData): string {
   `) : "";
 
   const pasalKewajibanPihakDua = pasal("Kewajiban Pihak Kedua (Penyewa)", `
-    <p>${_pasalCounter}.1. PIHAK KEDUA berkewajiban untuk:</p>
+    <p>${_pasalCounter}.1. Dalam melaksanakan Perjanjian ini, PIHAK KEDUA berkewajiban:</p>
     <ul>
       <li>Membayar harga sewa tepat waktu sesuai ketentuan Pasal tentang Harga Sewa dan Pembayaran.</li>
       <li>Menjaga dan merawat Objek Sewa beserta seluruh fasilitas yang ada dengan baik dan penuh tanggung jawab.</li>
@@ -264,7 +264,7 @@ export function generateContractHTML(data: ContractData): string {
   `);
 
   const pasalKewajibanPihakSatu = pasal("Kewajiban Pihak Pertama (Pemberi Sewa)", `
-    <p>${_pasalCounter}.1. PIHAK PERTAMA berkewajiban untuk:</p>
+    <p>${_pasalCounter}.1. Sebagai Pemberi Sewa, PIHAK PERTAMA berkewajiban:</p>
     <ul>
       <li>Menyerahkan Objek Sewa kepada PIHAK KEDUA dalam kondisi baik dan layak digunakan sesuai peruntukan pada tanggal mulai sewa.</li>
       <li>Menjamin PIHAK KEDUA dapat menikmati Objek Sewa secara tenang selama masa sewa berlaku.</li>
@@ -276,7 +276,7 @@ export function generateContractHTML(data: ContractData): string {
   `);
 
   const pasalPengakhiran = pasal("Pengakhiran Perjanjian", `
-    <p>${_pasalCounter}.1. Perjanjian ini berakhir secara otomatis pada tanggal <strong>${tanggalBerakhirFormatted}</strong> sebagaimana ditetapkan dalam Perjanjian ini tanpa diperlukan pemberitahuan lebih lanjut.</p>
+    <p>${_pasalCounter}.1. Demi hukum, Perjanjian ini berakhir dengan sendirinya pada tanggal <strong>${tanggalBerakhirFormatted}</strong> sebagaimana telah disepakati, tanpa memerlukan pemberitahuan lebih lanjut dari masing-masing Pihak.</p>
     <p>${_pasalCounter}.2. Perjanjian ini dapat diakhiri lebih awal apabila:</p>
     <ul>
       <li>Salah satu pihak melanggar ketentuan Perjanjian ini dan tidak memperbaiki pelanggaran tersebut dalam waktu 14 (empat belas) hari setelah menerima pemberitahuan tertulis dari pihak lainnya.</li>
@@ -291,7 +291,7 @@ export function generateContractHTML(data: ContractData): string {
 
   const pasalForce = pasal("Keadaan Kahar (Force Majeure)", `
     <p>${_pasalCounter}.1. Yang dimaksud dengan keadaan kahar dalam Perjanjian ini adalah kejadian yang berada di luar kendali wajar Para Pihak, termasuk namun tidak terbatas pada: bencana alam, gempa bumi, banjir, kebakaran akibat faktor eksternal, huru-hara, perang, pandemi, atau kebijakan pemerintah yang secara langsung dan material mempengaruhi pelaksanaan Perjanjian ini.</p>
-    <p>${_pasalCounter}.2. Pihak yang mengalami atau terdampak keadaan kahar wajib memberitahukan pihak lainnya secara tertulis dalam waktu 7 (tujuh) hari sejak terjadinya keadaan kahar tersebut, disertai bukti-bukti yang dapat diverifikasi.</p>
+    <p>${_pasalCounter}.2. Pihak yang mengalami atau terdampak keadaan kahar wajib menyampaikan pemberitahuan tertulis kepada Pihak lainnya dalam waktu 7 (tujuh) hari sejak terjadinya keadaan kahar, dilengkapi dengan bukti-bukti yang dapat diverifikasi.</p>
     <p>${_pasalCounter}.3. Para Pihak akan berunding dengan itikad baik untuk menentukan langkah selanjutnya apabila keadaan kahar berlangsung lebih dari 30 (tiga puluh) hari.</p>
     <p>${_pasalCounter}.4. Kewajiban pembayaran sewa yang telah jatuh tempo sebelum terjadinya keadaan kahar tetap menjadi kewajiban Para Pihak dan tidak hapus karenanya.</p>
   `);
@@ -303,7 +303,7 @@ export function generateContractHTML(data: ContractData): string {
   `);
 
   const pasalSengketa = pasal("Penyelesaian Sengketa", `
-    <p>${_pasalCounter}.1. Setiap sengketa yang timbul dari atau sehubungan dengan Perjanjian ini akan diselesaikan terlebih dahulu secara musyawarah untuk mencapai mufakat dalam waktu 30 (tiga puluh) hari kerja sejak sengketa disampaikan secara tertulis.</p>
+    <p>${_pasalCounter}.1. Setiap perselisihan yang timbul dari atau terkait dengan Perjanjian ini diselesaikan terlebih dahulu melalui musyawarah mufakat dalam batas waktu 30 (tiga puluh) hari kerja sejak perselisihan diajukan secara tertulis.</p>
     <p>${_pasalCounter}.2. Apabila penyelesaian secara musyawarah tidak tercapai dalam jangka waktu tersebut, Para Pihak sepakat untuk menyelesaikan sengketa melalui <strong>Pengadilan Negeri yang berwenang</strong> sesuai dengan wilayah hukum Objek Sewa berada, berdasarkan hukum Negara Republik Indonesia.</p>
     <p>${_pasalCounter}.3. Para Pihak memilih domisili hukum yang tetap dan tidak berubah di kantor Pengadilan Negeri setempat.</p>
   `);
@@ -313,7 +313,7 @@ export function generateContractHTML(data: ContractData): string {
   `) : "";
 
   const pasalKetentuan = pasal("Ketentuan Umum", `
-    <p>${_pasalCounter}.1. Perjanjian ini merupakan keseluruhan kesepakatan antara Para Pihak mengenai hal-hal yang tercantum di dalamnya dan menggantikan seluruh negosiasi, pernyataan, serta perjanjian sebelumnya yang berkaitan dengan pokok yang sama.</p>
+    <p>${_pasalCounter}.1. Perjanjian ini memuat keseluruhan kesepakatan Para Pihak atas pokok yang diatur di dalamnya, serta menggantikan seluruh negosiasi, pernyataan, dan perjanjian sebelumnya yang berhubungan dengan hal yang sama.</p>
     <p>${_pasalCounter}.2. Setiap perubahan atau penambahan terhadap Perjanjian ini hanya sah apabila dibuat secara tertulis dan ditandatangani oleh Para Pihak.</p>
     <p>${_pasalCounter}.3. Apabila terdapat ketentuan dalam Perjanjian ini yang dinyatakan tidak sah atau tidak dapat dilaksanakan oleh pengadilan atau instansi yang berwenang, maka ketentuan lainnya tetap berlaku dan mengikat Para Pihak.</p>
     <p>${_pasalCounter}.4. Perjanjian ini tunduk pada dan ditafsirkan sesuai dengan <strong>Hukum Negara Republik Indonesia</strong>, termasuk namun tidak terbatas pada Kitab Undang-Undang Hukum Perdata (KUHPerdata) Pasal 1548–1600.</p>
@@ -417,8 +417,8 @@ export function generateContractHTML(data: ContractData): string {
   <hr class="divider" style="margin-top: 32px;" />
 
   <p style="text-align: center; margin-bottom: 12px;">
-    Demikianlah Perjanjian ini dibuat dan ditandatangani oleh Para Pihak pada
-    tanggal <strong>${tanggalPembuatanFormatted}</strong>.
+    Demikianlah Perjanjian ini dibuat dan ditandatangani oleh Para Pihak${data.lokasiPembuatan ? ' di <strong>' + data.lokasiPembuatan + '</strong>' : ''}
+    pada tanggal <strong>${tanggalPembuatanFormatted}</strong>.
   </p>
 
   <table class="tanda-tangan">
