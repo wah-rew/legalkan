@@ -1,10 +1,9 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { ContractData, BankCode, BANK_LABELS, CONTRACT_PRICES, PRICE } from "@/types";
+import { ContractData, BankCode, CONTRACT_PRICES, PRICE } from "@/types";
 import { captureEvent } from "@/components/PostHogProvider";
 
-const BANKS: BankCode[] = ["BCA", "BNI", "BRI", "MANDIRI"];
 
 // ─── Watermark overlay (SVG tiled pattern) ────────────────────────────────────
 function WatermarkOverlay() {
@@ -80,7 +79,7 @@ export default function PreviewPage() {
   const router = useRouter();
   const [contractData, setContractData] = useState<ContractData | null>(null);
   const [contractHTML, setContractHTML] = useState("");
-  const [selectedBank, setSelectedBank] = useState<BankCode>("BCA");
+  const selectedBank: BankCode = "BCA";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
