@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = ["Para Pihak", "Detail Produk", "Komisi & Periode", "Ketentuan", "Review"];
 
@@ -130,7 +131,7 @@ export default function KonsinyasiPage() {
           </div>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_konsinyor} onChange={e => set("alamat_konsinyor", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormInput label="Bank"><select className="form-input" value={form.nama_bank_konsinyor} onChange={e => set("nama_bank_konsinyor", e.target.value)}>{["BCA","BNI","BRI","Mandiri","BSI","CIMB","Permata","Danamon"].map(b => <option key={b}>{b}</option>)}</select></FormInput>
+            <FormInput label="Bank"><BankSearch value={form.nama_bank_konsinyor} onChange={(val) => set("nama_bank_konsinyor", val)} placeholder="Cari nama bank..." /></FormInput>
             <FormInput label="No. Rekening"><input className="form-input" value={form.nomor_rekening_konsinyor} onChange={e => set("nomor_rekening_konsinyor", e.target.value)} /></FormInput>
           </div>
 

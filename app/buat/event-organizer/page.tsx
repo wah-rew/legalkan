@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = ["Para Pihak", "Detail Acara", "Harga & Ketentuan", "Review"];
 
@@ -244,11 +245,7 @@ export default function EventOrganizerPage() {
 
           <div className="grid gap-4 sm:grid-cols-3">
             <FormInput label="Bank">
-              <select className="form-input" value={form.nama_bank_vendor} onChange={e => set("nama_bank_vendor", e.target.value)}>
-                {["BCA", "BNI", "BRI", "Mandiri", "BSI", "CIMB", "Danamon", "Permata"].map(b => (
-                  <option key={b}>{b}</option>
-                ))}
-              </select>
+              <BankSearch value={form.nama_bank_vendor} onChange={(val) => set("nama_bank_vendor", val)} placeholder="Cari nama bank..." />
             </FormInput>
             <FormInput label="No. Rekening">
               <input className="form-input" value={form.nomor_rekening_vendor} onChange={e => set("nomor_rekening_vendor", e.target.value)} />

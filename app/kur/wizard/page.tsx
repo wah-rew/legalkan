@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CitySearch from "@/components/CitySearch";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = ["Profil Usaha", "Skala Usaha", "Struktur Usaha", "Konfirmasi Dokumen", "Detail Dokumen"];
 
@@ -1032,9 +1033,7 @@ export default function KURWizardPage() {
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "8px" }}>
                               <div>
                                 <FieldLabel>Bank</FieldLabel>
-                                <select style={{ ...inputStyle, appearance: "auto" }} value={k.namaBankKaryawan} onChange={(e) => setStep5K(i, "namaBankKaryawan", e.target.value)}>
-                                  {["BRI","BCA","BNI","Mandiri","BSI","CIMB","Danamon","Permata"].map((b) => <option key={b} value={b}>{b}</option>)}
-                                </select>
+                                <BankSearch value={k.namaBankKaryawan} onChange={(val) => setStep5K(i, "namaBankKaryawan", val)} placeholder="Cari bank..." />
                               </div>
                               <div>
                                 <FieldLabel>No. Rekening</FieldLabel>
