@@ -12,6 +12,10 @@ interface FormState {
   nik_pemberi_pinjaman: string;
   alamat_pemberi_pinjaman: string;
   nomor_telepon_pemberi: string;
+  // Rekening Pemberi Pinjaman
+  namaBank: string;
+  nomorRekening: string;
+  atasNamaRekening: string;
   // Pihak Kedua
   nama_penerima_pinjaman: string;
   nik_penerima_pinjaman: string;
@@ -24,6 +28,10 @@ interface FormState {
   cara_pembayaran_kembali: string;
   jumlah_cicilan: string;
   jumlah_angsuran: number;
+  // Denda
+  dendaKeterlambatan: string;
+  // Lokasi
+  lokasiPembuatan: string;
   // Bunga
   ada_bunga: boolean;
   persentase_bunga: string;
@@ -36,7 +44,10 @@ interface FormState {
   // Saksi
   nama_saksi_1: string;
   nik_saksi_1: string;
+  saksi1Alamat: string;
   nama_saksi_2: string;
+  nik_saksi_2: string;
+  saksi2Alamat: string;
   // Penandatanganan
   kota_penandatanganan: string;
   tanggal_penandatanganan: string;
@@ -47,12 +58,16 @@ interface FormState {
 
 const init: FormState = {
   nama_pemberi_pinjaman: "", nik_pemberi_pinjaman: "", alamat_pemberi_pinjaman: "", nomor_telepon_pemberi: "",
+  namaBank: "", nomorRekening: "", atasNamaRekening: "",
   nama_penerima_pinjaman: "", nik_penerima_pinjaman: "", alamat_penerima_pinjaman: "", nomor_telepon_penerima: "",
   jumlah_pinjaman: 0, tanggal_pinjaman: "", tanggal_jatuh_tempo: "",
   cara_pembayaran_kembali: "sekaligus", jumlah_cicilan: "", jumlah_angsuran: 0,
+  dendaKeterlambatan: "0.5",
+  lokasiPembuatan: "",
   ada_bunga: false, persentase_bunga: "", jenis_bunga: "flat",
   ada_jaminan: false, jenis_jaminan: "", deskripsi_jaminan: "", nilai_jaminan: 0,
-  nama_saksi_1: "", nik_saksi_1: "", nama_saksi_2: "",
+  nama_saksi_1: "", nik_saksi_1: "", saksi1Alamat: "",
+  nama_saksi_2: "", nik_saksi_2: "", saksi2Alamat: "",
   kota_penandatanganan: "", tanggal_penandatanganan: "",
   emailPembeli: "", nomorWhatsapp: "",
 };
@@ -107,6 +122,14 @@ export default function HutangPiutangPage() {
           persentase_bunga: form.ada_bunga ? parseFloat(form.persentase_bunga) : undefined,
           ada_jaminan: form.ada_jaminan,
           jumlah_cicilan: form.jumlah_cicilan ? parseInt(form.jumlah_cicilan) : undefined,
+          namaBank: form.namaBank || undefined,
+          nomorRekening: form.nomorRekening || undefined,
+          atasNamaRekening: form.atasNamaRekening || undefined,
+          dendaKeterlambatan: form.dendaKeterlambatan || "0.5",
+          lokasiPembuatan: form.lokasiPembuatan || undefined,
+          saksi1Alamat: form.saksi1Alamat || undefined,
+          saksi2Alamat: form.saksi2Alamat || undefined,
+          nik_saksi_2: form.nik_saksi_2 || undefined,
         }),
       });
       const data = await res.json();
@@ -150,6 +173,20 @@ export default function HutangPiutangPage() {
           </div>
           <FormInput label="Alamat Lengkap" required>
             <textarea className="form-input" rows={2} value={form.alamat_pemberi_pinjaman} onChange={e => set("alamat_pemberi_pinjaman", e.target.value)} />
+          </FormInput>
+
+          <p className="text-xs font-bold uppercase tracking-wider mt-2 mb-1" style={{ color: "#FF4D6D" }}>Rekening Pemberi Pinjaman</p>
+          <p className="text-xs" style={{ color: "#666", marginBottom: 4 }}>Untuk tujuan pembayaran cicilan/pelunasan (opsional, tapi disarankan)</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="Nama Bank" hint="opsional">
+              <input className="form-input" placeholder="BCA, BRI, Mandiri..." value={form.namaBank} onChange={e => set("namaBank", e.target.value)} />
+            </FormInput>
+            <FormInput label="Nomor Rekening" hint="opsional">
+              <input className="form-input" placeholder="Nomor rekening" value={form.nomorRekening} onChange={e => set("nomorRekening", e.target.value)} />
+            </FormInput>
+          </div>
+          <FormInput label="Atas Nama Rekening" hint="opsional — kosongkan jika sama dengan nama pemberi">
+            <input className="form-input" placeholder="Nama pemilik rekening" value={form.atasNamaRekening} onChange={e => set("atasNamaRekening", e.target.value)} />
           </FormInput>
 
           <hr style={{ borderColor: "rgba(13,27,62,0.08)", margin: "8px 0" }} />
@@ -206,6 +243,22 @@ export default function HutangPiutangPage() {
               <RpInput label="Besaran Per Cicilan" value={form.jumlah_angsuran} onChange={v => set("jumlah_angsuran", v)} />
             </div>
           )}
+
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
+          <FormInput label="Denda Keterlambatan (% per hari)" hint="default 0.5% per hari">
+            <input
+              className="form-input"
+              type="number"
+              step="0.1"
+              min="0"
+              max="10"
+              placeholder="0.5"
+              value={form.dendaKeterlambatan}
+              onChange={e => set("dendaKeterlambatan", e.target.value)}
+            />
+          </FormInput>
+
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Kota Penandatanganan" required>
               <input className="form-input" placeholder="Jakarta" value={form.kota_penandatanganan} onChange={e => set("kota_penandatanganan", e.target.value)} />
@@ -214,6 +267,9 @@ export default function HutangPiutangPage() {
               <input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} />
             </FormInput>
           </div>
+          <FormInput label="Lokasi Pembuatan" hint="opsional — misal: Jakarta Selatan, Notaris ABC">
+            <input className="form-input" placeholder="Sama dengan kota penandatanganan jika kosong" value={form.lokasiPembuatan} onChange={e => set("lokasiPembuatan", e.target.value)} />
+          </FormInput>
         </div>
       )}
 
@@ -232,7 +288,7 @@ export default function HutangPiutangPage() {
               <FormInput label="Jenis Bunga">
                 <select className="form-input" value={form.jenis_bunga} onChange={e => set("jenis_bunga", e.target.value)}>
                   <option value="flat">Flat (dari pokok awal)</option>
-                  <option value="efektif">Efektif (dari saldo sisa)</option>
+                  <option value="efektif">Efektif/Proporsional (dari saldo sisa)</option>
                   <option value="majemuk">Majemuk (bunga berbunga)</option>
                 </select>
               </FormInput>
@@ -252,11 +308,12 @@ export default function HutangPiutangPage() {
               <FormInput label="Deskripsi Jaminan">
                 <textarea className="form-input" rows={2} placeholder="Deskripsi lengkap barang jaminan" value={form.deskripsi_jaminan} onChange={e => set("deskripsi_jaminan", e.target.value)} />
               </FormInput>
-              <RpInput label="Estimasi Nilai Jaminan" value={form.nilai_jaminan} onChange={v => set("nilai_jaminan", v)} />
+              <RpInput label="Nilai Taksiran Jaminan" hint="estimasi nilai pasar jaminan" value={form.nilai_jaminan} onChange={v => set("nilai_jaminan", v)} />
             </>
           )}
 
           <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
+          <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "#0D1B3E" }}>Saksi-Saksi</p>
           <FormInput label="Nama Saksi 1" required>
             <input className="form-input" placeholder="Nama lengkap saksi" value={form.nama_saksi_1} onChange={e => set("nama_saksi_1", e.target.value)} />
           </FormInput>
@@ -264,10 +321,23 @@ export default function HutangPiutangPage() {
             <FormInput label="NIK Saksi 1" hint="opsional">
               <input className="form-input" placeholder="16 digit" maxLength={16} value={form.nik_saksi_1} onChange={e => set("nik_saksi_1", e.target.value)} />
             </FormInput>
-            <FormInput label="Nama Saksi 2" hint="opsional">
-              <input className="form-input" value={form.nama_saksi_2} onChange={e => set("nama_saksi_2", e.target.value)} />
+            <FormInput label="Alamat Saksi 1" hint="opsional">
+              <input className="form-input" placeholder="Alamat lengkap saksi 1" value={form.saksi1Alamat} onChange={e => set("saksi1Alamat", e.target.value)} />
             </FormInput>
           </div>
+          <FormInput label="Nama Saksi 2" hint="opsional">
+            <input className="form-input" value={form.nama_saksi_2} onChange={e => set("nama_saksi_2", e.target.value)} />
+          </FormInput>
+          {form.nama_saksi_2 && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FormInput label="NIK Saksi 2" hint="opsional">
+                <input className="form-input" placeholder="16 digit" maxLength={16} value={form.nik_saksi_2} onChange={e => set("nik_saksi_2", e.target.value)} />
+              </FormInput>
+              <FormInput label="Alamat Saksi 2" hint="opsional">
+                <input className="form-input" placeholder="Alamat lengkap saksi 2" value={form.saksi2Alamat} onChange={e => set("saksi2Alamat", e.target.value)} />
+              </FormInput>
+            </div>
+          )}
         </div>
       )}
 
@@ -276,15 +346,21 @@ export default function HutangPiutangPage() {
         <div className="space-y-1">
           <ReviewRow label="Pemberi Pinjaman" value={form.nama_pemberi_pinjaman} />
           <ReviewRow label="NIK Pemberi" value={form.nik_pemberi_pinjaman} />
+          {form.namaBank && <ReviewRow label="Bank Pemberi" value={`${form.namaBank} — ${form.nomorRekening}`} />}
           <ReviewRow label="Penerima Pinjaman" value={form.nama_penerima_pinjaman} />
           <ReviewRow label="NIK Penerima" value={form.nik_penerima_pinjaman} />
           <ReviewRow label="Jumlah Pinjaman" value={form.jumlah_pinjaman ? `Rp ${new Intl.NumberFormat("id-ID").format(form.jumlah_pinjaman)}` : "-"} />
           <ReviewRow label="Tanggal Pinjaman" value={form.tanggal_pinjaman} />
           <ReviewRow label="Jatuh Tempo" value={form.tanggal_jatuh_tempo} />
           <ReviewRow label="Cara Bayar Kembali" value={form.cara_pembayaran_kembali.replace(/_/g, " ")} />
+          <ReviewRow label="Denda Keterlambatan" value={`${form.dendaKeterlambatan || "0.5"}% per hari`} />
           <ReviewRow label="Bunga" value={form.ada_bunga ? `${form.persentase_bunga}% per bulan (${form.jenis_bunga})` : "Tanpa bunga"} />
           <ReviewRow label="Jaminan" value={form.ada_jaminan ? form.jenis_jaminan : "Tanpa jaminan"} />
+          {form.ada_jaminan && form.nilai_jaminan > 0 && (
+            <ReviewRow label="Nilai Taksiran Jaminan" value={`Rp ${new Intl.NumberFormat("id-ID").format(form.nilai_jaminan)}`} />
+          )}
           <ReviewRow label="Kota TTD" value={form.kota_penandatanganan} />
+          {form.lokasiPembuatan && <ReviewRow label="Lokasi Pembuatan" value={form.lokasiPembuatan} />}
           <ReviewRow label="Email Dokumen" value={form.emailPembeli} />
           <PriceBox price={CONTRACT_PRICES['hutang-piutang']} />
         </div>
