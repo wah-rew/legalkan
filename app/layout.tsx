@@ -250,6 +250,33 @@ export default function RootLayout({
                     </ul>
                   </div>
 
+                  {/* Panduan */}
+                  <div>
+                    <h4
+                      style={{
+                        fontSize: "0.75rem",
+                        fontWeight: 700,
+                        color: "rgba(255,255,255,0.5)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.1em",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      Panduan
+                    </h4>
+                    <ul style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                      {[
+                        { label: "Blog", href: "/blog" },
+                        { label: "Paket KUR-Ready", href: "/kur" },
+                        { label: "Panduan NIB", href: "/nib-guide" },
+                      ].map((link) => (
+                        <li key={link.label}>
+                          <a href={link.href} className="footer-link">{link.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                   {/* Perusahaan */}
                   <div>
                     <h4
