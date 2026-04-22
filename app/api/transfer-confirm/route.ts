@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
         const resend = new Resend(resendKey);
 
         await resend.emails.send({
-          from: process.env.EMAIL_FROM || "noreply@legal-kan.com",
+          from: process.env.EMAIL_FROM || "LegalKan <onboarding@resend.dev>",
           to: ownerEmail,
           subject: `💰 Transfer masuk — ${orderId} perlu dikonfirmasi`,
           html: `

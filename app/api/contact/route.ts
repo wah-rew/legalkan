@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: 'LegalKan <noreply@legal-kan.com>',
+        from: 'LegalKan <onboarding@resend.dev>',
         to: 'wahyu@karyaselaksamakna.com',
         subject: `📬 Pesan baru dari ${nama} — ${intent}`,
         html: `
