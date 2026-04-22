@@ -194,7 +194,7 @@ export default function NIBGuidePage() {
       </section>
 
       {/* ── What is NIB ─────────────────────────────────────────────────── */}
-      <section className="px-4 py-12">
+      <section className="px-4" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
         <div className="mx-auto" style={{ maxWidth: "640px" }}>
           <div
             className="rounded-3xl p-6"
@@ -205,12 +205,12 @@ export default function NIBGuidePage() {
             }}
           >
             <h2
-              className="font-jakarta font-extrabold mb-4"
-              style={{ color: "#0D1B3E", fontSize: "1.1rem" }}
+              className="font-jakarta font-extrabold"
+              style={{ color: "#0D1B3E", fontSize: "1.1rem", marginBottom: "1.5rem" }}
             >
               🪪 Apa itu NIB?
             </h2>
-            <p className="text-sm mb-4" style={{ color: "#5A6A8A", lineHeight: 1.7 }}>
+            <p className="text-sm mb-4" style={{ color: "#5A6A8A", lineHeight: 1.8 }}>
               NIB (Nomor Induk Berusaha) adalah <strong>identitas legal usahamu</strong> yang
               diterbitkan oleh pemerintah melalui sistem OSS (Online Single Submission).
             </p>
@@ -234,11 +234,11 @@ export default function NIBGuidePage() {
       </section>
 
       {/* ── Step by Step ─────────────────────────────────────────────────── */}
-      <section className="px-4 pb-12">
+      <section className="px-4" style={{ paddingBottom: "4rem", marginTop: "4rem" }}>
         <div className="mx-auto" style={{ maxWidth: "640px" }}>
           <h2
-            className="font-jakarta font-extrabold mb-6"
-            style={{ color: "#0D1B3E", fontSize: "1.2rem" }}
+            className="font-jakarta font-extrabold"
+            style={{ color: "#0D1B3E", fontSize: "1.2rem", marginBottom: "1.5rem" }}
           >
             📋 Panduan Langkah Demi Langkah
           </h2>
@@ -292,7 +292,7 @@ export default function NIBGuidePage() {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs" style={{ color: "#5A6A8A", lineHeight: 1.6 }}>
+                    <p className="text-xs" style={{ color: "#5A6A8A", lineHeight: 1.8 }}>
                       {step.desc}
                     </p>
                   </div>
@@ -304,29 +304,30 @@ export default function NIBGuidePage() {
       </section>
 
       {/* ── KBLI Finder ─────────────────────────────────────────────────── */}
-      <section className="px-4 pb-12">
+      <section className="px-4" style={{ paddingBottom: "4rem", marginTop: "4rem" }}>
         <div className="mx-auto" style={{ maxWidth: "640px" }}>
           <div
-            className="rounded-3xl p-6"
+            className="rounded-3xl"
             style={{
               background: "linear-gradient(135deg, #0D1B3E 0%, #162348 100%)",
               boxShadow: "0 8px 32px rgba(13,27,62,0.2)",
+              padding: "2rem",
             }}
           >
             <h2
-              className="font-jakarta font-extrabold mb-1 text-white"
-              style={{ fontSize: "1.1rem" }}
+              className="font-jakarta font-extrabold text-white"
+              style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}
             >
               🔍 KBLI Finder
             </h2>
-            <p className="text-xs mb-5" style={{ color: "#94A3CB" }}>
+            <p className="text-xs" style={{ color: "#94A3CB", marginBottom: "1.5rem", lineHeight: 1.8 }}>
               Bingung pilih kode KBLI? Pilih jenis usahamu dan kami rekomendasikan kodenya.
             </p>
 
             <div className="mb-4">
               <label
-                className="block text-xs font-bold mb-2"
-                style={{ color: "#94A3CB" }}
+                className="block text-xs font-bold"
+                style={{ color: "#94A3CB", marginBottom: "1.5rem" }}
               >
                 Jenis usaha saya adalah...
               </label>
@@ -359,6 +360,7 @@ export default function NIBGuidePage() {
               style={{
                 width: "100%",
                 padding: "0.875rem",
+                marginTop: "1.5rem",
                 borderRadius: "12px",
                 background: selectedUsaha ? "#FFD166" : "rgba(255,255,255,0.1)",
                 color: selectedUsaha ? "#0D1B3E" : "#6B7FA8",
@@ -374,16 +376,17 @@ export default function NIBGuidePage() {
 
             {kbliResult && (
               <div
-                className="mt-4 rounded-2xl p-4"
+                className="mt-4 rounded-2xl"
                 style={{
                   background: "rgba(255,255,255,0.08)",
                   border: "1px solid rgba(255,255,255,0.15)",
+                  padding: "1.5rem",
                 }}
               >
                 <p className="text-xs font-semibold mb-1" style={{ color: "#94A3CB" }}>
                   Rekomendasi KBLI:
                 </p>
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-between gap-3" style={{ alignItems: "center" }}>
                   <div>
                     <p
                       className="font-jakarta font-extrabold text-white"
@@ -391,7 +394,7 @@ export default function NIBGuidePage() {
                     >
                       {kbliResult.code}
                     </p>
-                    <p className="text-xs mt-0.5" style={{ color: "#94A3CB" }}>
+                    <p className="text-xs" style={{ color: "#94A3CB", marginTop: "0.5rem", lineHeight: 1.8 }}>
                       {kbliResult.name}
                     </p>
                   </div>
@@ -437,22 +440,23 @@ export default function NIBGuidePage() {
       </section>
 
       {/* ── After NIB CTA ────────────────────────────────────────────────── */}
-      <section className="px-4 pb-12">
+      <section className="px-4" style={{ paddingBottom: "4rem", marginTop: "4rem" }}>
         <div className="mx-auto" style={{ maxWidth: "640px" }}>
           <div
-            className="rounded-3xl p-6 text-center"
+            className="rounded-3xl text-center"
             style={{
               background: "rgba(6,214,160,0.08)",
               border: "1.5px solid rgba(6,214,160,0.25)",
+              padding: "1.75rem",
             }}
           >
             <p
-              className="font-jakarta font-extrabold mb-1"
-              style={{ color: "#0D1B3E", fontSize: "1rem" }}
+              className="font-jakarta font-extrabold"
+              style={{ color: "#0D1B3E", fontSize: "1rem", marginBottom: "0.75rem" }}
             >
               ✅ Sudah punya NIB?
             </p>
-            <p className="text-sm mb-4" style={{ color: "#5A6A8A" }}>
+            <p className="text-sm mb-4" style={{ color: "#5A6A8A", lineHeight: 1.8 }}>
               Sekarang siapkan dokumen KUR-mu →
             </p>
             <Link
@@ -470,23 +474,24 @@ export default function NIBGuidePage() {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      <section className="px-4 pb-16">
+      <section className="px-4" style={{ paddingBottom: "4rem", marginTop: "3rem" }}>
         <div className="mx-auto" style={{ maxWidth: "640px" }}>
           <h2
-            className="font-jakarta font-extrabold mb-5"
-            style={{ color: "#0D1B3E", fontSize: "1.2rem" }}
+            className="font-jakarta font-extrabold"
+            style={{ color: "#0D1B3E", fontSize: "1.2rem", marginBottom: "1.5rem" }}
           >
-            ❓ Pertanyaan Seputar NIB
+            Pertanyaan Seputar NIB
           </h2>
           <div className="space-y-3">
             {FAQS.map((faq) => (
               <div
                 key={faq.q}
-                className="rounded-2xl p-4"
+                className="rounded-2xl"
                 style={{
                   background: "white",
                   border: "1px solid rgba(13,27,62,0.06)",
                   boxShadow: "0 2px 8px rgba(13,27,62,0.04)",
+                  padding: "1.75rem",
                 }}
               >
                 <h3
@@ -495,7 +500,7 @@ export default function NIBGuidePage() {
                 >
                   {faq.q}
                 </h3>
-                <p className="text-xs" style={{ color: "#5A6A8A", lineHeight: 1.6 }}>
+                <p className="text-xs" style={{ color: "#5A6A8A", lineHeight: 1.8 }}>
                   {faq.a}
                 </p>
               </div>
@@ -507,7 +512,7 @@ export default function NIBGuidePage() {
       {/* ── Footer CTA ───────────────────────────────────────────────────── */}
       <section
         className="px-4 py-12 text-center"
-        style={{ background: "#0D1B3E" }}
+        style={{ background: "#0D1B3E", marginTop: "4rem" }}
       >
         <div className="mx-auto" style={{ maxWidth: "480px" }}>
           <p
