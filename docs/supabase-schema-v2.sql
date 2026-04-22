@@ -147,9 +147,17 @@ CREATE TABLE IF NOT EXISTS business_profiles (
 );
 
 -- Now we can add the FK from orders to business_profiles
-ALTER TABLE orders
-  ADD CONSTRAINT IF NOT EXISTS fk_orders_business_profile
-  FOREIGN KEY (business_profile_id) REFERENCES business_profiles(id);
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_constraints
+    WHERE constraint_name = 'fk_orders_business_profile'
+    AND table_name = 'orders'
+  ) THEN
+    ALTER TABLE orders
+      ADD CONSTRAINT fk_orders_business_profile
+      FOREIGN KEY (business_profile_id) REFERENCES business_profiles(id);
+  END IF;
+END $$;
 
 -- ------------------------------------------------------------
 -- Financial statements (monthly/quarterly inputs + AI output)
