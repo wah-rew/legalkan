@@ -446,7 +446,8 @@ export default function KURLandingPage() {
           </p>
 
           <div
-            className="rounded-3xl p-8 text-left"
+            className="rounded-3xl text-left"
+            style={{ padding: "2rem 2rem" }}
             style={{
               background: "linear-gradient(135deg, #0D1B3E, #162348)",
               boxShadow: "0 20px 60px rgba(13,27,62,0.2)",
@@ -470,7 +471,7 @@ export default function KURLandingPage() {
               </div>
             </div>
 
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-6" style={{ padding: "0 0.5rem" }}>
               {[
                 ["2 dokumen dasar", "Rp 59.000"],
                 ["Setiap dokumen tambahan", "+Rp 25.000"],
@@ -485,7 +486,7 @@ export default function KURLandingPage() {
                   }}
                 >
                   <span style={{ color: "#94A3CB" }}>{label}</span>
-                  <span className="font-bold text-white">{price}</span>
+                  <span className="font-bold text-white" style={{ whiteSpace: "nowrap", marginLeft: "1rem" }}>{price}</span>
                 </div>
               ))}
             </div>
