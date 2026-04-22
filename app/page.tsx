@@ -667,16 +667,7 @@ export default function Home() {
       >
         <div className="mx-auto" style={{ maxWidth: "72rem" }}>
           <div className="text-center mb-12 animate-fade-up">
-            <span
-              className="badge"
-              style={{
-                background: "rgba(255,77,109,0.15)",
-                color: "#FF4D6D",
-                border: "1px solid rgba(255,77,109,0.2)",
-              }}
-            >
-              9 Jenis Kontrak
-            </span>
+
             <h2
               className="font-jakarta font-extrabold mt-4 text-white"
               style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
