@@ -3,6 +3,46 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+function downloadOrderPDF(orderId: string) {
+  const html = `<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Bukti Order ${orderId}</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; color: #0D1B3E; }
+  .logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .logo span { color: #FF4D6D; }
+  .divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+  .label { font-size: 0.75rem; color: #9BA3C4; margin-bottom: 4px; }
+  .value { font-size: 1rem; font-weight: 700; }
+  .order-id { font-family: monospace; font-size: 1.2rem; font-weight: 800; color: #0D1B3E; }
+  .note { font-size: 0.8rem; color: #6B7FA8; margin-top: 24px; }
+  .footer { margin-top: 40px; font-size: 0.75rem; color: #9BA3C4; text-align: center; }
+</style>
+</head>
+<body>
+<div class="logo"><span>Legal</span>Kan</div>
+<p style="font-size:0.85rem;color:#6B7FA8;">legal-kan.com — Legal-kan sekarang!</p>
+<hr class="divider">
+<h2 style="font-size:1rem;margin-bottom:16px;">Bukti Pesanan</h2>
+<div class="label">Order ID</div>
+<div class="order-id">${orderId}</div>
+<hr class="divider">
+<p class="note">Dokumen kamu sedang dalam proses verifikasi pembayaran.<br>Setelah dikonfirmasi, dokumen akan dikirim ke email & WhatsApp kamu dalam 1×24 jam.</p>
+<p class="note">Simpan Order ID ini sebagai referensi jika kamu perlu menghubungi tim LegalKan.</p>
+<div class="footer">© LegalKan — legal-kan.com</div>
+</body>
+</html>`;
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `LegalKan-Order-${orderId}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function MenungguPage() {
   const router = useRouter();
   const [orderId, setOrderId] = useState("");
@@ -85,6 +125,29 @@ export default function MenungguPage() {
             <p className="text-xs mt-2" style={{ color: "#9BA3C4" }}>
               Simpan ini sebagai referensi
             </p>
+            {/* Action buttons */}
+            <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+              <button
+                onClick={() => { navigator.clipboard.writeText(orderId); }}
+                style={{
+                  flex: 1, padding: "0.6rem", borderRadius: "10px",
+                  border: "1px solid rgba(13,27,62,0.12)", background: "white",
+                  fontSize: "0.78rem", fontWeight: 600, color: "#0D1B3E", cursor: "pointer"
+                }}
+              >
+                📋 Salin Order ID
+              </button>
+              <button
+                onClick={() => downloadOrderPDF(orderId)}
+                style={{
+                  flex: 1, padding: "0.6rem", borderRadius: "10px",
+                  border: "1px solid rgba(255,77,109,0.3)", background: "rgba(255,77,109,0.06)",
+                  fontSize: "0.78rem", fontWeight: 600, color: "#FF4D6D", cursor: "pointer"
+                }}
+              >
+                ⬇️ Unduh Bukti
+              </button>
+            </div>
           </div>
         )}
 
