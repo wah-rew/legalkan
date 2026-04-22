@@ -105,10 +105,5 @@ export function baseFooter(nomorKontrak: string, tanggalPembuatan: string): stri
   <div class="disclaimer-box">
     <strong>CATATAN PENTING:</strong> Dokumen ini dibuat menggunakan platform LegalKan. LegalKan bukan kantor hukum dan tidak memberikan nasihat hukum. LegalKan tidak bertanggung jawab atas sengketa yang timbul dari perjanjian ini. Tempelkan Meterai Rp 10.000 pada setiap eksemplar sebelum penandatanganan.
   </div>
-  <div class="footer">
-    <p>📜 Dokumen ini dibuat secara digital oleh <strong>LegalKan</strong></p>
-    <p>Nomor Referensi: ${nomorKontrak} · Dibuat: ${tanggalPembuatan}</p>
-    <p>www.legal-kan.com — Legal-kan sekarang.</p>
-  </div>
   `;
 }
