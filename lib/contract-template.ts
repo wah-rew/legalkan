@@ -104,8 +104,14 @@ export function generateContractHTML(data: ContractData): string {
     <div class="pihak-box">
       <p><strong>Alamat Properti:</strong> ${data.alamatProperti}</p>
       ${data.penggunaanProperti ? `<p><strong>Peruntukan:</strong> ${labelPenggunaan(data.penggunaanProperti)}</p>` : ""}
+      ${(data.jenisSertifikat && data.jenisSertifikat !== "Tidak ada / Tidak diketahui")
+        ? `<p><strong>Status Sertifikat:</strong> ${data.jenisSertifikat}${data.nomorSertifikat ? ` — Nomor: ${data.nomorSertifikat}` : ""}</p>`
+        : ""}
     </div>
     <p>Selanjutnya disebut sebagai <strong>"Objek Sewa"</strong>, beserta seluruh fasilitas dan perlengkapan yang melekat padanya sebagaimana disepakati bersama oleh Para Pihak.</p>
+    ${(data.jenisSertifikat && data.jenisSertifikat !== "Tidak ada / Tidak diketahui")
+      ? `<p>Properti tersebut berstatus <strong>${data.jenisSertifikat}</strong>${data.nomorSertifikat ? ` dengan Nomor Sertifikat <strong>${data.nomorSertifikat}</strong>` : ""}.</p>`
+      : ""}
     ${data.penggunaanProperti ? `<p>Objek Sewa disepakati untuk digunakan semata-mata sebagai <strong>${labelPenggunaan(data.penggunaanProperti)}</strong> dan tidak boleh digunakan untuk tujuan lain tanpa persetujuan tertulis PIHAK PERTAMA.</p>` : ""}
   `);
 
@@ -169,6 +175,9 @@ export function generateContractHTML(data: ContractData): string {
     ${paymentTermsHTML.replace(/\$\{_pasalCounter \+ 1\}/g, String(_pasalCounter))}
     <p>${_pasalCounter}.5. Keterlambatan pembayaran lebih dari 7 (tujuh) hari kalender dapat dikenakan denda sebesar 2% (dua persen) dari nilai yang jatuh tempo per bulan keterlambatan, kecuali diperjanjikan lain secara tertulis oleh Para Pihak.</p>
     <p>${_pasalCounter}.6. Seluruh pembayaran dilakukan melalui mekanisme yang disepakati Para Pihak dan disertai bukti transfer/kwitansi yang sah.</p>
+    ${data.namaBank
+      ? `<p>${_pasalCounter}.7. Pembayaran dilakukan melalui transfer ke rekening: Bank <strong>${data.namaBank}</strong>, No. Rekening: <strong>${data.nomorRekening || "-"}</strong> atas nama PIHAK PERTAMA.</p>`
+      : ""}
   `);
 
   const pasalDeposit = (data.adaDeposit && data.jumlahDeposit)
@@ -419,6 +428,30 @@ export function generateContractHTML(data: ContractData): string {
       </td>
     </tr>
   </table>
+
+  ${data.saksiEnabled ? `
+  <hr class="divider-thin" style="margin-top: 28px;" />
+  <p style="text-align: center; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; margin-top: 16px;">SAKSI-SAKSI</p>
+  <p style="text-align: center; font-size: 10pt; color: #555; margin-bottom: 16px;">Para saksi menyatakan bahwa perjanjian ini ditandatangani dengan sukarela dan tanpa paksaan.</p>
+  <table class="tanda-tangan">
+    <tr>
+      <td>
+        <p><strong>Saksi 1</strong></p>
+        <p>Nama: <strong>${data.saksi1Nama || "_______________"}</strong></p>
+        <p>NIK: ${data.saksi1NIK || "_______________"}</p>
+        <div class="ttd-area"></div>
+        <p>Tanda Tangan</p>
+      </td>
+      <td>
+        <p><strong>Saksi 2</strong> <em>(jika ada)</em></p>
+        <p>Nama: <strong>${data.saksi2Nama || "_______________"}</strong></p>
+        <p>NIK: ${data.saksi2NIK || "_______________"}</p>
+        <div class="ttd-area"></div>
+        <p>Tanda Tangan</p>
+      </td>
+    </tr>
+  </table>
+  ` : ""}
 
   <div class="disclaimer-box">
     <strong>CATATAN PENTING:</strong> Dokumen ini dibuat menggunakan platform LegalKan, sebuah layanan pembuatan dokumen mandiri. LegalKan bukan kantor hukum dan tidak memberikan nasihat hukum. Untuk kasus kompleks, konsultasikan dengan advokat. LegalKan tidak bertanggung jawab atas sengketa yang timbul dari perjanjian ini.

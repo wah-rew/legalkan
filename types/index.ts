@@ -35,6 +35,21 @@ export interface ContractFormData {
   jumlahPerCicilan?: number;
   jumlahDP?: number;
 
+  // ─── Sertifikat Properti ──────────────────────────────────
+  jenisSertifikat?: string;
+  nomorSertifikat?: string;
+
+  // ─── Rekening Bank Pemilik ──────────────────────────────
+  namaBank?: string;
+  nomorRekening?: string;
+
+  // ─── Saksi-Saksi ────────────────────────────────────────
+  saksiEnabled?: boolean;
+  saksi1Nama?: string;
+  saksi1NIK?: string;
+  saksi2Nama?: string;
+  saksi2NIK?: string;
+
   // ─── Deposit ────────────────────────────────────────────
   adaDeposit?: boolean;
   jumlahDeposit?: number;
