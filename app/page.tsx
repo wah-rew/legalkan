@@ -88,6 +88,14 @@ const CONTRACT_TYPES: ContractType[] = [
     accentColor: "#4FC3F7",
   },
   {
+    icon: "🤝",
+    name: "NDA / Perjanjian Kerahasiaan",
+    desc: "Bilateral NDA antar perusahaan",
+    href: "/buat/nda",
+    key: "nda",
+    accentColor: "#06D6A0",
+  },
+  {
     icon: "🏦",
     name: "Paket KUR-Ready",
     desc: "Siap apply KUR dalam 10 menit",
@@ -100,7 +108,7 @@ const CONTRACT_TYPES: ContractType[] = [
 ];
 
 const STATS = [
-  { value: "9", label: "Jenis Kontrak", icon: "📄" },
+  { value: "10", label: "Jenis Kontrak", icon: "📄" },
   { value: "100%", label: "Sesuai KUHPerdata", icon: "⚖️" },
   { value: "1.000+", label: "Pengguna Aktif", icon: "👥" },
   { value: "< 5 mnt", label: "Langsung Jadi", icon: "⚡" },
