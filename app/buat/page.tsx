@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ContractFormData, CONTRACT_PRICES } from "@/types";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = [
   { label: "Data Para Pihak", icon: "👥", desc: "Identitas kedua belah pihak" },
@@ -488,40 +489,11 @@ export default function BuatPage() {
                   }}
                 >
                   <div style={{ position: "relative" }}>
-                    <select
-                      className="form-input appearance-none"
+                    <BankSearch
                       value={form.namaBank ?? ""}
-                      onChange={(e) => set("namaBank", e.target.value)}
-                      style={{
-                        fontSize: "0.95rem",
-                        padding: "0.875rem 2.5rem 0.875rem 1rem",
-                      }}
-                    >
-                      <option value="">Pilih bank…</option>
-                      <option value="BCA">BCA</option>
-                      <option value="BNI">BNI</option>
-                      <option value="BRI">BRI</option>
-                      <option value="Mandiri">Mandiri</option>
-                      <option value="BTN">BTN</option>
-                      <option value="CIMB Niaga">CIMB Niaga</option>
-                      <option value="Danamon">Danamon</option>
-                      <option value="Permata">Permata</option>
-                      <option value="BSI">BSI</option>
-                      <option value="Bank Lainnya">Bank Lainnya</option>
-                    </select>
-                    <span
-                      style={{
-                        pointerEvents: "none",
-                        position: "absolute",
-                        right: "1rem",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        fontSize: "0.7rem",
-                        color: "#9BA3C4",
-                      }}
-                    >
-                      ▼
-                    </span>
+                      onChange={(val) => set("namaBank", val)}
+                      placeholder="Cari nama bank..."
+                    />
                   </div>
                   <input
                     className="form-input"
@@ -540,6 +512,34 @@ export default function BuatPage() {
                 >
                   🏦 Memudahkan penyewa transfer tepat waktu
                 </p>
+              </div>
+
+              {/* Timeframe toggle — di atas 2 kolom */}
+              <div>
+                <label className="form-label">Periode Sewa <span style={{ color: "#FF4D6D" }}>*</span></label>
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  {(["bulanan", "tahunan"] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => set("periodeSewa", opt)}
+                      style={{
+                        flex: 1,
+                        padding: "0.75rem",
+                        borderRadius: "12px",
+                        border: "2px solid",
+                        borderColor: form.periodeSewa === opt ? "#FF4D6D" : "rgba(13,27,62,0.12)",
+                        background: form.periodeSewa === opt ? "rgba(255,77,109,0.06)" : "white",
+                        color: form.periodeSewa === opt ? "#FF4D6D" : "#6B7FA8",
+                        fontWeight: 700,
+                        fontSize: "0.875rem",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {opt === "bulanan" ? "📅 Bulanan" : "📆 Tahunan"}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div
@@ -562,34 +562,7 @@ export default function BuatPage() {
                     gap: "1rem",
                   }}
                 >
-                  {/* Timeframe toggle */}
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <label className="form-label">Periode Sewa <span style={{ color: "#FF4D6D" }}>*</span></label>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      {(["bulanan", "tahunan"] as const).map((opt) => (
-                        <button
-                          key={opt}
-                          type="button"
-                          onClick={() => set("periodeSewa", opt)}
-                          style={{
-                            flex: 1,
-                            padding: "0.75rem",
-                            borderRadius: "12px",
-                            border: "2px solid",
-                            borderColor: form.periodeSewa === opt ? "#FF4D6D" : "rgba(13,27,62,0.12)",
-                            background: form.periodeSewa === opt ? "rgba(255,77,109,0.06)" : "white",
-                            color: form.periodeSewa === opt ? "#FF4D6D" : "#6B7FA8",
-                            fontWeight: 700,
-                            fontSize: "0.875rem",
-                            cursor: "pointer",
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          {opt === "bulanan" ? "📅 Bulanan" : "📆 Tahunan"}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  {/* spacer removed — toggle now above */}
 
                   <div>
                     <label className="form-label">
