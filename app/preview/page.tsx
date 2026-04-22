@@ -265,8 +265,8 @@ export default function PreviewPage() {
                   </span>
                 </div>
               ))}
-              <div className="flex justify-between items-center mt-3 pt-1">
-                <span className="text-sm font-bold" style={{ color: "#0D1B3E" }}>Total Bayar</span>
+              <div className="flex justify-between items-center mt-3 pt-1" style={{ gap: "0.75rem" }}>
+                <span className="text-sm font-bold" style={{ color: "#0D1B3E", whiteSpace: "nowrap" }}>Total Bayar</span>
                 <span className="font-jakarta text-xl font-extrabold" style={{ color: "#FF4D6D", whiteSpace: "nowrap" }}>
                   Rp&nbsp;{new Intl.NumberFormat('id-ID').format(
                     (() => { const ct = (contractData as unknown as Record<string, string>).contractType; return ct && CONTRACT_PRICES[ct] ? CONTRACT_PRICES[ct] : PRICE; })()

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
@@ -93,6 +93,20 @@ const init: FormState = {
 export default function EventOrganizerPage() {
   const router = useRouter();
   const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("kontrak_contract");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        const contractType = parsed?.contractData?.contractType || parsed?.contractType;
+        if (contractType === "event-organizer") {
+          const saved = parsed?.formData || parsed?.contractData;
+          if (saved) setForm((prev) => ({ ...prev, ...saved }));
+        }
+      }
+    } catch {}
+  }, []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState<FormState>(init);
@@ -167,7 +181,7 @@ export default function EventOrganizerPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal generate kontrak");
-      sessionStorage.setItem("kontrak_contract", JSON.stringify(data));
+      sessionStorage.setItem("kontrak_contract", JSON.stringify({ ...data, formData: form }));
       router.push("/preview");
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Terjadi kesalahan");
