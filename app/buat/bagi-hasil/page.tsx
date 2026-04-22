@@ -4,38 +4,67 @@ import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
 
-const STEPS = ["Para Pihak", "Detail Usaha", "Bagi Hasil & Kelola", "Review"];
+const STEPS = ["Para Pihak", "Detail Usaha", "Bagi Hasil & Kelola", "Pengakhiran & Saksi", "Review"];
 
 interface FormState {
-  nama_pihak_1: string; nik_pihak_1: string; alamat_pihak_1: string;
+  // Para Pihak
+  nama_pihak_1: string; nik_pihak_1: string; alamat_pihak_1: string; nomorTelepon1: string;
   peran_pihak_1: string; modal_pihak_1: number; bentuk_kontribusi_pihak_1: string;
-  nama_pihak_2: string; nik_pihak_2: string; alamat_pihak_2: string;
+  nama_pihak_2: string; nik_pihak_2: string; alamat_pihak_2: string; nomorTelepon2: string;
   peran_pihak_2: string; modal_pihak_2: number; bentuk_kontribusi_pihak_2: string;
+  // Detail Usaha
   nama_usaha: string; jenis_usaha: string; alamat_usaha: string; tanggal_mulai_usaha: string;
   total_modal: number;
+  // Bagi Hasil
   persen_bagi_hasil_pihak_1: string; persen_bagi_hasil_pihak_2: string;
   persen_tanggung_rugi_pihak_1: string; persen_tanggung_rugi_pihak_2: string;
   periode_bagi_hasil: string;
+  tanggalPembagian: string;
+  tanggalLaporan: string;
   apakah_ada_gaji_pengelola: boolean; gaji_pengelola: number;
-  siapa_yang_mengelola: string; keputusan_besar_threshold: number; frekuensi_laporan_keuangan: string;
+  // Pengelolaan
+  siapa_yang_mengelola: string; keputusan_besar_threshold: number;
+  batasModalTambahan: number;
+  batasInvestasi: number;
+  frekuensi_laporan_keuangan: string;
+  // Pengakhiran
   jangka_waktu_perjanjian: string; tanggal_berakhir: string;
-  saksi_1: string; saksi_2: string;
-  kota_penandatanganan: string; tanggal_penandatanganan: string;
+  masaPemberitahuanKeluar: string;
+  // Non-compete
+  radiusNonCompete: string;
+  durasiNonCompete: string;
+  // Saksi
+  saksi_1: string; nik_saksi_1: string; saksi1Alamat: string;
+  saksi_2: string; nik_saksi_2: string; saksi2Alamat: string;
+  // Penandatanganan
+  kota_penandatanganan: string; lokasiPembuatan: string; tanggal_penandatanganan: string;
+  // Meta
   emailPembeli: string; nomorWhatsapp: string;
 }
 
 const init: FormState = {
-  nama_pihak_1: "", nik_pihak_1: "", alamat_pihak_1: "", peran_pihak_1: "Modal uang", modal_pihak_1: 0, bentuk_kontribusi_pihak_1: "uang_tunai",
-  nama_pihak_2: "", nik_pihak_2: "", alamat_pihak_2: "", peran_pihak_2: "Tenaga & keahlian", modal_pihak_2: 0, bentuk_kontribusi_pihak_2: "tenaga",
+  nama_pihak_1: "", nik_pihak_1: "", alamat_pihak_1: "", nomorTelepon1: "",
+  peran_pihak_1: "Modal uang", modal_pihak_1: 0, bentuk_kontribusi_pihak_1: "uang_tunai",
+  nama_pihak_2: "", nik_pihak_2: "", alamat_pihak_2: "", nomorTelepon2: "",
+  peran_pihak_2: "Tenaga & keahlian", modal_pihak_2: 0, bentuk_kontribusi_pihak_2: "tenaga",
   nama_usaha: "", jenis_usaha: "", alamat_usaha: "", tanggal_mulai_usaha: "", total_modal: 0,
   persen_bagi_hasil_pihak_1: "50", persen_bagi_hasil_pihak_2: "50",
   persen_tanggung_rugi_pihak_1: "50", persen_tanggung_rugi_pihak_2: "50",
   periode_bagi_hasil: "bulanan",
+  tanggalPembagian: "10",
+  tanggalLaporan: "5",
   apakah_ada_gaji_pengelola: false, gaji_pengelola: 0,
-  siapa_yang_mengelola: "pihak_2", keputusan_besar_threshold: 5000000, frekuensi_laporan_keuangan: "bulanan",
+  siapa_yang_mengelola: "pihak_2", keputusan_besar_threshold: 5000000,
+  batasModalTambahan: 5000000,
+  batasInvestasi: 2000000,
+  frekuensi_laporan_keuangan: "bulanan",
   jangka_waktu_perjanjian: "tidak_terbatas", tanggal_berakhir: "",
-  saksi_1: "", saksi_2: "",
-  kota_penandatanganan: "", tanggal_penandatanganan: "",
+  masaPemberitahuanKeluar: "3",
+  radiusNonCompete: "500",
+  durasiNonCompete: "1",
+  saksi_1: "", nik_saksi_1: "", saksi1Alamat: "",
+  saksi_2: "", nik_saksi_2: "", saksi2Alamat: "",
+  kota_penandatanganan: "", lokasiPembuatan: "", tanggal_penandatanganan: "",
   emailPembeli: "", nomorWhatsapp: "",
 };
 
@@ -66,6 +95,12 @@ export default function BagiHasilPage() {
     if (step === 2) {
       if (bh1 + bh2 !== 100) return `Bagi hasil harus total 100% (sekarang ${bh1 + bh2}%)`;
       if (tr1 + tr2 !== 100) return `Tanggung rugi harus total 100% (sekarang ${tr1 + tr2}%)`;
+      const tglBagi = parseInt(form.tanggalPembagian);
+      if (isNaN(tglBagi) || tglBagi < 1 || tglBagi > 28) return "Tanggal pembagian harus antara 1–28";
+      const tglLaporan = parseInt(form.tanggalLaporan);
+      if (isNaN(tglLaporan) || tglLaporan < 1 || tglLaporan > 28) return "Tanggal laporan harus antara 1–28";
+    }
+    if (step === 3) {
       if (!form.saksi_1.trim()) return "Nama saksi wajib diisi";
       if (!form.kota_penandatanganan.trim()) return "Kota penandatanganan wajib diisi";
       if (!form.tanggal_penandatanganan) return "Tanggal penandatanganan wajib diisi";
@@ -85,6 +120,9 @@ export default function BagiHasilPage() {
           ...form, total_modal: totalModal,
           persen_bagi_hasil_pihak_1: bh1, persen_bagi_hasil_pihak_2: bh2,
           persen_tanggung_rugi_pihak_1: tr1, persen_tanggung_rugi_pihak_2: tr2,
+          batasModalTambahan: String(form.batasModalTambahan),
+          batasInvestasi: String(form.batasInvestasi),
+          lokasiPembuatan: form.lokasiPembuatan || form.kota_penandatanganan,
         }),
       });
       const data = await res.json();
@@ -102,8 +140,9 @@ export default function BagiHasilPage() {
           <FormInput label="Nama Lengkap" required><input className="form-input" value={form.nama_pihak_1} onChange={e => set("nama_pihak_1", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="NIK"><input className="form-input" maxLength={16} value={form.nik_pihak_1} onChange={e => set("nik_pihak_1", e.target.value)} /></FormInput>
-            <FormInput label="Peran/Kontribusi"><input className="form-input" placeholder="Modal uang" value={form.peran_pihak_1} onChange={e => set("peran_pihak_1", e.target.value)} /></FormInput>
+            <FormInput label="No. Telepon/WhatsApp"><input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.nomorTelepon1} onChange={e => set("nomorTelepon1", e.target.value)} /></FormInput>
           </div>
+          <FormInput label="Peran/Kontribusi"><input className="form-input" placeholder="Modal uang" value={form.peran_pihak_1} onChange={e => set("peran_pihak_1", e.target.value)} /></FormInput>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_pihak_1} onChange={e => set("alamat_pihak_1", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <RpInput label="Kontribusi Modal" value={form.modal_pihak_1} onChange={v => set("modal_pihak_1", v)} />
@@ -122,8 +161,9 @@ export default function BagiHasilPage() {
           <FormInput label="Nama Lengkap" required><input className="form-input" value={form.nama_pihak_2} onChange={e => set("nama_pihak_2", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="NIK"><input className="form-input" maxLength={16} value={form.nik_pihak_2} onChange={e => set("nik_pihak_2", e.target.value)} /></FormInput>
-            <FormInput label="Peran/Kontribusi"><input className="form-input" placeholder="Tenaga & keahlian" value={form.peran_pihak_2} onChange={e => set("peran_pihak_2", e.target.value)} /></FormInput>
+            <FormInput label="No. Telepon/WhatsApp"><input className="form-input" type="tel" placeholder="08xxxxxxxxxx" value={form.nomorTelepon2} onChange={e => set("nomorTelepon2", e.target.value)} /></FormInput>
           </div>
+          <FormInput label="Peran/Kontribusi"><input className="form-input" placeholder="Tenaga & keahlian" value={form.peran_pihak_2} onChange={e => set("peran_pihak_2", e.target.value)} /></FormInput>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_pihak_2} onChange={e => set("alamat_pihak_2", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
             <RpInput label="Kontribusi Modal" value={form.modal_pihak_2} onChange={v => set("modal_pihak_2", v)} />
@@ -179,11 +219,21 @@ export default function BagiHasilPage() {
               <option value="tahunan">Setiap Tahun</option>
             </select>
           </FormInput>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="Tanggal Pembagian Keuntungan (tgl berapa tiap bulan)">
+              <input className="form-input" type="number" min="1" max="28" placeholder="10" value={form.tanggalPembagian} onChange={e => set("tanggalPembagian", e.target.value)} />
+            </FormInput>
+            <FormInput label="Tanggal Laporan Keuangan (diserahkan tgl berapa)">
+              <input className="form-input" type="number" min="1" max="28" placeholder="5" value={form.tanggalLaporan} onChange={e => set("tanggalLaporan", e.target.value)} />
+            </FormInput>
+          </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" id="gaji_pengelola" checked={form.apakah_ada_gaji_pengelola} onChange={e => set("apakah_ada_gaji_pengelola", e.target.checked)} />
             <label htmlFor="gaji_pengelola" className="text-sm cursor-pointer">Pengelola mendapat honor bulanan (selain bagi hasil)</label>
           </div>
           {form.apakah_ada_gaji_pengelola && <RpInput label="Honor Pengelola / Bulan" value={form.gaji_pengelola} onChange={v => set("gaji_pengelola", v)} />}
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
+          <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0D1B3E" }}>Pengelolaan & Keputusan Strategis</p>
           <FormInput label="Pengelola Usaha">
             <select className="form-input" value={form.siapa_yang_mengelola} onChange={e => set("siapa_yang_mengelola", e.target.value)}>
               <option value="pihak_1">{form.nama_pihak_1 || "Pihak Pertama"}</option>
@@ -191,7 +241,16 @@ export default function BagiHasilPage() {
               <option value="bersama">Bersama-sama</option>
             </select>
           </FormInput>
-          <RpInput label="Batas Keputusan Sepihak (transaksi > nilai ini perlu persetujuan bersama)" value={form.keputusan_besar_threshold} onChange={v => set("keputusan_besar_threshold", v)} />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <RpInput label="Batas penambahan modal (perlu persetujuan bersama jika di atas nilai ini)" value={form.batasModalTambahan} onChange={v => set("batasModalTambahan", v)} />
+            <RpInput label="Batas investasi/aset baru (perlu persetujuan bersama)" value={form.batasInvestasi} onChange={v => set("batasInvestasi", v)} />
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="space-y-4">
+          <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#FF4D6D" }}>Jangka Waktu & Pengakhiran</p>
           <FormInput label="Jangka Waktu Kemitraan">
             <select className="form-input" value={form.jangka_waktu_perjanjian} onChange={e => set("jangka_waktu_perjanjian", e.target.value)}>
               <option value="1tahun">1 Tahun</option>
@@ -200,15 +259,40 @@ export default function BagiHasilPage() {
               <option value="tidak_terbatas">Tidak Terbatas</option>
             </select>
           </FormInput>
-          <FormInput label="Nama Saksi" required><input className="form-input" value={form.saksi_1} onChange={e => set("saksi_1", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormInput label="Kota Penandatanganan" required><input className="form-input" value={form.kota_penandatanganan} onChange={e => set("kota_penandatanganan", e.target.value)} /></FormInput>
-            <FormInput label="Tanggal TTD" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
+            <FormInput label="Masa Pemberitahuan Keluar (bulan, minimal 3)">
+              <input className="form-input" type="number" min="1" max="12" placeholder="3" value={form.masaPemberitahuanKeluar} onChange={e => set("masaPemberitahuanKeluar", e.target.value)} />
+            </FormInput>
+            <FormInput label="Radius Larangan Persaingan (meter)">
+              <input className="form-input" type="number" min="100" placeholder="500" value={form.radiusNonCompete} onChange={e => set("radiusNonCompete", e.target.value)} />
+            </FormInput>
           </div>
+          <FormInput label="Durasi Larangan Persaingan setelah berakhir (tahun)">
+            <input className="form-input" type="number" min="1" max="5" placeholder="1" value={form.durasiNonCompete} onChange={e => set("durasiNonCompete", e.target.value)} />
+          </FormInput>
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
+          <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0D1B3E" }}>Saksi-Saksi</p>
+          <p className="text-xs" style={{ color: "#666" }}>Saksi memberikan legitimasi tambahan pada dokumen perjanjian</p>
+          <FormInput label="Nama Saksi 1" required><input className="form-input" value={form.saksi_1} onChange={e => set("saksi_1", e.target.value)} /></FormInput>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormInput label="NIK Saksi 1"><input className="form-input" maxLength={16} value={form.nik_saksi_1} onChange={e => set("nik_saksi_1", e.target.value)} /></FormInput>
+            <FormInput label="Alamat Saksi 1"><input className="form-input" value={form.saksi1Alamat} onChange={e => set("saksi1Alamat", e.target.value)} /></FormInput>
+          </div>
+          <FormInput label="Nama Saksi 2 (opsional)"><input className="form-input" value={form.saksi_2} onChange={e => set("saksi_2", e.target.value)} /></FormInput>
+          {form.saksi_2 && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FormInput label="NIK Saksi 2"><input className="form-input" maxLength={16} value={form.nik_saksi_2} onChange={e => set("nik_saksi_2", e.target.value)} /></FormInput>
+              <FormInput label="Alamat Saksi 2"><input className="form-input" value={form.saksi2Alamat} onChange={e => set("saksi2Alamat", e.target.value)} /></FormInput>
+            </div>
+          )}
+          <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
+          <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0D1B3E" }}>Penandatanganan</p>
+          <FormInput label="Lokasi Pembuatan / Kota Penandatanganan" required><input className="form-input" placeholder="Jakarta" value={form.kota_penandatanganan} onChange={e => { set("kota_penandatanganan", e.target.value); if (!form.lokasiPembuatan) set("lokasiPembuatan", e.target.value); }} /></FormInput>
+          <FormInput label="Tanggal Penandatanganan" required><input className="form-input" type="date" value={form.tanggal_penandatanganan} onChange={e => set("tanggal_penandatanganan", e.target.value)} /></FormInput>
         </div>
       )}
 
-      {step === 3 && (
+      {step === 4 && (
         <div className="space-y-1">
           <ReviewRow label="Mitra 1" value={form.nama_pihak_1} />
           <ReviewRow label="Mitra 2" value={form.nama_pihak_2} />
@@ -216,6 +300,9 @@ export default function BagiHasilPage() {
           <ReviewRow label="Total Modal" value={`Rp ${new Intl.NumberFormat("id-ID").format(form.modal_pihak_1 + form.modal_pihak_2)}`} />
           <ReviewRow label="Bagi Hasil" value={`${form.persen_bagi_hasil_pihak_1}% : ${form.persen_bagi_hasil_pihak_2}%`} />
           <ReviewRow label="Periode" value={form.periode_bagi_hasil} />
+          <ReviewRow label="Tgl Pembagian" value={`Setiap tgl ${form.tanggalPembagian}`} />
+          <ReviewRow label="Tgl Laporan" value={`Setiap tgl ${form.tanggalLaporan}`} />
+          <ReviewRow label="Non-compete" value={`${form.radiusNonCompete}m, ${form.durasiNonCompete} thn`} />
           <ReviewRow label="Jangka Waktu" value={form.jangka_waktu_perjanjian.replace(/_/g, " ")} />
           <ReviewRow label="Email Dokumen" value={form.emailPembeli} />
           <PriceBox price={CONTRACT_PRICES['bagi-hasil']} />
