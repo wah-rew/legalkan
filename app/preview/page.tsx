@@ -276,29 +276,27 @@ export default function PreviewPage() {
               </div>
             </div>
 
-            {/* Bank selection */}
-            <div className="card">
+            {/* Bank transfer info */}
+            <div className="card" style={{ background: "rgba(13,27,62,0.03)", border: "1px solid rgba(13,27,62,0.08)" }}>
               <h3 className="font-jakarta font-bold mb-3 text-sm" style={{ color: "#0D1B3E" }}>
-                Pilih Bank Virtual Account
+                💳 Transfer ke Rekening Berikut
               </h3>
-              <div className="grid grid-cols-2 gap-2">
-                {BANKS.map((bank) => (
-                  <button
-                    key={bank}
-                    onClick={() => setSelectedBank(bank)}
-                    className="rounded-2xl border-2 py-3 text-sm font-bold transition-all"
-                    style={{
-                      borderColor: selectedBank === bank ? "#FF4D6D" : "rgba(13,27,62,0.1)",
-                      background: selectedBank === bank ? "rgba(255,77,109,0.06)" : "white",
-                      color: selectedBank === bank ? "#FF4D6D" : "#6B7FA8",
-                    }}
-                  >
-                    {bank}
-                  </button>
-                ))}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem" }}>
+                  <span style={{ color: "#6B7FA8" }}>Bank</span>
+                  <span style={{ fontWeight: 700, color: "#0D1B3E" }}>UOB Indonesia</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem" }}>
+                  <span style={{ color: "#6B7FA8" }}>Atas nama</span>
+                  <span style={{ fontWeight: 700, color: "#0D1B3E" }}>KARYA SELAKSA MAKNA, PT</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem" }}>
+                  <span style={{ color: "#6B7FA8" }}>Nomor rekening</span>
+                  <span style={{ fontWeight: 700, color: "#0D1B3E" }}>3883039856</span>
+                </div>
               </div>
-              <p className="text-xs mt-2" style={{ color: "#9BA3C4" }}>
-                Bayar via transfer ke nomor VA {BANK_LABELS[selectedBank]}
+              <p className="text-xs mt-3" style={{ color: "#9BA3C4" }}>
+                ⏱ Dokumen dikirim maks. 1×24 jam setelah pembayaran dikonfirmasi
               </p>
             </div>
 
@@ -316,11 +314,11 @@ export default function PreviewPage() {
               onClick={handlePay}
               disabled={loading}
             >
-              {loading ? "⏳ Memproses..." : `💳 Bayar Rp ${new Intl.NumberFormat('id-ID').format((() => { const ct = (contractData as unknown as Record<string, string>).contractType; return ct && CONTRACT_PRICES[ct] ? CONTRACT_PRICES[ct] : PRICE; })())} via ${selectedBank}`}
+              {loading ? "⏳ Memproses..." : `💳 Lanjut ke Pembayaran — Rp ${new Intl.NumberFormat('id-ID').format((() => { const ct = (contractData as unknown as Record<string, string>).contractType; return ct && CONTRACT_PRICES[ct] ? CONTRACT_PRICES[ct] : PRICE; })())}`}
             </button>
 
             <p className="text-center text-xs" style={{ color: "#9BA3C4" }}>
-              🔒 Pembayaran aman via Xendit
+              🔒 Pembayaran diverifikasi manual dalam 1×24 jam
             </p>
 
             <button
