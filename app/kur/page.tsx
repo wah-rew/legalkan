@@ -457,25 +457,21 @@ export default function KURLandingPage() {
               boxShadow: "0 20px 60px rgba(13,27,62,0.2)",
             }}
           >
-            <div className="flex justify-between items-center mb-6">
-              <div>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#6B7FA8" }}>
-                  Paket Dasar (2 dokumen)
-                </p>
-                <p
-                  className="font-jakarta font-extrabold text-white"
-                  style={{ fontSize: "2.25rem" }}
-                >
-                  Rp 59.000
-                </p>
-              </div>
+            <div className="text-center mb-6">
+              <p className="text-xs font-semibold mb-2" style={{ color: "#6B7FA8" }}>
+                Paket Dasar (2 dokumen)
+              </p>
+              <p
+                className="font-jakarta font-extrabold text-white"
+                style={{ fontSize: "2.5rem" }}
+              >
+                Rp 59.000
+              </p>
               <div
-                className="rounded-2xl px-4 py-2 text-center"
+                className="inline-flex items-center gap-1 rounded-full px-3 py-1 mt-2"
                 style={{ background: "rgba(255,209,102,0.15)", border: "1px solid rgba(255,209,102,0.3)" }}
               >
-                <p className="text-xs font-bold" style={{ color: "#FFD166" }}>Hemat hingga</p>
-                <p className="font-jakarta font-extrabold text-2xl" style={{ color: "#FFD166" }}>40%</p>
-                <p className="text-xs" style={{ color: "#9A7500" }}>vs beli satuan</p>
+                <span className="text-xs font-bold" style={{ color: "#FFD166" }}>Hemat hingga 40% vs beli satuan</span>
               </div>
             </div>
 
