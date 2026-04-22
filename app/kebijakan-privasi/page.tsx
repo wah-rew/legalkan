@@ -301,9 +301,7 @@ export default function KebijakanPrivasiPage() {
                   legal-kan.com/hubungi
                 </a>
               </li>
-              <li>
-                <strong>Email:</strong> wahyu@karyaselaksamakna.com
-              </li>
+
             </ul>
             <p>
               Perubahan pada Kebijakan Privasi ini akan diinformasikan melalui pembaruan tanggal
