@@ -56,25 +56,21 @@ export async function GET(req: NextRequest) {
   let contractDataRaw: Record<string, unknown> | null = null;
   let storedToken: string | null = null;
   let tokenExpiresAt: string | null = null;
+  let tokenFoundInPaymentTokens = false;
 
-  // Try Supabase first
+  // Try payment_tokens table first (primary persistent store)
   if (supabase) {
     try {
-      const { data, error } = await supabase
-        .from("orders")
+      const { data: tokenRecord, error: tokenError } = await supabase
+        .from("payment_tokens")
         .select("*")
+        .eq("token", token)
         .eq("order_id", orderId)
         .single();
 
-      if (error || !data) {
-        console.error("[confirm-payment] Supabase lookup error:", error);
-      } else {
-        contractDataRaw = data.contract_data as Record<string, unknown>;
-        storedToken = contractDataRaw?.confirmationToken as string | null;
-        tokenExpiresAt = contractDataRaw?.tokenExpiresAt as string | null;
-
-        // Check if already used
-        if (data.status === "paid" || data.status === "delivered") {
+      if (!tokenError && tokenRecord) {
+        // Check if already confirmed
+        if (tokenRecord.status === "confirmed") {
           return htmlPage(
             "Sudah Dikonfirmasi",
             "✅",
@@ -82,13 +78,44 @@ export async function GET(req: NextRequest) {
             "<p>Order ini sudah pernah dikonfirmasi sebelumnya. Dokumen sudah dikirim ke user.</p>"
           );
         }
+        contractDataRaw = tokenRecord.contract_data as Record<string, unknown>;
+        storedToken = tokenRecord.token as string;
+        tokenExpiresAt = tokenRecord.expires_at as string;
+        tokenFoundInPaymentTokens = true;
+        console.log(`[confirm-payment] Token found in payment_tokens for order ${orderId}`);
+      } else {
+        // Legacy fallback: check orders table (for orders created before payment_tokens existed)
+        console.log(`[confirm-payment] Token not in payment_tokens, trying orders table for ${orderId}`);
+        const { data, error } = await supabase
+          .from("orders")
+          .select("*")
+          .eq("order_id", orderId)
+          .single();
+
+        if (error || !data) {
+          console.error("[confirm-payment] Supabase orders lookup error:", error);
+        } else {
+          contractDataRaw = data.contract_data as Record<string, unknown>;
+          storedToken = contractDataRaw?.confirmationToken as string | null;
+          tokenExpiresAt = contractDataRaw?.tokenExpiresAt as string | null;
+
+          // Check if already used
+          if (data.status === "paid" || data.status === "delivered") {
+            return htmlPage(
+              "Sudah Dikonfirmasi",
+              "✅",
+              "Pembayaran sudah dikonfirmasi",
+              "<p>Order ini sudah pernah dikonfirmasi sebelumnya. Dokumen sudah dikirim ke user.</p>"
+            );
+          }
+        }
       }
     } catch (dbErr) {
       console.error("[confirm-payment] Supabase error:", dbErr);
     }
   }
 
-  // Fallback to in-memory store
+  // Fallback to in-memory store (dev/no-Supabase mode)
   if (!storedToken) {
     const memEntry = transferStore.get(orderId);
     if (memEntry) {
@@ -139,8 +166,22 @@ export async function GET(req: NextRequest) {
   // ── TOKEN VALID — Process payment confirmation ──
   const contractData = contractDataRaw as unknown as ContractData & Record<string, unknown>;
 
-  // Update status to paid in Supabase (and mark token used by clearing it)
+  // Mark token as confirmed and update order status
   if (supabase) {
+    // Mark token as confirmed in payment_tokens (primary)
+    if (tokenFoundInPaymentTokens) {
+      try {
+        await supabase
+          .from("payment_tokens")
+          .update({ status: "confirmed" })
+          .eq("token", token);
+        console.log(`[confirm-payment] Token marked confirmed in payment_tokens for order ${orderId}`);
+      } catch (dbErr) {
+        console.error("[confirm-payment] payment_tokens update error (non-fatal):", dbErr);
+      }
+    }
+
+    // Update orders table status (and nullify legacy embedded token)
     try {
       await supabase
         .from("orders")
@@ -148,13 +189,13 @@ export async function GET(req: NextRequest) {
           status: "paid",
           contract_data: {
             ...contractDataRaw,
-            confirmationToken: null, // invalidate token (one-time use)
+            confirmationToken: null, // invalidate any legacy embedded token
             confirmedAt: new Date().toISOString(),
           },
         })
         .eq("order_id", orderId);
     } catch (dbErr) {
-      console.error("[confirm-payment] Supabase update error (non-fatal):", dbErr);
+      console.error("[confirm-payment] Supabase orders update error (non-fatal):", dbErr);
     }
   }
 

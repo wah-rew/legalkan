@@ -46,10 +46,37 @@ export async function POST(req: NextRequest) {
           },
         }, { onConflict: "order_id" });
       } catch (dbErr) {
-        console.error("[transfer-confirm] Supabase upsert error (non-fatal):", dbErr);
+        console.error("[transfer-confirm] Supabase orders upsert error (non-fatal):", dbErr);
+      }
+
+      // Save token to dedicated payment_tokens table for reliable persistence across restarts
+      try {
+        await supabase.from("payment_tokens").upsert({
+          order_id: orderId,
+          token: confirmationToken,
+          contract_type: contractType,
+          contract_data: {
+            ...paymentData.contractData,
+            uniqueCode,
+            totalWithCode,
+            baseAmount: paymentData.amount,
+          },
+          status: "pending",
+          expires_at: tokenExpiresAt,
+        }, { onConflict: "order_id" });
+        console.log(`[transfer-confirm] Token saved to payment_tokens for order ${orderId}`);
+      } catch (tokenErr) {
+        console.error("[transfer-confirm] payment_tokens upsert error (non-fatal):", tokenErr);
+        // Fallback: also store in memory in case Supabase token save failed
+        transferStore.set(orderId, {
+          paymentData,
+          confirmationToken,
+          tokenExpiresAt,
+          contractType,
+        });
       }
     } else {
-      // Fallback: store in memory (dev only)
+      // Fallback: store in memory (dev only, not persistent across restarts)
       transferStore.set(orderId, {
         paymentData,
         confirmationToken,
