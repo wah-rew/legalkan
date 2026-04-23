@@ -202,14 +202,28 @@ export async function GET(req: NextRequest) {
   // Remove from memory store (one-time use)
   transferStore.delete(orderId);
 
-  // Generate contract HTML (also used by WA sending when re-enabled)
+  // Generate contract HTML
   let contractHTML = "";
   try {
     contractHTML = generateContractHTML(contractData);
   } catch (genErr) {
     console.error("[confirm-payment] Contract generation error (non-fatal):", genErr);
   }
-  void contractHTML; // used by WA sending (currently disabled) — do not remove
+
+  // Save contractHTML to Supabase so /unduh page can retrieve it
+  if (supabase && contractHTML) {
+    try {
+      await supabase
+        .from("orders")
+        .update({
+          status: "paid",
+          contract_data: { ...contractDataRaw, contractHTML, confirmedAt: new Date().toISOString() },
+        })
+        .eq("order_id", orderId);
+    } catch (dbErr) {
+      console.error("[confirm-payment] Save contractHTML error (non-fatal):", dbErr);
+    }
+  }
 
   const userEmail = contractData.emailPembeli || (contractDataRaw.customer_email as string) || "";
   // userPhone kept for future WA re-activation
