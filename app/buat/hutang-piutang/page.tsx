@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
 import CitySearch from "@/components/CitySearch";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = ["Para Pihak", "Detail Pinjaman", "Bunga & Jaminan", "Review"];
 
@@ -194,7 +195,7 @@ export default function HutangPiutangPage() {
           <p className="text-xs" style={{ color: "#666", marginBottom: 4 }}>Untuk tujuan pembayaran cicilan/pelunasan (opsional, tapi disarankan)</p>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormInput label="Nama Bank" hint="opsional">
-              <input className="form-input" placeholder="BCA, BRI, Mandiri..." value={form.namaBank} onChange={e => set("namaBank", e.target.value)} />
+              <BankSearch value={form.namaBank || ""} onChange={(val) => set("namaBank", val)} placeholder="Cari nama bank..." />
             </FormInput>
             <FormInput label="Nomor Rekening" hint="opsional">
               <input className="form-input" placeholder="Nomor rekening" value={form.nomorRekening} onChange={e => set("nomorRekening", e.target.value)} />

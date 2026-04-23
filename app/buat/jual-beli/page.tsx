@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
 import CitySearch from "@/components/CitySearch";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = ["Para Pihak", "Detail Barang", "Harga & Serah Terima", "Review"];
 
@@ -26,7 +27,7 @@ interface FormState {
 }
 
 const init: FormState = {
-  nama_penjual: "", nik_penjual: "", alamat_penjual: "", nomor_telepon_penjual: "", nomor_rekening_penjual: "", nama_bank_penjual: "BCA",
+  nama_penjual: "", nik_penjual: "", alamat_penjual: "", nomor_telepon_penjual: "", nomor_rekening_penjual: "", nama_bank_penjual: "",
   nama_pembeli: "", nik_pembeli: "", alamat_pembeli: "", nomor_telepon_pembeli: "",
   jenis_barang: "kendaraan_bermotor", nama_barang: "", merek: "", model_tipe: "", tahun_pembuatan: "", warna: "", kondisi_barang: "baik", deskripsi_kondisi: "",
   nomor_polisi: "", nomor_rangka: "", nomor_mesin: "", km_odometer: "",
@@ -116,7 +117,7 @@ export default function JualBeliPage() {
           </div>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_penjual} onChange={e => set("alamat_penjual", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormInput label="Bank"><select className="form-input" value={form.nama_bank_penjual} onChange={e => set("nama_bank_penjual", e.target.value)}>{["BCA","BNI","BRI","Mandiri","BSI","GoPay","OVO"].map(b => <option key={b}>{b}</option>)}</select></FormInput>
+            <FormInput label="Bank"><BankSearch value={form.nama_bank_penjual || ""} onChange={(val) => set("nama_bank_penjual", val)} placeholder="Cari nama bank..." /></FormInput>
             <FormInput label="No. Rekening"><input className="form-input" value={form.nomor_rekening_penjual} onChange={e => set("nomor_rekening_penjual", e.target.value)} /></FormInput>
           </div>
           <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />

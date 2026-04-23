@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ContractForm, { FormInput, RpInput, ReviewRow, PriceBox } from "@/components/ContractForm";
 import { CONTRACT_PRICES } from "@/types";
 import CitySearch from "@/components/CitySearch";
+import BankSearch from "@/components/BankSearch";
 
 const STEPS = ["Para Pihak", "Detail Kendaraan", "Sewa & Ketentuan", "Review"];
 
@@ -29,7 +30,7 @@ interface FormState {
 }
 
 const init: FormState = {
-  nama_pemilik_kendaraan: "", nik_pemilik: "", alamat_pemilik: "", nomor_telepon_pemilik: "", nomor_rekening_pemilik: "", nama_bank_pemilik: "BCA",
+  nama_pemilik_kendaraan: "", nik_pemilik: "", alamat_pemilik: "", nomor_telepon_pemilik: "", nomor_rekening_pemilik: "", nama_bank_pemilik: "",
   nama_penyewa: "", nik_penyewa: "", alamat_penyewa: "", nomor_telepon_penyewa: "", nomor_sim: "", jenis_sim: "C",
   jenis_kendaraan: "motor", merek_kendaraan: "", model_kendaraan: "", tahun_kendaraan: "", warna_kendaraan: "", nomor_polisi: "", nomor_rangka: "", nomor_mesin: "", kondisi_awal_kendaraan: "Baik, tidak ada kerusakan berarti", km_awal: "0",
   tanggal_mulai_sewa: "", tanggal_selesai_sewa: "",
@@ -127,7 +128,7 @@ export default function SewaKendaraanPage() {
           </div>
           <FormInput label="Alamat"><textarea className="form-input" rows={2} value={form.alamat_pemilik} onChange={e => set("alamat_pemilik", e.target.value)} /></FormInput>
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormInput label="Bank"><select className="form-input" value={form.nama_bank_pemilik} onChange={e => set("nama_bank_pemilik", e.target.value)}>{["BCA","BNI","BRI","Mandiri","BSI"].map(b => <option key={b}>{b}</option>)}</select></FormInput>
+            <FormInput label="Bank"><BankSearch value={form.nama_bank_pemilik || ""} onChange={(val) => set("nama_bank_pemilik", val)} placeholder="Cari nama bank..." /></FormInput>
             <FormInput label="No. Rekening"><input className="form-input" value={form.nomor_rekening_pemilik} onChange={e => set("nomor_rekening_pemilik", e.target.value)} /></FormInput>
           </div>
           <hr style={{ borderColor: "rgba(13,27,62,0.08)" }} />
