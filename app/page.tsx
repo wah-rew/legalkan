@@ -25,11 +25,20 @@ interface ContractType {
 
 const CONTRACT_TYPES: ContractType[] = [
   {
+    icon: "🏦",
+    name: "Paket KUR-Ready",
+    desc: "Siap apply KUR dalam 10 menit",
+    href: "/kur",
+    badge: "Populer",
+    key: "kur-bundle",
+    accentColor: "#FFD166",
+    special: true,
+  },
+  {
     icon: "🏠",
     name: "Sewa Properti",
     desc: "Rumah, kos, ruko, villa",
     href: "/buat",
-    badge: "Populer",
     key: "sewa-properti",
     accentColor: "#FF4D6D",
   },
@@ -97,16 +106,7 @@ const CONTRACT_TYPES: ContractType[] = [
     key: "nda",
     accentColor: "#06D6A0",
   },
-  {
-    icon: "🏦",
-    name: "Paket KUR-Ready",
-    desc: "Siap apply KUR dalam 10 menit",
-    href: "/kur",
-    badge: "BARU",
-    key: "kur-bundle",
-    accentColor: "#FFD166",
-    special: true,
-  },
+
   {
     icon: "📋",
     name: "Kontrak Karyawan Tetap (PKWTT)",
