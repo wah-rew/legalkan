@@ -37,21 +37,26 @@ function UnduhContent() {
   }, [orderId]);
 
   function printAsPDF() {
-    // Open HTML in new window and trigger print dialog
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
-    printWindow.document.write(contractHTML);
+
+    // Add print CSS to suppress browser header/footer
+    const printCSS = `<style>
+      @page { margin: 15mm 20mm; size: A4; }
+      @media print {
+        @page { margin: 15mm 20mm; }
+        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      }
+    </style>`;
+
+    // Inject CSS into contractHTML
+    const htmlWithCSS = contractHTML.replace('</head>', printCSS + '</head>');
+
+    printWindow.document.write(htmlWithCSS);
     printWindow.document.close();
     printWindow.focus();
-    // Wait for content to load then print
-    printWindow.onload = () => {
-      printWindow.print();
-      // printWindow.close(); // optional
-    };
-    // Fallback if onload doesn't fire
-    setTimeout(() => {
-      try { printWindow.print(); } catch {}
-    }, 1000);
+    printWindow.onload = () => { printWindow.print(); };
+    setTimeout(() => { try { printWindow.print(); } catch {} }, 1000);
   }
 
   if (status === "loading") return (

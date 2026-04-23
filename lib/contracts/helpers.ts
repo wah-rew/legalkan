@@ -48,6 +48,14 @@ export function generateContractNumber(): string {
 
 export function baseCSS(): string {
   return `
+    @page {
+      size: A4;
+      margin: 20mm 25mm;
+    }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .disclaimer-box { display: none !important; }
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Times New Roman', Times, serif;
@@ -101,10 +109,6 @@ export function disclaimerPasal(pb: PasalBuilder): string {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function baseFooter(nomorKontrak: string, tanggalPembuatan: string): string {
-  return `
-  <div class="disclaimer-box">
-    <strong>CATATAN PENTING:</strong> Dokumen ini dibuat menggunakan platform LegalKan. LegalKan bukan kantor hukum dan tidak memberikan nasihat hukum. LegalKan tidak bertanggung jawab atas sengketa yang timbul dari perjanjian ini. Tempelkan Meterai Rp 10.000 pada setiap eksemplar sebelum penandatanganan.
-  </div>
-  `;
+export function baseFooter(_nomorKontrak: string, _tanggalPembuatan: string): string {
+  return "";
 }

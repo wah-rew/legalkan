@@ -368,6 +368,14 @@ export function generateContractHTML(data: ContractData): string {
     table.tanda-tangan { width: 100%; border-collapse: collapse; margin-top: 20px; }
     table.tanda-tangan td { width: 50%; padding: 8px; text-align: center; vertical-align: top; }
     .ttd-area { height: 80px; border-bottom: 1px solid #333; margin: 8px 20px 4px; }
+    @page {
+      size: A4;
+      margin: 20mm 25mm;
+    }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .disclaimer-box { display: none !important; }
+    }
     .disclaimer-box {
       margin-top: 24px;
       padding: 14px 16px;
@@ -462,9 +470,7 @@ export function generateContractHTML(data: ContractData): string {
   </table>
   ` : ""}
 
-  <div class="disclaimer-box">
-    <strong>CATATAN PENTING:</strong> Dokumen ini dibuat menggunakan platform LegalKan, sebuah layanan pembuatan dokumen mandiri. LegalKan bukan kantor hukum dan tidak memberikan nasihat hukum. Untuk kasus kompleks, konsultasikan dengan advokat. LegalKan tidak bertanggung jawab atas sengketa yang timbul dari perjanjian ini.
-  </div>
+
 
 
 
