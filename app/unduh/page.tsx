@@ -7,8 +7,9 @@ function UnduhContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
   const [status, setStatus] = useState<"loading" | "found" | "not_found">("loading");
-  const [contractHTML, setContractHTML] = useState("");
+  const [, setContractHTML] = useState("");
   const [contractTitle, setContractTitle] = useState("Kontrak");
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     if (!orderId) { setStatus("not_found"); return; }
@@ -36,34 +37,27 @@ function UnduhContent() {
       .catch(() => setStatus("not_found"));
   }, [orderId]);
 
-  function printAsPDF() {
-    // Use iframe approach to avoid about:blank in print header
-    const printCSS = `
-      @page { size: A4; margin: 20mm 25mm; }
-      @media print {
-        html, body { margin: 0 !important; padding: 0 !important; }
-        body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      }
-    `;
-    const htmlWithCSS = contractHTML.includes('</head>')
-      ? contractHTML.replace('</head>', `<style>${printCSS}</style></head>`)
-      : `<html><head><style>${printCSS}</style></head><body>${contractHTML}</body></html>`;
-
-    const iframe = document.createElement('iframe');
-    iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:none;z-index:9999;background:white;';
-    document.body.appendChild(iframe);
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-    if (!iframeDoc) { document.body.removeChild(iframe); return; }
-    iframeDoc.open();
-    iframeDoc.write(htmlWithCSS);
-    iframeDoc.close();
-    iframe.contentWindow?.focus();
-    setTimeout(() => {
-      try {
-        iframe.contentWindow?.print();
-      } catch {}
-      setTimeout(() => { document.body.removeChild(iframe); }, 2000);
-    }, 800);
+  async function downloadPDF() {
+    setDownloading(true);
+    try {
+      const res = await fetch('/api/generate-pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId }),
+      });
+      if (!res.ok) throw new Error('PDF generation failed');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `LegalKan-${orderId}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('Gagal generate PDF. Silakan coba lagi.');
+    } finally {
+      setDownloading(false);
+    }
   }
 
   if (status === "loading") return (
@@ -97,12 +91,12 @@ function UnduhContent() {
         <h1 style={{ color: "#0D1B3E", fontWeight: 800, fontSize: "1.3rem", marginBottom: "0.5rem" }}>Dokumenmu siap!</h1>
         <p style={{ color: "#6B7FA8", fontSize: "0.85rem", marginBottom: "0.5rem" }}>{contractTitle}</p>
         <p style={{ color: "#9BA3C4", fontSize: "0.75rem", marginBottom: "1.5rem" }}>Order: {orderId}</p>
-        <button onClick={printAsPDF}
-          style={{ display: "block", width: "100%", background: "#FF4D6D", color: "white", padding: "1rem", borderRadius: "14px", border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer", marginBottom: "0.75rem" }}>
-          ⬇️ Download PDF (Cetak)
+        <button onClick={downloadPDF} disabled={downloading}
+          style={{ display: "block", width: "100%", background: downloading ? "#C4C9E0" : "#FF4D6D", color: "white", padding: "1rem", borderRadius: "14px", border: "none", fontWeight: 700, fontSize: "1rem", cursor: downloading ? "not-allowed" : "pointer", marginBottom: "0.75rem", transition: "background 0.2s" }}>
+          {downloading ? "⏳ Generating PDF..." : "⬇️ Download PDF"}
         </button>
         <p style={{ color: "#9BA3C4", fontSize: "0.75rem", lineHeight: 1.6 }}>
-          Pilih &apos;Simpan sebagai PDF&apos; di dialog cetak yang muncul. Tanda tangani dan tempelkan materai Rp 10.000.
+          PDF langsung terdownload ke perangkatmu. Tanda tangani dan tempelkan materai Rp 10.000.
         </p>
         <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(13,27,62,0.06)" }}>
           <Link href="/" style={{ color: "#FF4D6D", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>← Kembali ke LegalKan</Link>
