@@ -108,7 +108,7 @@ export default function RootLayout({
 
               {/* CTA button */}
               <a
-                href="/buat"
+                href="/#contract-types"
                 className="btn-primary"
                 style={{ padding: "0.5rem 1.125rem", fontSize: "0.8rem" }}
               >
