@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { orderId, consentType, consentText, consentVersion, timestamp } = body;
+    const { orderId, consentType, consentVersion, timestamp } = body;
 
     // Get IP and user agent for audit trail
     const ipAddress = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";

@@ -27,6 +27,7 @@ interface WizardState {
   namaPemilik: string;
   emailPembeli: string;
   nomorWhatsapp: string;
+  interestedInKurReferral: boolean;
 }
 
 interface KaryawanDetail {
@@ -96,6 +97,7 @@ const INITIAL: WizardState = {
   namaPemilik: "",
   emailPembeli: "",
   nomorWhatsapp: "",
+  interestedInKurReferral: false,
 };
 
 const INITIAL_KARYAWAN: KaryawanDetail = {
@@ -234,7 +236,7 @@ export default function KURWizardPage() {
   const [data, setData] = useState<WizardState>(INITIAL);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedBank, setSelectedBank] = useState<"BCA" | "BNI" | "BRI" | "MANDIRI" | "">("");
+  // bank selector removed — manual transfer;
 
   // Step 4 state
   const [pkwtCount, setPkwtCount] = useState<number | null>(null);
@@ -352,7 +354,7 @@ export default function KURWizardPage() {
       if (!data.emailPembeli.trim()) return "Email wajib diisi untuk pengiriman dokumen";
     }
     if (step === 3) {
-      if (!selectedBank) return "Pilih bank untuk pembayaran";
+      // Bank selection removed — manual transfer flow
     }
     return "";
   }
@@ -466,10 +468,38 @@ export default function KURWizardPage() {
           icon: d.id.startsWith("pkwt") ? "👔" : (ICONS[d.id] || "📄"),
         }))
       ));
+
+      // Submit lead if user opted in
+      if (data.interestedInKurReferral) {
+        try {
+          await fetch("/api/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              orderId: json.contractData?.orderId || "",
+              namaUsaha: data.namaUsaha,
+              jenisUsaha: data.bidangUsaha,
+              kotaUsaha: data.kotaUsaha,
+              omzetPerBulan: data.omzetPerBulan,
+              jumlahKaryawan: data.jumlahKaryawan,
+              punyaNIB: data.punyaNIB ?? false,
+              namaOwner: step5Data.namaLengkapPemilik || data.namaPemilik,
+              kontakEmail: data.emailPembeli || undefined,
+              kontakTelepon: data.nomorWhatsapp || undefined,
+              leadSource: "kur_wizard_lendana",
+              timestamp: new Date().toISOString(),
+            }),
+          });
+        } catch (leadErr) {
+          // Non-fatal: lead capture failure should not block checkout
+          console.error("[leads] Failed to submit lead (non-fatal):", leadErr);
+        }
+      }
+
       const payRes = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contractData: json.contractData, bank: selectedBank }),
+        body: JSON.stringify({ contractData: json.contractData, bank: "BCA" }),
       });
       const payJson = await payRes.json();
       if (!payRes.ok) throw new Error(payJson.error || "Gagal membuat pembayaran");
@@ -824,30 +854,30 @@ export default function KURWizardPage() {
                       ))}
                     </div>
                   </div>
-                  <div className="rounded-3xl p-5 mt-3" style={{ background: "rgba(155,138,251,0.08)", border: "1.5px solid rgba(155,138,251,0.3)" }}>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span style={{ fontSize: "1.1rem" }}>🤝</span>
-                      <p className="font-jakarta font-bold text-sm" style={{ color: "#4B3FAF" }}>Butuh bantuan proses pengajuan?</p>
-                    </div>
-                    <p className="text-xs mb-3" style={{ color: "#6B7FA8", lineHeight: 1.6 }}>Lendana bisa bantu kamu apply ke bank tanpa ribet. Plafon sesuai bank mitra · bunga 6% per tahun · <span style={{ fontWeight: 600, color: "#9B8AFB" }}>Dibantu tim</span></p>
-                    <a href="https://lendana.id" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-bold rounded-xl px-3 py-1.5" style={{ background: "rgba(155,138,251,0.18)", color: "#4B3FAF" }}>Hubungi Lendana →</a>
+                  <div className="rounded-3xl p-5 mt-3" style={{ background: "rgba(155,138,251,0.08)", border: `1.5px solid ${data.interestedInKurReferral ? "#9B8AFB" : "rgba(155,138,251,0.3)"}` }}>
+                    <label className="flex items-start gap-3 cursor-pointer" style={{ userSelect: "none" }}>
+                      <input
+                        type="checkbox"
+                        checked={data.interestedInKurReferral}
+                        onChange={(e) => set("interestedInKurReferral", e.target.checked)}
+                        style={{ accentColor: "#9B8AFB", width: "18px", height: "18px", marginTop: "2px", flexShrink: 0, cursor: "pointer" }}
+                      />
+                      <div className="flex-1">
+                        <p className="font-jakarta font-bold text-sm" style={{ color: "#4B3FAF" }}>Ya, saya tertarik dibantu proses pengajuan KUR ke bank</p>
+                        <p className="text-xs mt-1" style={{ color: "#6B7FA8", lineHeight: 1.6 }}>Dengan mencentang ini, saya setuju data usaha saya dapat dihubungi oleh mitra penyalur KUR untuk membantu proses pengajuan. <span style={{ fontWeight: 600, color: "#9B8AFB" }}>Tidak ada biaya tambahan.</span></p>
+                      </div>
+                    </label>
+                    {data.interestedInKurReferral && (
+                      <div className="mt-3 rounded-xl px-3 py-2" style={{ background: "rgba(6,214,160,0.12)", border: "1px solid rgba(6,214,160,0.3)" }}>
+                        <p className="text-xs font-bold" style={{ color: "#028A66" }}>✅ Kami akan menghubungi kamu setelah dokumen selesai</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
             })()}
 
-            {/* Bank selector */}
-            <div className="rounded-2xl p-5 mb-5" style={{ background: "white", boxShadow: "0 2px 12px rgba(13,27,62,0.06)", border: "1px solid rgba(13,27,62,0.06)" }}>
-              <p className="font-jakarta font-bold mb-4 text-sm" style={{ color: "#0D1B3E" }}>🏦 Pilih Bank untuk Pembayaran *</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem" }}>
-                {(["BCA", "BNI", "BRI", "MANDIRI"] as const).map((b) => (
-                  <button key={b} type="button" onClick={() => setSelectedBank(b)} className="rounded-xl py-3 text-sm font-bold transition-all"
-                    style={{ background: selectedBank === b ? "rgba(255,77,109,0.08)" : "rgba(13,27,62,0.04)", border: selectedBank === b ? "2px solid #FF4D6D" : "2px solid rgba(13,27,62,0.08)", color: selectedBank === b ? "#FF4D6D" : "#3D4F7C", cursor: "pointer" }}>
-                    Bank {b}
-                  </button>
-                ))}
-              </div>
-            </div>
+
 
             {/* Trust notice */}
             <div className="rounded-2xl px-4 py-3 mb-5 text-xs" style={{ background: "rgba(6,214,160,0.08)", border: "1px solid rgba(6,214,160,0.2)" }}>
@@ -1145,7 +1175,7 @@ export default function KURWizardPage() {
             {/* Summary before checkout */}
             <div className="rounded-2xl px-4 py-3 mb-5 text-xs" style={{ background: "rgba(6,214,160,0.08)", border: "1px solid rgba(6,214,160,0.2)" }}>
               <span style={{ color: "#028A66", fontWeight: 600 }}>
-                ✅ {activeDocCount} dokumen · 🏦 Bank {selectedBank} · 📧 {data.emailPembeli}
+                ✅ {activeDocCount} dokumen · 📧 {data.emailPembeli}
               </span>
             </div>
           </div>

@@ -447,8 +447,8 @@ export default function KURLandingPage() {
 
           <div
             className="rounded-3xl text-left"
-            style={{ padding: "2rem 2rem" }}
             style={{
+              padding: "2rem",
               background: "linear-gradient(135deg, #0D1B3E, #162348)",
               boxShadow: "0 20px 60px rgba(13,27,62,0.2)",
             }}
