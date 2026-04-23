@@ -264,6 +264,7 @@ export default function KURWizardPage() {
   });
   const [expandedEmployees, setExpandedEmployees] = useState<Set<number>>(new Set([0]));
   const [skuSectionOpen, setSkuSectionOpen] = useState(true);
+  const [tncAgreed, setTncAgreed] = useState(false);
 
   const set = (k: keyof WizardState, v: unknown) => setData((prev) => ({ ...prev, [k]: v }));
   const setStep5D = (k: keyof Omit<Step5Data, "karyawan">, v: string) =>
@@ -1250,6 +1251,25 @@ export default function KURWizardPage() {
                 ✅ {activeDocCount} dokumen · 📧 {data.emailPembeli}
               </span>
             </div>
+
+            {/* TnC Checkbox */}
+            <div
+              className="rounded-2xl p-4 mb-4"
+              style={{ background: "rgba(13,27,62,0.04)", border: "1px solid rgba(13,27,62,0.08)" }}
+            >
+              <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={tncAgreed}
+                  onChange={(e) => setTncAgreed(e.target.checked)}
+                  style={{ marginTop: "0.2rem", accentColor: "#FF4D6D", flexShrink: 0, width: "16px", height: "16px" }}
+                />
+                <span style={{ fontSize: "0.72rem", color: "#4A5F8A", lineHeight: 1.6 }}>
+                  Saya memahami bahwa <strong>LegalKan hanya menyediakan template draft perjanjian</strong>, bukan kantor hukum atau pengacara. LegalKan tidak bertanggung jawab atas konsekuensi hukum, sengketa, atau litigasi yang timbul dari penggunaan dokumen ini. Saya bertanggung jawab penuh atas kebenaran data yang diinput.{" "}
+                  <a href="/syarat-ketentuan" target="_blank" style={{ color: "#FF4D6D" }}>Syarat &amp; Ketentuan</a>.
+                </span>
+              </label>
+            </div>
           </div>
         )}
 
@@ -1262,8 +1282,9 @@ export default function KURWizardPage() {
               ← Kembali
             </button>
           )}
-          <button type="button" onClick={handleNext} disabled={loading}
-            className="flex-1 btn-primary py-3.5 text-sm font-extrabold">
+          <button type="button" onClick={handleNext} disabled={loading || (step === 4 && !tncAgreed)}
+            className="flex-1 btn-primary py-3.5 text-sm font-extrabold"
+            style={step === 4 && !tncAgreed ? { opacity: 0.5, cursor: "not-allowed" } : undefined}>
             {loading ? "⏳ Memproses..." :
               step === 4 ? `🏦 Lanjut ke Pembayaran — Rp ${new Intl.NumberFormat("id-ID").format(activePrice)}` :
               step === 3 ? "Lanjut ke Detail Dokumen →" :

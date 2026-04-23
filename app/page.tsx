@@ -119,8 +119,8 @@ const CONTRACT_TYPES: ContractType[] = [
 
 const STATS = [
   { value: "10", label: "Jenis Kontrak", icon: "📄" },
-  { value: "100%", label: "Sesuai KUHPerdata", icon: "⚖️" },
-  { value: "1.000+", label: "Pengguna", icon: "👥" },
+  
+  
   { value: "1×24 Jam", label: "Konfirmasi", icon: "⏱" },
 ];
 
@@ -310,7 +310,7 @@ export default function Home() {
               }}
             >
               <span>✅</span>
-              <span>Dipercaya 1.000+ pengguna di Indonesia</span>
+              
             </div>
 
             {/* Headline */}
@@ -557,7 +557,7 @@ export default function Home() {
                       fontWeight: 600,
                     }}
                   >
-                    ⚖️ Sesuai KUHPerdata Indonesia
+                    
                   </div>
                 </div>
               </div>
