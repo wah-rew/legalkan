@@ -186,7 +186,7 @@ const FAQS = [
   },
   {
     q: "Bayarnya gimana?",
-    a: "Transfer manual ke rekening UOB Indonesia. Dokumen dikirim setelah pembayaran dikonfirmasi tim LegalKan (maks. 1×24 jam).",
+    a: "Transfer manual ke bank. Dokumen dikirim setelah pembayaran dikonfirmasi tim LegalKan (maks. 1×24 jam).",
   },
   {
     q: "Berapa lama kontrak jadinya?",
