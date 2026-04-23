@@ -120,7 +120,7 @@ const CONTRACT_TYPES: ContractType[] = [
 const STATS = [
   { value: "10", label: "Jenis Kontrak", icon: "📄" },
   { value: "100%", label: "Sesuai KUHPerdata", icon: "⚖️" },
-  { value: "1.000+", label: "Pengguna Aktif", icon: "👥" },
+  { value: "1.000+", label: "Pengguna", icon: "👥" },
   { value: "< 5 mnt", label: "Langsung Jadi", icon: "⚡" },
 ];
 
