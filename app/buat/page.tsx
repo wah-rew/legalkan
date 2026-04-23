@@ -137,7 +137,7 @@ export default function BuatPage() {
             Buat Kontrak Sewa
           </h1>
           <p className="mt-2 text-sm" style={{ color: "#6B7FA8" }}>
-            Isi data di bawah — kontrak langsung jadi otomatis
+            Isi data di bawah untuk generate kontrak
           </p>
         </div>
 

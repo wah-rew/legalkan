@@ -121,7 +121,7 @@ const STATS = [
   { value: "10", label: "Jenis Kontrak", icon: "📄" },
   { value: "100%", label: "Sesuai KUHPerdata", icon: "⚖️" },
   { value: "1.000+", label: "Pengguna", icon: "👥" },
-  { value: "< 5 mnt", label: "Langsung Jadi", icon: "⚡" },
+  { value: "1×24 Jam", label: "Konfirmasi", icon: "⏱" },
 ];
 
 const HOW_STEPS = [
@@ -190,7 +190,7 @@ const FAQS = [
   },
   {
     q: "Berapa lama kontrak jadinya?",
-    a: "Instan. Begitu pembayaran masuk, PDF langsung bisa diunduh dan dikirim ke email kamu.",
+    a: "Dokumen dikirim ke email kamu setelah pembayaran dikonfirmasi tim LegalKan (maks. 1×24 jam).",
   },
   {
     q: "Data saya aman?",
@@ -370,7 +370,7 @@ export default function Home() {
                 className="text-sm font-medium"
                 style={{ color: "#6B7FA8" }}
               >
-                ⚡ 5 menit jadi · 💳 VA BCA / BNI / BRI / Mandiri
+                ⚡ Isi form 5 menit · 💳 Transfer manual ke bank
               </div>
             </div>
 
@@ -579,7 +579,7 @@ export default function Home() {
                   boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
                 }}
               >
-                ✨ Instan
+                ⏱ Maks. 1×24 Jam
               </div>
               <div
                 style={{
@@ -1473,7 +1473,7 @@ export default function Home() {
             Udah siap bikin kontrak?
           </h2>
           <p className="text-white/80 mt-3 mb-8 text-lg">
-            5 menit. Legal. Langsung jadi.
+            Legal. Terpercaya. Terkirim dalam 24 jam.
           </p>
           <Link
             href="#contract-types"
@@ -1489,7 +1489,7 @@ export default function Home() {
             📝 Pilih Jenis Kontrak
           </Link>
           <p className="mt-10 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
-            Tidak perlu daftar akun · Bayar, langsung dapat PDF
+            Tidak perlu daftar akun · Konfirmasi pembayaran dalam 1×24 jam
           </p>
         </div>
       </section>

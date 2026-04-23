@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: "Berapa lama dokumen dikirim ke email?",
-    a: "Dokumen dikirim otomatis ke email Anda segera setelah pembayaran terkonfirmasi, biasanya dalam hitungan detik hingga 5 menit.",
+    a: "Dokumen dikirim ke email Anda setelah pembayaran dikonfirmasi tim LegalKan (maksimal 1×24 jam).",
   },
   {
     q: "Apakah data saya aman?",
