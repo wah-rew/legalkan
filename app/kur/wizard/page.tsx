@@ -190,14 +190,11 @@ function getRecommendedDocs(s: WizardState): RecommendedDoc[] {
     const numPKWTT = Math.min(jumlahTetap, 5);
     docs.push({ id: "pkwtt", icon: "💼", title: "PKWTT (Kontrak Karyawan Tetap)", desc: `Perjanjian kerja tetap untuk ${jumlahTetap} karyawan tetapmu. +Rp 25.000 (per karyawan)`, count: numPKWTT });
   }
-  // Karyawan paruh waktu/freelance → PKWT
+  // Karyawan paruh waktu/freelance → PKWT (hanya kalau jumlah > 0)
   const jumlahParuh = parseInt(s.jumlahKaryawanParuhWaktu || "0");
-  const hasKaryawanLama = (s.jumlahKaryawan !== "0" && s.jumlahKaryawan !== "");
-  if (jumlahParuh > 0 || hasKaryawanLama) {
-    let numPKWT = jumlahParuh > 0 ? Math.min(jumlahParuh, 5) : 1;
-    if (!jumlahParuh && s.jumlahKaryawan === "1-5") numPKWT = 3;
-    else if (!jumlahParuh && (s.jumlahKaryawan === "6-20" || s.jumlahKaryawan === ">20")) numPKWT = 5;
-    docs.push({ id: "pkwt", icon: "👔", title: "PKWT (Kontrak Karyawan Paruh Waktu)", desc: `Perjanjian kerja untuk ${jumlahParuh || numPKWT} karyawan paruh waktu/freelancemu. +Rp 25.000 (per karyawan)`, count: numPKWT });
+  if (jumlahParuh > 0) {
+    const numPKWT = Math.min(jumlahParuh, 5);
+    docs.push({ id: "pkwt", icon: "👔", title: "PKWT (Kontrak Karyawan Paruh Waktu)", desc: `Perjanjian kerja untuk ${jumlahParuh} karyawan paruh waktu/freelancemu. +Rp 25.000 (per karyawan)`, count: numPKWT });
   }
   if (s.adaMitra === true) {
     docs.push({ id: "bagi-hasil", icon: "🤝", title: "Perjanjian Bagi Hasil Usaha", desc: "Dokumen kemitraan yang mengatur porsi keuntungan dengan mitra bisnismu." });
