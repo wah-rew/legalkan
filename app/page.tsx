@@ -1072,12 +1072,13 @@ export default function Home() {
                       style={{
                         display: "none",
                         position: "absolute",
-                        top: "4.5rem",
-                        left: "calc(50% + 44px)",
-                        right: "-50%",
+                        top: "3.25rem",
+                        left: "calc(50% + 52px)",
+                        right: "calc(-50% + 52px)",
                         height: "2px",
                         background:
-                          "linear-gradient(90deg, rgba(255,77,109,0.5), rgba(255,209,102,0.3))",
+                          "linear-gradient(90deg, rgba(255,77,109,0.4), rgba(255,209,102,0.2))",
+                        zIndex: 0,
                       }}
                     />
                   )}
