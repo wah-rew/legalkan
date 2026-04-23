@@ -96,14 +96,8 @@ export default function MenungguPage() {
   return (
     <div className="min-h-screen px-4 py-10 flex items-center justify-center" style={{ background: "#F8F9FF" }}>
       <div className="mx-auto max-w-lg w-full">
-        {/* Success Icon */}
+        {/* Success Icon removed */}
         <div className="text-center mb-8">
-          <div
-            className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6"
-            style={{ background: "rgba(6,214,160,0.12)" }}
-          >
-            <span className="text-5xl">✅</span>
-          </div>
           <h1 className="font-jakarta text-3xl font-extrabold mb-3" style={{ color: "#0D1B3E" }}>
             Notifikasi Diterima!
           </h1>
