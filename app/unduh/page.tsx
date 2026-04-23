@@ -37,26 +37,33 @@ function UnduhContent() {
   }, [orderId]);
 
   function printAsPDF() {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
-
-    // Add print CSS to suppress browser header/footer
-    const printCSS = `<style>
-      @page { margin: 15mm 20mm; size: A4; }
+    // Use iframe approach to avoid about:blank in print header
+    const printCSS = `
+      @page { size: A4; margin: 20mm 25mm; }
       @media print {
-        @page { margin: 15mm 20mm; }
-        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        html, body { margin: 0 !important; padding: 0 !important; }
+        body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       }
-    </style>`;
+    `;
+    const htmlWithCSS = contractHTML.includes('</head>')
+      ? contractHTML.replace('</head>', `<style>${printCSS}</style></head>`)
+      : `<html><head><style>${printCSS}</style></head><body>${contractHTML}</body></html>`;
 
-    // Inject CSS into contractHTML
-    const htmlWithCSS = contractHTML.replace('</head>', printCSS + '</head>');
-
-    printWindow.document.write(htmlWithCSS);
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.onload = () => { printWindow.print(); };
-    setTimeout(() => { try { printWindow.print(); } catch {} }, 1000);
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:none;z-index:9999;background:white;';
+    document.body.appendChild(iframe);
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (!iframeDoc) { document.body.removeChild(iframe); return; }
+    iframeDoc.open();
+    iframeDoc.write(htmlWithCSS);
+    iframeDoc.close();
+    iframe.contentWindow?.focus();
+    setTimeout(() => {
+      try {
+        iframe.contentWindow?.print();
+      } catch {}
+      setTimeout(() => { document.body.removeChild(iframe); }, 2000);
+    }, 800);
   }
 
   if (status === "loading") return (
