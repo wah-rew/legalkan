@@ -822,39 +822,38 @@ export default function Home() {
           <div className="mt-8 animate-fade-up delay-400">
             <Link
               href="/nib-guide"
-              className="flex items-start gap-4 rounded-3xl p-5 transition-all"
+              className="block rounded-3xl transition-all"
               style={{
                 background: "rgba(255,209,102,0.08)",
                 border: "1.5px solid rgba(255,209,102,0.3)",
                 boxShadow: "0 4px 20px rgba(255,209,102,0.08)",
+                padding: "1.5rem 1.75rem",
               }}
             >
-              <span style={{ fontSize: "1.75rem", flexShrink: 0 }}>📋</span>
-              <div className="flex-1 min-w-0">
-                <p
-                  className="font-jakarta font-bold text-sm mb-1"
-                  style={{ color: "#FFD166" }}
-                >
-                  Belum punya NIB?
-                </p>
-                <p
-                  className="text-xs"
-                  style={{ color: "#94A3CB", lineHeight: 1.6 }}
-                >
-                  Panduan gratis cara daftar NIB online dalam 15 menit — syarat
-                  wajib sebelum apply KUR.
-                </p>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
+                <span style={{ fontSize: "2rem", flexShrink: 0 }}>📋</span>
+                <div>
+                  <p className="font-jakarta font-bold" style={{ color: "#FFD166", fontSize: "1rem", marginBottom: "0.4rem" }}>
+                    Belum punya NIB?
+                  </p>
+                  <p style={{ color: "#94A3CB", fontSize: "0.85rem", lineHeight: 1.7 }}>
+                    Panduan gratis cara daftar NIB online dalam 15 menit — syarat wajib sebelum apply KUR.
+                  </p>
+                </div>
               </div>
-              <span
-                className="flex-shrink-0 text-xs font-bold rounded-xl px-3 py-1.5 self-center"
-                style={{
-                  background: "rgba(255,209,102,0.18)",
-                  color: "#FFD166",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Baca Panduan →
-              </span>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <span
+                  className="text-sm font-bold rounded-xl"
+                  style={{
+                    background: "rgba(255,209,102,0.18)",
+                    color: "#FFD166",
+                    padding: "0.5rem 1.25rem",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Baca Panduan →
+                </span>
+              </div>
             </Link>
           </div>
 
