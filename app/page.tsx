@@ -113,9 +113,7 @@ const CONTRACT_TYPES: ContractType[] = [
     desc: "Perjanjian kerja permanen sesuai UU",
     href: "/buat/pkwtt",
     key: "pkwtt",
-    badge: "Segera",
     accentColor: "#F59E0B",
-    comingSoon: true,
   },
 ];
 
