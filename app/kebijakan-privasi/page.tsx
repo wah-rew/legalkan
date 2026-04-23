@@ -113,7 +113,7 @@ export default function KebijakanPrivasiPage() {
 
             <DataCategory icon="💳" label="Data Pembayaran">
               Kami <strong>tidak menyimpan</strong> detail kartu kredit atau data perbankan Anda.
-              Pembayaran diproses langsung melalui Xendit (gateway pembayaran tersertifikasi PCI-DSS).
+              Pembayaran dilakukan melalui transfer bank manual ke rekening resmi LegalKan.
               Kami hanya menyimpan status transaksi dan Order ID untuk keperluan rekonsiliasi.
             </DataCategory>
 
@@ -213,7 +213,7 @@ export default function KebijakanPrivasiPage() {
             <ul className="prose-list">
               <li>
                 <strong>Penyedia layanan:</strong> mitra teknis yang membantu operasional platform
-                (seperti gateway pembayaran Xendit dan layanan pengiriman email), terikat pada
+                (seperti layanan pengiriman email), terikat pada
                 perjanjian kerahasiaan yang ketat.
               </li>
               <li>

@@ -186,7 +186,7 @@ const FAQS = [
   },
   {
     q: "Bayarnya gimana?",
-    a: "Pakai Virtual Account — pilih BCA, BNI, BRI, atau Mandiri. Transfer biasa, langsung terkonfirmasi otomatis via Xendit.",
+    a: "Transfer manual ke rekening UOB Indonesia. Dokumen dikirim setelah pembayaran dikonfirmasi tim LegalKan (maks. 1×24 jam).",
   },
   {
     q: "Berapa lama kontrak jadinya?",

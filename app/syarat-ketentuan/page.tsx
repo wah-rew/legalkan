@@ -226,7 +226,7 @@ export default function SyaratKetentuanPage() {
           <Section number="4" title="Pembayaran & Refund">
             <p>
               Layanan LegalKan menggunakan sistem pembayaran digital yang diproses melalui gateway
-              pembayaran terpercaya (Xendit). Pembayaran dianggap sah setelah dikonfirmasi oleh
+              pembayaran. Pembayaran dianggap sah setelah dikonfirmasi oleh
               sistem secara otomatis.
             </p>
             <p>

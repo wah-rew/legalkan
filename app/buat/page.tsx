@@ -1083,7 +1083,7 @@ export default function BuatPage() {
                   </span>
                 </div>
                 <p style={{ fontSize: "0.72rem", color: "#9BA3C4" }}>
-                  Bayar 1x via Virtual Account Bank · Kontrak langsung jadi
+                  Bayar via transfer bank · Dokumen dikirim dalam 1×24 jam
                 </p>
               </div>
             </div>

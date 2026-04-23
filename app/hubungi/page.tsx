@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: "Metode pembayaran apa saja yang tersedia?",
-    a: "Saat ini tersedia Virtual Account BCA, BNI, BRI, dan Mandiri. Transfer langsung terkonfirmasi otomatis.",
+    a: "Pembayaran dilakukan via transfer manual ke rekening UOB Indonesia. Dokumen dikirim setelah konfirmasi tim LegalKan (maks. 1×24 jam).",
   },
   {
     q: "Dokumen tidak masuk ke email, apa yang harus dilakukan?",
