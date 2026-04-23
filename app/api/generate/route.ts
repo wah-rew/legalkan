@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
           customer_phone: body.nomorWhatsapp || null,
           pihak_pertama: body.namaPihakPertama || null,
           pihak_kedua: body.namaPihakKedua || null,
-          contract_data: contractData,
+          contract_data: { ...contractData, contractHTML },
         });
       } catch (dbErr) {
         console.error('[generate] Supabase insert error (non-fatal):', dbErr);

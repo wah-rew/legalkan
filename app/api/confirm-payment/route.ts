@@ -247,7 +247,7 @@ export async function GET(req: NextRequest) {
               <p style="color: #3D4F7C; margin-bottom: 24px; font-size: 0.9rem;">
                 Klik tombol di bawah untuk mengunduh kontrakmu. Tanda tangani dua rangkap, tempelkan materai, dan kontrakmu resmi berlaku!
               </p>
-              <a href="${baseUrl}/sukses?orderId=${orderId}"
+              <a href="${baseUrl}/unduh?orderId=${orderId}"
                  style="display: inline-block; background: #FF4D6D; color: white; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: 700;">
                 ⬇️ Download Kontrak
               </a>
