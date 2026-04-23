@@ -689,18 +689,32 @@ export default function KURWizardPage() {
             <div style={sectionStyle}>
               <div className="mb-5">
                 <FieldLabel>Jumlah Karyawan Tetap</FieldLabel>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem" }}>
-                  {[{ v: "0", label: "Tidak ada" }, { v: "1-5", label: "1–5 orang" }, { v: "6-20", label: "6–20 orang" }, { v: ">20", label: "Lebih dari 20 orang" }].map(({ v, label }) => (
-                    <SelectCard key={v} value={v} current={data.jumlahKaryawanTetap} onClick={() => set("jumlahKaryawanTetap", v)}>{label}</SelectCard>
-                  ))}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <button type="button"
+                    onClick={() => set("jumlahKaryawanTetap", String(Math.max(0, parseInt(data.jumlahKaryawanTetap || "0") - 1)))}
+                    style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid rgba(255,77,109,0.3)", background: "white", color: "#FF4D6D", fontSize: "1.2rem", fontWeight: 700, cursor: "pointer", flexShrink: 0 }}>−</button>
+                  <div style={{ flex: 1, textAlign: "center" }}>
+                    <span style={{ fontFamily: "var(--font-jakarta)", fontWeight: 800, fontSize: "1.5rem", color: "#0D1B3E" }}>{data.jumlahKaryawanTetap || "0"}</span>
+                    <p style={{ fontSize: "0.7rem", color: "#9BA3C4", margin: 0 }}>orang</p>
+                  </div>
+                  <button type="button"
+                    onClick={() => set("jumlahKaryawanTetap", String(parseInt(data.jumlahKaryawanTetap || "0") + 1))}
+                    style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid rgba(255,77,109,0.3)", background: "rgba(255,77,109,0.06)", color: "#FF4D6D", fontSize: "1.2rem", fontWeight: 700, cursor: "pointer", flexShrink: 0 }}>+</button>
                 </div>
               </div>
               <div className="mb-5">
                 <FieldLabel>Jumlah Karyawan Paruh Waktu / Freelance</FieldLabel>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem" }}>
-                  {[{ v: "0", label: "Tidak ada" }, { v: "1-5", label: "1–5 orang" }, { v: "6-20", label: "6–20 orang" }, { v: ">20", label: "Lebih dari 20 orang" }].map(({ v, label }) => (
-                    <SelectCard key={v} value={v} current={data.jumlahKaryawanParuhWaktu} onClick={() => set("jumlahKaryawanParuhWaktu", v)}>{label}</SelectCard>
-                  ))}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <button type="button"
+                    onClick={() => set("jumlahKaryawanParuhWaktu", String(Math.max(0, parseInt(data.jumlahKaryawanParuhWaktu || "0") - 1)))}
+                    style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid rgba(255,77,109,0.3)", background: "white", color: "#FF4D6D", fontSize: "1.2rem", fontWeight: 700, cursor: "pointer", flexShrink: 0 }}>−</button>
+                  <div style={{ flex: 1, textAlign: "center" }}>
+                    <span style={{ fontFamily: "var(--font-jakarta)", fontWeight: 800, fontSize: "1.5rem", color: "#0D1B3E" }}>{data.jumlahKaryawanParuhWaktu || "0"}</span>
+                    <p style={{ fontSize: "0.7rem", color: "#9BA3C4", margin: 0 }}>orang</p>
+                  </div>
+                  <button type="button"
+                    onClick={() => set("jumlahKaryawanParuhWaktu", String(parseInt(data.jumlahKaryawanParuhWaktu || "0") + 1))}
+                    style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid rgba(255,77,109,0.3)", background: "rgba(255,77,109,0.06)", color: "#FF4D6D", fontSize: "1.2rem", fontWeight: 700, cursor: "pointer", flexShrink: 0 }}>+</button>
                 </div>
               </div>
               <div className="mb-5">
