@@ -284,10 +284,7 @@ export function generateNDA(data: NDAFormData): string {
     </tr>
   </table>
 
-  <div class="footer">
-    <p>Dokumen dibuat menggunakan platform LegalKan &bull; ${data.nomorPerjanjian} &bull; ${formatTanggal(data.tanggalPerjanjian)}</p>
-    <p>LegalKan bukan kantor hukum. Tempelkan Meterai Rp 10.000 sebelum penandatanganan.</p>
-  </div>
+
 </body>
 </html>`;
 }

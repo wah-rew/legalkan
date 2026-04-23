@@ -466,11 +466,7 @@ export function generateContractHTML(data: ContractData): string {
     <strong>CATATAN PENTING:</strong> Dokumen ini dibuat menggunakan platform LegalKan, sebuah layanan pembuatan dokumen mandiri. LegalKan bukan kantor hukum dan tidak memberikan nasihat hukum. Untuk kasus kompleks, konsultasikan dengan advokat. LegalKan tidak bertanggung jawab atas sengketa yang timbul dari perjanjian ini.
   </div>
 
-  <div class="footer">
-    <p>📜 Dokumen ini dibuat secara digital oleh <strong>LegalKan</strong></p>
-    <p>Nomor Referensi: ${data.nomorKontrak} · Dibuat: ${tanggalPembuatanFormatted}</p>
-    <p>Dokumen ini sah digunakan sebagai dasar hukum perjanjian sewa menyewa sesuai KUHPerdata Indonesia.</p>
-  </div>
+
 
 </body>
 </html>

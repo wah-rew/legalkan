@@ -36,14 +36,22 @@ function UnduhContent() {
       .catch(() => setStatus("not_found"));
   }, [orderId]);
 
-  function downloadHTML() {
-    const blob = new Blob([contractHTML], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `LegalKan-${orderId}.html`;
-    a.click();
-    URL.revokeObjectURL(url);
+  function printAsPDF() {
+    // Open HTML in new window and trigger print dialog
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    printWindow.document.write(contractHTML);
+    printWindow.document.close();
+    printWindow.focus();
+    // Wait for content to load then print
+    printWindow.onload = () => {
+      printWindow.print();
+      // printWindow.close(); // optional
+    };
+    // Fallback if onload doesn't fire
+    setTimeout(() => {
+      try { printWindow.print(); } catch {}
+    }, 1000);
   }
 
   if (status === "loading") return (
@@ -77,12 +85,12 @@ function UnduhContent() {
         <h1 style={{ color: "#0D1B3E", fontWeight: 800, fontSize: "1.3rem", marginBottom: "0.5rem" }}>Dokumenmu siap!</h1>
         <p style={{ color: "#6B7FA8", fontSize: "0.85rem", marginBottom: "0.5rem" }}>{contractTitle}</p>
         <p style={{ color: "#9BA3C4", fontSize: "0.75rem", marginBottom: "1.5rem" }}>Order: {orderId}</p>
-        <button onClick={downloadHTML}
+        <button onClick={printAsPDF}
           style={{ display: "block", width: "100%", background: "#FF4D6D", color: "white", padding: "1rem", borderRadius: "14px", border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer", marginBottom: "0.75rem" }}>
-          ⬇️ Download Kontrak
+          ⬇️ Download PDF (Cetak)
         </button>
         <p style={{ color: "#9BA3C4", fontSize: "0.75rem", lineHeight: 1.6 }}>
-          File HTML — buka di browser lalu Cetak (Ctrl+P) untuk simpan sebagai PDF.
+          Pilih &apos;Simpan sebagai PDF&apos; di dialog cetak yang muncul. Tanda tangani dan tempelkan materai Rp 10.000.
         </p>
         <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(13,27,62,0.06)" }}>
           <Link href="/" style={{ color: "#FF4D6D", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>← Kembali ke LegalKan</Link>
