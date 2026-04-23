@@ -184,12 +184,20 @@ function getRecommendedDocs(s: WizardState): RecommendedDoc[] {
   const docs: RecommendedDoc[] = [];
   docs.push({ id: "pernyataan-usaha-aktif", icon: "📜", title: "Surat Pernyataan Usaha Aktif", desc: "Deklarasi bahwa usahamu sedang aktif beroperasi, tidak dalam gagal bayar, dan patuh hukum." });
   docs.push({ id: "surat-keterangan-usaha", icon: "📋", title: "Surat Keterangan Usaha", desc: "Dokumen formal yang menerangkan keberadaan, jenis, dan alamat usahamu." });
-  const hasKaryawan = (s.jumlahKaryawan !== "0" && s.jumlahKaryawan !== "") || s.jumlahKaryawanTetap !== "0";
-  if (hasKaryawan) {
-    let numPKWT = 1;
-    if (s.jumlahKaryawan === "1-5") numPKWT = 3;
-    else if (s.jumlahKaryawan === "6-20" || s.jumlahKaryawan === ">20") numPKWT = 5;
-    docs.push({ id: "pkwt", icon: "👔", title: "PKWT (Kontrak Karyawan)", desc: "Perjanjian kerja untuk karyawanmu.", count: numPKWT });
+  // Karyawan tetap → PKWTT
+  const jumlahTetap = parseInt(s.jumlahKaryawanTetap || "0");
+  if (jumlahTetap > 0) {
+    const numPKWTT = Math.min(jumlahTetap, 5);
+    docs.push({ id: "pkwtt", icon: "💼", title: "PKWTT (Kontrak Karyawan Tetap)", desc: `Perjanjian kerja tetap untuk ${jumlahTetap} karyawan tetapmu. +Rp 25.000 (per karyawan)`, count: numPKWTT });
+  }
+  // Karyawan paruh waktu/freelance → PKWT
+  const jumlahParuh = parseInt(s.jumlahKaryawanParuhWaktu || "0");
+  const hasKaryawanLama = (s.jumlahKaryawan !== "0" && s.jumlahKaryawan !== "");
+  if (jumlahParuh > 0 || hasKaryawanLama) {
+    let numPKWT = jumlahParuh > 0 ? Math.min(jumlahParuh, 5) : 1;
+    if (!jumlahParuh && s.jumlahKaryawan === "1-5") numPKWT = 3;
+    else if (!jumlahParuh && (s.jumlahKaryawan === "6-20" || s.jumlahKaryawan === ">20")) numPKWT = 5;
+    docs.push({ id: "pkwt", icon: "👔", title: "PKWT (Kontrak Karyawan Paruh Waktu)", desc: `Perjanjian kerja untuk ${jumlahParuh || numPKWT} karyawan paruh waktu/freelancemu. +Rp 25.000 (per karyawan)`, count: numPKWT });
   }
   if (s.adaMitra === true) {
     docs.push({ id: "bagi-hasil", icon: "🤝", title: "Perjanjian Bagi Hasil Usaha", desc: "Dokumen kemitraan yang mengatur porsi keuntungan dengan mitra bisnismu." });
