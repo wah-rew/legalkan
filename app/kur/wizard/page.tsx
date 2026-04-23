@@ -247,6 +247,7 @@ export default function KURWizardPage() {
 
   // Step 4 state
   const [pkwtCount, setPkwtCount] = useState<number | null>(null);
+  const [pkwttCount, setPkwttCount] = useState<number | null>(null);
   const [skippedDocs, setSkippedDocs] = useState<Set<string>>(new Set());
 
   // Step 5 state
@@ -276,18 +277,24 @@ export default function KURWizardPage() {
   // Derived values
   const allDocs = getRecommendedDocs(data);
   const pkwtDoc = allDocs.find((d) => d.id === "pkwt");
-  const nonPkwtDocs = allDocs.filter((d) => d.id !== "pkwt");
+  const pkwttDoc = allDocs.find((d) => d.id === "pkwtt");
+  const nonVariableDocs = allDocs.filter((d) => d.id !== "pkwt" && d.id !== "pkwtt");
   const hasPKWT = !!pkwtDoc;
+  const hasPKWTT = !!pkwttDoc;
   const maxPkwt = Math.min(pkwtDoc?.count ?? 5, 5);
+  const maxPkwtt = Math.min(pkwttDoc?.count ?? 5, 5);
   const effectivePkwtCount = pkwtCount !== null ? pkwtCount : (pkwtDoc?.count ?? 1);
+  const effectivePkwttCount = pkwttCount !== null ? pkwttCount : (pkwttDoc?.count ?? 1);
 
-  const fullDocCount = nonPkwtDocs.length + (hasPKWT ? effectivePkwtCount : 0);
+  const nonPkwtDocs = nonVariableDocs; // alias for compat
+  const fullDocCount = nonVariableDocs.length + (hasPKWT ? effectivePkwtCount : 0) + (hasPKWTT ? effectivePkwttCount : 0);
   const fullPrice = calcBundlePrice(fullDocCount);
   const separatePrice = calcBundleSeparate(fullDocCount);
 
   let activeDocCount = 0;
-  for (const doc of nonPkwtDocs) { if (!skippedDocs.has(doc.id)) activeDocCount++; }
+  for (const doc of nonVariableDocs) { if (!skippedDocs.has(doc.id)) activeDocCount++; }
   if (hasPKWT && !skippedDocs.has("pkwt")) activeDocCount += effectivePkwtCount;
+  if (hasPKWTT && !skippedDocs.has("pkwtt")) activeDocCount += effectivePkwttCount;
   const activePrice = calcBundlePrice(activeDocCount);
   const skippedSavings = Math.max(0, fullPrice - activePrice);
   const savingsPercent = separatePrice > 0 ? Math.round(((separatePrice - activePrice) / separatePrice) * 100) : 0;
@@ -823,6 +830,39 @@ export default function KURWizardPage() {
                   </div>
                 );
               })}
+
+              {/* PKWTT row — single row with counter */}
+              {hasPKWTT && (() => {
+                const skipped = skippedDocs.has("pkwtt");
+                return (
+                  <div className="rounded-2xl mb-3 transition-all"
+                    style={{ background: "white", border: `1.5px solid ${skipped ? "rgba(13,27,62,0.06)" : "rgba(13,27,62,0.1)"}`, padding: "1rem 1.25rem", opacity: skipped ? 0.6 : 1, boxShadow: "0 1px 6px rgba(13,27,62,0.05)" }}>
+                    <div className="flex items-start gap-3">
+                      <span style={{ fontSize: "1.4rem", flexShrink: 0, marginTop: "0.1rem" }}>💼</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="font-bold text-sm flex-1" style={{ color: "#0D1B3E", textDecoration: skipped ? "line-through" : "none" }}>PKWTT (Kontrak Karyawan Tetap)</p>
+                          {!skipped && (
+                            <div className="flex items-center gap-2">
+                              <button style={counterBtnStyle} onClick={() => { if (effectivePkwttCount > 1) setPkwttCount(effectivePkwttCount - 1); }} type="button">−</button>
+                              <span className="font-extrabold text-sm" style={{ color: "#0D1B3E", minWidth: "1.5rem", textAlign: "center" }}>{effectivePkwttCount}</span>
+                              <button style={counterBtnStyle} onClick={() => { if (effectivePkwttCount < maxPkwtt) setPkwttCount(effectivePkwttCount + 1); }} type="button">+</button>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-xs mt-0.5" style={{ color: "#6B7FA8", lineHeight: 1.6 }}>Perjanjian kerja tetap untuk karyawan tetapmu.{!skipped ? ` +Rp ${new Intl.NumberFormat("id-ID").format(effectivePkwttCount * 25000)} (${effectivePkwttCount} karyawan)` : ""}</p>
+                        <label className="flex items-center gap-2 mt-2 cursor-pointer" style={{ userSelect: "none" }}>
+                          <input type="checkbox" checked={skipped} onChange={() => toggleSkip("pkwtt")} style={{ accentColor: "#FF4D6D", width: "14px", height: "14px", flexShrink: 0 }} />
+                          <span className="text-xs" style={{ color: "#9BA3C4" }}>Saya sudah punya dokumen ini</span>
+                        </label>
+                      </div>
+                      <span style={{ flexShrink: 0, fontSize: "0.65rem", fontWeight: 700, padding: "0.3rem 0.65rem", borderRadius: "9999px", background: skipped ? "rgba(13,27,62,0.06)" : "rgba(6,214,160,0.15)", color: skipped ? "#9BA3C4" : "#06D6A0", marginTop: "0.1rem", whiteSpace: "nowrap" }}>
+                        {skipped ? "Dilewati" : "✓ Termasuk"}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* PKWT row — single row with counter */}
               {hasPKWT && (() => {
