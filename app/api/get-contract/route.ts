@@ -24,7 +24,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
-    if (data.status !== "paid" && data.status !== "delivered") {
+    const allowedStatuses = ["paid", "delivered", "pending_verification"];
+    if (!allowedStatuses.includes(data.status)) {
       return NextResponse.json({ error: "Payment not confirmed yet" }, { status: 403 });
     }
 
