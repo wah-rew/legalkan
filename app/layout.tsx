@@ -255,6 +255,7 @@ export default function RootLayout({
                         { label: "Konsinyasi", href: "/buat/konsinyasi" },
                         { label: "EO & Fotografer", href: "/buat/event-organizer" },
                         { label: "NDA", href: "/buat/nda" },
+                        { label: "Kontrak Karyawan Tetap", href: "/buat/pkwtt" },
                         { label: "Paket KUR-Ready ↗", href: "/kur" },
                       ].map((link) => (
                         <li key={link.href}>

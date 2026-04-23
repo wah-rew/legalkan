@@ -20,6 +20,7 @@ interface ContractType {
   key: string;
   accentColor: string;
   special?: boolean;
+  comingSoon?: boolean;
 }
 
 const CONTRACT_TYPES: ContractType[] = [
@@ -105,6 +106,16 @@ const CONTRACT_TYPES: ContractType[] = [
     key: "kur-bundle",
     accentColor: "#FFD166",
     special: true,
+  },
+  {
+    icon: "📋",
+    name: "Kontrak Karyawan Tetap (PKWTT)",
+    desc: "Perjanjian kerja permanen sesuai UU",
+    href: "/buat/pkwtt",
+    key: "pkwtt",
+    badge: "Segera",
+    accentColor: "#F59E0B",
+    comingSoon: true,
   },
 ];
 
@@ -729,8 +740,8 @@ export default function Home() {
                       fontWeight: 800,
                       padding: "0.2rem 0.5rem",
                       borderRadius: "9999px",
-                      background: ct.special ? "rgba(255,209,102,0.25)" : "rgba(255,77,109,0.2)",
-                      color: ct.special ? "#FFD166" : "#FF8A9B",
+                      background: ct.special ? "rgba(255,209,102,0.25)" : ct.badge === "Segera" ? "rgba(245,158,11,0.2)" : "rgba(255,77,109,0.2)",
+                      color: ct.special ? "#FFD166" : ct.badge === "Segera" ? "#F59E0B" : "#FF8A9B",
                       letterSpacing: "0.05em",
                       textTransform: "uppercase",
                     }}
@@ -780,14 +791,16 @@ export default function Home() {
                     fontWeight: 700,
                     padding: "0.25rem 0.625rem",
                     borderRadius: "9999px",
-                    background: `rgba(${ct.accentColor === "#FFD166" ? "255,209,102" : ct.accentColor === "#06D6A0" ? "6,214,160" : ct.accentColor === "#4FC3F7" ? "79,195,247" : ct.accentColor === "#9B8AFB" ? "155,138,251" : ct.accentColor === "#60C6FF" ? "96,198,255" : ct.accentColor === "#FF9A3C" ? "255,154,60" : ct.accentColor === "#FF6B9D" ? "255,107,157" : "255,77,109"},0.12)`,
+                    background: `rgba(${ct.accentColor === "#FFD166" ? "255,209,102" : ct.accentColor === "#06D6A0" ? "6,214,160" : ct.accentColor === "#4FC3F7" ? "79,195,247" : ct.accentColor === "#9B8AFB" ? "155,138,251" : ct.accentColor === "#60C6FF" ? "96,198,255" : ct.accentColor === "#FF9A3C" ? "255,154,60" : ct.accentColor === "#FF6B9D" ? "255,107,157" : ct.accentColor === "#F59E0B" ? "245,158,11" : "255,77,109"},0.12)`,
                     color: ct.accentColor,
                     marginBottom: "0.625rem",
                   }}
                 >
-                  {ct.key === "kur-bundle" ? "Mulai " : ""}Rp{" "}
-                  {new Intl.NumberFormat("id-ID").format(
-                    CONTRACT_PRICES[ct.key] ?? 29000
+                  {ct.comingSoon ? "Segera Hadir" : (
+                    <>{ct.key === "kur-bundle" ? "Mulai " : ""}Rp{" "}
+                    {new Intl.NumberFormat("id-ID").format(
+                      CONTRACT_PRICES[ct.key] ?? 29000
+                    )}</>
                   )}
                 </div>
 

@@ -19,7 +19,8 @@ interface WizardState {
   modalBerasalDari: "Sendiri" | "Keluarga/Teman" | "Investor" | "Campuran" | "";
   punyaNIB: boolean | null;
   adaAgunan: boolean | null;
-  adaKaryawanTetap: boolean | null;
+  jumlahKaryawanTetap: string;
+  jumlahKaryawanParuhWaktu: string;
   adaMitra: boolean | null;
   jumlahMitra: number;
   adaPinjamanLuar: boolean | null;
@@ -89,7 +90,8 @@ const INITIAL: WizardState = {
   modalBerasalDari: "",
   punyaNIB: null,
   adaAgunan: null,
-  adaKaryawanTetap: null,
+  jumlahKaryawanTetap: "0",
+  jumlahKaryawanParuhWaktu: "0",
   adaMitra: null,
   jumlahMitra: 1,
   adaPinjamanLuar: null,
@@ -182,7 +184,7 @@ function getRecommendedDocs(s: WizardState): RecommendedDoc[] {
   const docs: RecommendedDoc[] = [];
   docs.push({ id: "pernyataan-usaha-aktif", icon: "📜", title: "Surat Pernyataan Usaha Aktif", desc: "Deklarasi bahwa usahamu sedang aktif beroperasi, tidak dalam gagal bayar, dan patuh hukum." });
   docs.push({ id: "surat-keterangan-usaha", icon: "📋", title: "Surat Keterangan Usaha", desc: "Dokumen formal yang menerangkan keberadaan, jenis, dan alamat usahamu." });
-  const hasKaryawan = (s.jumlahKaryawan !== "0" && s.jumlahKaryawan !== "") || s.adaKaryawanTetap === true;
+  const hasKaryawan = (s.jumlahKaryawan !== "0" && s.jumlahKaryawan !== "") || s.jumlahKaryawanTetap !== "0";
   if (hasKaryawan) {
     let numPKWT = 1;
     if (s.jumlahKaryawan === "1-5") numPKWT = 3;
@@ -347,7 +349,6 @@ export default function KURWizardPage() {
       if (data.adaAgunan === null) return "Jawab pertanyaan tentang agunan";
     }
     if (step === 2) {
-      if (data.adaKaryawanTetap === null) return "Jawab pertanyaan karyawan tetap";
       if (data.adaMitra === null) return "Jawab pertanyaan mitra bisnis";
       if (data.adaPinjamanLuar === null) return "Jawab pertanyaan pinjaman modal";
       if (data.pernahApplyKUR === null) return "Jawab pertanyaan riwayat KUR";
@@ -687,8 +688,20 @@ export default function KURWizardPage() {
           <div>
             <div style={sectionStyle}>
               <div className="mb-5">
-                <FieldLabel>Ada karyawan tetap? *</FieldLabel>
-                <YesNoSelect value={data.adaKaryawanTetap} onChange={(v) => set("adaKaryawanTetap", v)} />
+                <FieldLabel>Jumlah Karyawan Tetap</FieldLabel>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem" }}>
+                  {[{ v: "0", label: "Tidak ada" }, { v: "1-5", label: "1–5 orang" }, { v: "6-20", label: "6–20 orang" }, { v: ">20", label: "Lebih dari 20 orang" }].map(({ v, label }) => (
+                    <SelectCard key={v} value={v} current={data.jumlahKaryawanTetap} onClick={() => set("jumlahKaryawanTetap", v)}>{label}</SelectCard>
+                  ))}
+                </div>
+              </div>
+              <div className="mb-5">
+                <FieldLabel>Jumlah Karyawan Paruh Waktu / Freelance</FieldLabel>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem" }}>
+                  {[{ v: "0", label: "Tidak ada" }, { v: "1-5", label: "1–5 orang" }, { v: "6-20", label: "6–20 orang" }, { v: ">20", label: "Lebih dari 20 orang" }].map(({ v, label }) => (
+                    <SelectCard key={v} value={v} current={data.jumlahKaryawanParuhWaktu} onClick={() => set("jumlahKaryawanParuhWaktu", v)}>{label}</SelectCard>
+                  ))}
+                </div>
               </div>
               <div className="mb-5">
                 <FieldLabel>Ada mitra/partner bisnis? *</FieldLabel>
